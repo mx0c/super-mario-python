@@ -5,9 +5,10 @@ class mario():
         self.x = x
         self.y = y
         self.vel = {x:0,y:0}
+        self.marioSprite = sprites.sprites().mario
 		
-    def drawMario(self):
-        sprites.screen.blit(sprites.mario,(self.x*32,self.y*32))
+    def drawMario(self,screen):
+        screen.blit(self.marioSprite,(self.x*32,self.y*32))
 	
     def updateMario(self):
         pass
