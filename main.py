@@ -9,13 +9,34 @@ pygame.init()
 screen = pygame.display.set_mode((640, 480))
 
 sprites = sprites.sprites()
-mario = mario.mario(1,1)
+mario = mario.mario(11,11)
 
 while (True):
     # check for quit events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit(); sys.exit();
+            pygame.quit()
+            sys.exit()
+    
+    keys=pygame.key.get_pressed()
+    if keys[K_LEFT]:
+        mario.RunLeft()
+    elif mario.vel["x"] < 0:
+        mario.vel["x"] += 0.00005
+        mario.x += mario.vel["x"]
+
+    if keys[K_RIGHT]:
+        mario.RunRight()
+    elif mario.vel["x"] > 0:
+        mario.vel["x"] -= 0.00005
+        mario.x += mario.vel["x"]
+
+    if keys[K_SPACE]:
+        mario.jump()
+    else:
+        mario.sink()
+
+
 
     for x in range(0,20):
         for y in range(0,13):
