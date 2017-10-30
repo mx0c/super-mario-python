@@ -21,22 +21,20 @@ while (True):
     keys=pygame.key.get_pressed()
     if keys[K_LEFT]:
         mario.RunLeft()
-    elif mario.vel["x"] < 0:
-        mario.vel["x"] += 0.00005
-        mario.x += mario.vel["x"]
+    elif mario.vel.x < 0:
+        mario.vel.x += 0.00005
+        mario.x += mario.vel.x
 
     if keys[K_RIGHT]:
         mario.RunRight()
-    elif mario.vel["x"] > 0:
-        mario.vel["x"] -= 0.00005
-        mario.x += mario.vel["x"]
+    elif mario.vel.x > 0:
+        mario.vel.x -= 0.00005
+        mario.x += mario.vel.x
 
     if keys[K_SPACE]:
         mario.jump()
     else:
         mario.sink()
-
-
 
     for x in range(0,20):
         for y in range(0,13):
