@@ -4,6 +4,7 @@ import spritesheet as sprite
 import sprites
 import mario
 import sys
+import input
 
 pygame.init()
 screen = pygame.display.set_mode((640, 480))
@@ -17,24 +18,8 @@ while (True):
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    
-    keys=pygame.key.get_pressed()
-    if keys[K_LEFT]:
-        mario.RunLeft()
-    elif mario.vel.x < 0:
-        mario.vel.x += 0.00005
-        mario.x += mario.vel.x
 
-    if keys[K_RIGHT]:
-        mario.RunRight()
-    elif mario.vel.x > 0:
-        mario.vel.x -= 0.00005
-        mario.x += mario.vel.x
-
-    if keys[K_SPACE]:
-        mario.jump()
-    else:
-        mario.sink()
+    input.checkForInput(mario)
 
     for x in range(0,20):
         for y in range(0,13):
@@ -45,4 +30,5 @@ while (True):
     mario.drawMario(screen)
     # update the screen
     pygame.display.update()
+
 
