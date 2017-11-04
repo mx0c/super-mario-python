@@ -5,9 +5,9 @@ class spritesheet(object):
         try:
             self.tilesize = tilesize
             self.sheet = pygame.image.load(filename).convert()
-        except pygame.error, message:
-            print 'Unable to load spritesheet image:', filename
-            raise SystemExit, message
+        except pygame.error:
+            print('Unable to load spritesheet image:', filename)
+            raise SystemExit
     # Load a specific image from a specific rectangle
     def image_at(self, rectangle, scalingfactor, colorkey = None):
         "Loads image from x,y,x+offset,y+offset"
