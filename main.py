@@ -10,8 +10,7 @@ pygame.init()
 screen = pygame.display.set_mode((640, 480))
 
 levelLoader = drawLevel.drawLevel()
-mario = mario.mario(11,11,levelLoader.level)
-
+mario = mario.mario(7,10,levelLoader.level)
 
 while (True):
     # check for quit events

@@ -7,12 +7,12 @@ class sprites():
         self.TilesSpritesheet = sprite.spritesheet('img/tiles.png',16)
         #sprites
         #charactersprites
-        self.mario_idle = self.CharacterSpritesheet.image_at((276, 44, 16, 16),4, colorkey=-1)
-        self.mario_run1 = self.CharacterSpritesheet.image_at((290, 44, 16, 16),4, colorkey=-1)
-        self.mario_run2 = self.CharacterSpritesheet.image_at((304, 44, 16, 16),4, colorkey=-1)
-        self.mario_run3 = self.CharacterSpritesheet.image_at((321, 44, 16, 16),4, colorkey=-1)
-        self.mario_break = self.CharacterSpritesheet.image_at((337, 44, 16, 16),4, colorkey=-1)
-        self.mario_jump = self.CharacterSpritesheet.image_at((355, 44, 16, 16),4, colorkey=-1)
+        self.mario_idle = self.CharacterSpritesheet.image_at((276, 44, 16, 16),2, colorkey=-1)
+        self.mario_run1 = self.CharacterSpritesheet.image_at((290, 44, 16, 16),2, colorkey=-1)
+        self.mario_run2 = self.CharacterSpritesheet.image_at((304, 44, 16, 16),2, colorkey=-1)
+        self.mario_run3 = self.CharacterSpritesheet.image_at((321, 44, 16, 16),2, colorkey=-1)
+        self.mario_break = self.CharacterSpritesheet.image_at((337, 44, 16, 16),2, colorkey=-1)
+        self.mario_jump = self.CharacterSpritesheet.image_at((355, 44, 16, 16),2, colorkey=-1)
 
         #background and object sprites
         self.sky = self.TilesSpritesheet.image_at((48, 368, 16, 16),2)
