@@ -27,7 +27,7 @@ class mario():
             self.animation.update()
         else:
             self.animation.image = self.spritesObj.mario_idle
-        if(not self.collision.checkCollision()):
+        if(collissionDetection.collided.DOWN not in self.collision.checkCollision() or False):
             self.animation.image = self.spritesObj.mario_jump
         if(self.goTrait.heading == 1):
             screen.blit(self.animation.image ,(self.pos.x*32,self.pos.y*32))
@@ -35,11 +35,29 @@ class mario():
             screen.blit(pygame.transform.flip(self.animation.image,True,False),(self.pos.x*32,self.pos.y*32))
 
     def updateMario(self):
-        if(self.collision.checkCollision() == collissionDetection.collided.DOWN and self.vel.y > 0):
-            self.pos.x += self.vel.x
-            self.vel.y = 0
-            self.jumpTrait.timer = 0
-            self.jumpTrait.maxReached = False
+        collisions = self.collision.checkCollision()
+        if(False not in collisions):
+            if(collissionDetection.collided.DOWN in collisions and self.vel.y >= 0):
+                print("Collided DOWN")
+                self.pos.x += self.vel.x
+                self.vel.y = 0
+                self.jumpTrait.timer = 0
+                self.jumpTrait.maxReached = False
+            else:
+                self.pos.x += self.vel.x
+                self.pos.y += self.vel.y
+            if(collissionDetection.collided.UP in collisions):
+                print("Collided DOWN")
+                self.pos.x += self.vel.x
+                self.vel.y = 0
+                self.applyGravity()
+                self.pos.y += self.vel.y
+            if(collissionDetection.collided.LEFT in collisions):
+                print("Collided LEFT")
+                self.vel.x = 0
+            if(collissionDetection.collided.RIGHT in collisions):
+                print("Collided RIGHT")
+                self.vel.x = 0
         else:
             self.pos.y += self.vel.y
             self.pos.x += self.vel.x

@@ -13,7 +13,7 @@ def checkForInput(mario):
     if(keys[K_SPACE]):
         mario.jumpTrait.start(mario)
     else:
-        if(not mario.collision.checkCollision()):
+        if(False in mario.collision.checkCollision()):
             mario.applyGravity()
     
 
