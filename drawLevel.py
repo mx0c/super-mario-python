@@ -20,6 +20,7 @@ class drawLevel():
                     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
                     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
                 ]
+    
     def drawLevel(self,screen):
         for x in range(0,20):
             for y in range(0,15):

@@ -1,11 +1,12 @@
 import pygame
 
 class animation():
-    def __init__(self,images):
+    def __init__(self,images,idleSprite=None):
         self.images = images
         self.timer = 0
         self.index = 0
         self.image = self.images[self.index]
+        self.idleSprite = idleSprite
 
     def update(self,condition=True):
         self.timer += 1
@@ -16,4 +17,6 @@ class animation():
                 self.index = 0
         self.image = self.images[self.index]
 
+    def idle(self):
+        self.image = self.idleSprite
 

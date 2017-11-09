@@ -13,13 +13,10 @@ def checkForInput(mario):
     if(keys[K_SPACE]):
         mario.jumpTrait.start(mario)
     else:
-        if(False in mario.collision.checkCollision()):
-            mario.applyGravity()
-    
-
+        mario.applyGravity()
+ 
     if pygame.mouse.get_pressed()[0]:
         mario.vel.x = 0
         mario.vel.y = 0       
         mario.pos.x = pygame.mouse.get_pos()[0]/32
         mario.pos.y = pygame.mouse.get_pos()[1]/32
-        print(mario.pos.x,mario.pos.y)

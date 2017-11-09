@@ -11,7 +11,7 @@ screen = pygame.display.set_mode((640, 480))
 max_frame_rate = 60
 
 levelLoader = drawLevel()
-mario = mario(6,2,levelLoader.level)
+mario = mario(6,2,levelLoader.level,screen)
 clock = pygame.time.Clock()
 
 while (True):
@@ -22,7 +22,7 @@ while (True):
             sys.exit()
     input.checkForInput(mario)
     levelLoader.drawLevel(screen)
-    mario.drawMario(screen)
+    mario.drawMario()
     # update the screen
     pygame.display.update()
     clock.tick(max_frame_rate)
