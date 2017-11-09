@@ -9,7 +9,7 @@ from animation import animation
 from collissionDetection import collided,Collision
 
 class mario():
-    def __init__(self,x,y,level,gravity=0.0005):
+    def __init__(self,x,y,level,gravity=0.03):
         self.pos = maths.vec2D(x,y)
         self.vel = maths.vec2D()
         self.gravity = gravity
@@ -24,7 +24,7 @@ class mario():
 
     def drawMario(self,screen):
         self.updateMario()
-        #self.collision.debugRectangle(self.pos.x,self.pos.y,screen)
+        self.collision.debugRectangle(self.pos.x,self.pos.y,screen)
         self.goTrait.update(self)
         if(self.goTrait.direction != 0):
             self.animation.update()
@@ -38,6 +38,7 @@ class mario():
             screen.blit(pygame.transform.flip(self.animation.image,True,False),(self.pos.x*32,self.pos.y*32))
 
     def updateMario(self):
+        print(self.vel.x,self.vel.y)
         collisions = self.collision.checkCollision()
         if(False not in collisions):
             if(collided.DOWN in collisions):
