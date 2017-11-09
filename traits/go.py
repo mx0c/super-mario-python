@@ -1,4 +1,6 @@
-class goTrait():
+from baseTrait import baseTrait
+
+class goTrait(baseTrait):
     def __init__(self):
         self.direction = 0
         self.acceleration = 0.0003

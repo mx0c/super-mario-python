@@ -1,8 +1,8 @@
-import sprites
+from sprites import sprites
 
 class drawLevel():
     def __init__(self):
-        self.sprites = sprites.sprites()
+        self.sprites = sprites()
         self.level = [
                     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                     [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],

@@ -1,16 +1,18 @@
 import pygame
 from pygame.locals import *
 import spritesheet as sprite
-import drawLevel
-import mario
+from drawLevel import drawLevel
+from mario import mario
 import sys
 import input
 
 pygame.init()
 screen = pygame.display.set_mode((640, 480))
+max_frame_rate = 60
 
-levelLoader = drawLevel.drawLevel()
-mario = mario.mario(6,2,levelLoader.level)
+levelLoader = drawLevel()
+mario = mario(6,2,levelLoader.level)
+clock = pygame.time.Clock()
 
 while (True):
     # check for quit events
@@ -18,13 +20,11 @@ while (True):
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
     input.checkForInput(mario)
-
     levelLoader.drawLevel(screen)
-
     mario.drawMario(screen)
     # update the screen
     pygame.display.update()
+    clock.tick(max_frame_rate)
 
 

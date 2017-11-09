@@ -1,6 +1,6 @@
-import collissionDetection
+from baseTrait import baseTrait
 
-class jumpTrait():
+class jumpTrait(baseTrait):
     def __init__(self):
         self.maxReached = False
         self.vel = 0.0005
