@@ -5,7 +5,6 @@ class collided():
     LEFT = 3
     RIGHT = 4
 
-
 class Collision():
     def __init__(self,mario,level):
         self.mario = mario
@@ -13,25 +12,32 @@ class Collision():
         self.result = []
 
     def checkCollision(self):
-        try:
-            #   a----b
-            #   |    | 
-            #   c----d
-            self.mario.moveMario()
-            erg = []
-            erg.append(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)])
-            erg.append(self.level[int(self.mario.pos.y)][int(self.mario.pos.x+1)])
-            erg.append(self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x)])
-            erg.append(self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x+1)])
-            
-            #check for intersection
-            if(1 in erg):
-                self.mario.pos.x -= self.mario.vel.x
-                self.mario.pos.y -= self.mario.vel.y
-                return True
-            else:
-                return False
+        #   a----b
+        #   |    | 
+        #   c----d
+        self.mario.pos.y += self.mario.vel.y
+        self.mario.pos.x += self.mario.vel.x
+        
+        erg = []
+        a = self.level[int(self.mario.pos.y)][int(self.mario.pos.x)]
+        b = self.level[int(self.mario.pos.y)][int(self.mario.pos.x+1)]
+        c = self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x)]
+        d = self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x+1)]
 
-        except (IndexError):
-            self.mario.pos.x = 11
-            self.mario.pos.y = 11
+        self.mario.pos.x -= self.mario.vel.x
+        self.mario.pos.y -= self.mario.vel.y
+        
+        #check for intersection
+        if(c or d):
+            erg.append(collided.DOWN)
+        if(a or b):
+            erg.append(collided.UP)
+        if(a or c):
+            erg.append(collided.LEFT)
+        if(b or d):
+            erg.append(collided.RIGHT)
+        
+        if(not erg):
+            return [False]
+        else:
+            return erg
