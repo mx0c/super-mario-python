@@ -39,7 +39,7 @@ class mario():
         collisions = self.collision.checkCollision()
         if(False not in collisions):
             if(collissionDetection.collided.DOWN in collisions):
-                if(collissionDetection.collided.LEFT not in collisions or collissionDetection.collided.RIGHT not in collisions):
+                if(collissionDetection.collided.LEFT not in collisions and collissionDetection.collided.RIGHT not in collisions):
                     self.pos.x += self.vel.x
                 if(self.vel.y >= 0):
                     self.vel.y = 0
@@ -47,7 +47,8 @@ class mario():
                 self.jumpTrait.timer = 0
                 self.jumpTrait.maxReached = False
             if(collissionDetection.collided.UP in collisions):
-                self.pos.x += self.vel.x
+                if(collissionDetection.collided.LEFT not in collisions and collissionDetection.collided.RIGHT not in collisions):
+                    self.pos.x += self.vel.x
                 if(self.vel.y <= 0):
                     self.vel.y = 0
                 self.pos.y += self.vel.y

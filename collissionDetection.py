@@ -44,10 +44,10 @@ class Collision():
             if(self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x)] or self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x+1)]):
                 self.result.append(collided.DOWN)
             #Collisiondetection for Blocks above Mario
-            if(self.level[int(self.mario.pos.y-1)][int(self.mario.pos.x)] or self.level[int(self.mario.pos.y-1)][int(self.mario.pos.x+1)]):
+            if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)] or self.level[int(self.mario.pos.y)][int(self.mario.pos.x+1)]):
                 self.result.append(collided.UP)
             #Collisiondetection for Blocks left of Mario
-            if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x-1)]):
+            if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)]):
                 self.result.append(collided.LEFT)
             #Collisiondetection for Blocks right of Mario
             if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x+1)]):
