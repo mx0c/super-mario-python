@@ -4,8 +4,8 @@ class goTrait():
         self.animation = animation
         self.direction = 0
         self.heading = 1
-        self.maxVel = 0.3
-        self.vel = 0.03
+        self.maxVel = 0.5
+        self.vel = 0.04
         self.screen = screen
         
     def update(self,mario):

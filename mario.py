@@ -9,7 +9,7 @@ from animation import animation
 from collissionDetection import collided,Collision
 
 class mario():
-    def __init__(self,x,y,level,screen,gravity=0.05):
+    def __init__(self,x,y,level,screen,gravity=0.04):
         self.pos = maths.vec2D(x,y)
         self.vel = maths.vec2D()
         self.gravity = gravity
@@ -20,7 +20,7 @@ class mario():
         self.collision = Collision(self,level)
 
     def applyGravity(self):
-        if(collided.DOWN not in self.collision.checkCollision()):
+        if(collided.DOWN not in self.collision.checkCollision() and self.vel.y < self.goTrait.maxVel):
             self.vel.y += self.gravity
         else:
             self.vel.y = 0

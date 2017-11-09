@@ -26,15 +26,14 @@ class Collision():
 
         self.mario.pos.x -= self.mario.vel.x
         self.mario.pos.y -= self.mario.vel.y
-        
         #check for intersection
-        if(c or d):
+        if((c or d) and (not a or not b)):
             erg.append(collided.DOWN)
-        if(a or b):
+        if((a or b) and (not c or not d)):
             erg.append(collided.UP)
-        if(a or c):
+        if((a or c) and (not b or not d)):
             erg.append(collided.LEFT)
-        if(b or d):
+        if((b or d) and (not a or not c)):
             erg.append(collided.RIGHT)
         
         if(not erg):
