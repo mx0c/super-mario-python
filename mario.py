@@ -22,6 +22,7 @@ class mario():
 
     def drawMario(self,screen):
         self.updateMario()
+        self.collision.debugRectangle(self.pos.x,self.pos.y,screen)
         self.goTrait.update(self)
         if(self.goTrait.direction != 0):
             self.animation.update()
@@ -37,27 +38,29 @@ class mario():
     def updateMario(self):
         collisions = self.collision.checkCollision()
         if(False not in collisions):
-            if(collissionDetection.collided.DOWN in collisions and self.vel.y >= 0):
-                print("Collided DOWN")
-                self.pos.x += self.vel.x
-                self.vel.y = 0
+            if(collissionDetection.collided.DOWN in collisions):
+                if(collissionDetection.collided.LEFT not in collisions or collissionDetection.collided.RIGHT not in collisions):
+                    self.pos.x += self.vel.x
+                if(self.vel.y >= 0):
+                    self.vel.y = 0
+                self.pos.y += self.vel.y
                 self.jumpTrait.timer = 0
                 self.jumpTrait.maxReached = False
-            else:
-                self.pos.x += self.vel.x
-                self.pos.y += self.vel.y
             if(collissionDetection.collided.UP in collisions):
-                print("Collided DOWN")
                 self.pos.x += self.vel.x
-                self.vel.y = 0
-                self.applyGravity()
+                if(self.vel.y <= 0):
+                    self.vel.y = 0
                 self.pos.y += self.vel.y
             if(collissionDetection.collided.LEFT in collisions):
-                print("Collided LEFT")
-                self.vel.x = 0
+                self.pos.y += self.vel.y
+                if(self.vel.x <= 0):
+                    self.vel.x = 0
+                self.pos.x += self.vel.x
             if(collissionDetection.collided.RIGHT in collisions):
-                print("Collided RIGHT")
-                self.vel.x = 0
+                self.pos.y += self.vel.y
+                if(self.vel.x >= 0):
+                    self.vel.x = 0
+                self.pos.x += self.vel.x   
         else:
             self.pos.y += self.vel.y
             self.pos.x += self.vel.x
