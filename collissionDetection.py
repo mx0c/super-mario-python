@@ -14,24 +14,24 @@ class Collision():
 
     def debugRectangle(self,x,y,screen):
         dbgStr = ""
+ 
         if(collided.DOWN in self.result):
             dbgStr += "DOWN "
-            y=y+1
-            pygame.draw.rect(screen,(255,0,0),(x*32,y*32,32,32))
+            newy=y+1
+            pygame.draw.rect(screen,(255,0,0),(x*32,newy*32,32,32),2)
         if(collided.UP in self.result):
             dbgStr += "UP "
-            y=y-1
-            pygame.draw.rect(screen,(255,0,0),(x*32,y*32,32,32))
+            newy=y-1
+            pygame.draw.rect(screen,(255,0,0),(x*32,newy*32,32,32),2)
         if(collided.LEFT in self.result):
-            y=y-1
             dbgStr += "LEFT "
-            x=x-1
-            pygame.draw.rect(screen,(255,0,0),(x*32,y*32,32,32))
+            newx=x-1
+            pygame.draw.rect(screen,(255,0,0),(newx*32,y*32,32,32),2)
         if(collided.RIGHT in self.result):
-            y=y-1
             dbgStr += "RIGHT "
-            x=x+1
-            pygame.draw.rect(screen,(255,0,0),(x*32,y*32,32,32))
+            newx=x+1
+            pygame.draw.rect(screen,(255,0,0),(newx*32,y*32,32,32),2)
+        #pygame.draw.circle(screen,(0,0,255),(int(x*32),int(y*32)),2)
         print(dbgStr)
         
 

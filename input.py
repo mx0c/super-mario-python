@@ -22,3 +22,4 @@ def checkForInput(mario):
         mario.vel.y = 0       
         mario.pos.x = pygame.mouse.get_pos()[0]/32
         mario.pos.y = pygame.mouse.get_pos()[1]/32
+        print(mario.pos.x,mario.pos.y)
