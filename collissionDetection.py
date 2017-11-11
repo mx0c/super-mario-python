@@ -29,7 +29,6 @@ class Collision():
         #   a----b
         #   |    | 
         #   c----d
-
         #DOWN C
         if(self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x+0.1)] == 1):
             if(self.mario.vel.y > 0):
@@ -37,14 +36,11 @@ class Collision():
                 self.mario.pos.y = int(self.mario.pos.y)
                 self.mario.jumpTrait.maxReached = False
                 self.mario.jumpTrait.timer = 0
-                print("#DOWN C")
         #UP A
         if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x+0.1)] == 1):
             if(self.mario.vel.y < 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)+1
-                print("#UP A")
-        
         #DOWN D
         if(self.level[int(self.mario.pos.y)+1][int(self.mario.pos.x-0.1)+1] == 1):
             print(self.mario.pos.x,self.mario.pos.y)
@@ -53,14 +49,11 @@ class Collision():
                 self.mario.pos.y = int(self.mario.pos.y)
                 self.mario.jumpTrait.maxReached = False
                 self.mario.jumpTrait.timer = 0
-                print("#DOWN D")
-
         #UP B
         if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x-0.1)+1] == 1):
             if(self.mario.vel.y < 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)+1
-                print("#UP B")
             
     def checkCollision(self):
         try:

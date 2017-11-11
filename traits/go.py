@@ -4,9 +4,10 @@ class goTrait():
         self.animation = animation
         self.direction = 0
         self.heading = 1
-        self.maxVel = 0.5
-        self.vel = 0.04
+        self.vel = 0.03
+        self.maxVel = 0.1
         self.screen = screen
+        self.boost = False        
         
     def update(self,mario):
         if(self.heading == 1):
@@ -14,6 +15,13 @@ class goTrait():
         elif(self.heading == -1):
             self.screen.blit(pygame.transform.flip(self.animation.image,True,False),(mario.pos.x*32,mario.pos.y*32))
         
+        if(self.boost):
+            self.maxVel = 0.2
+        else:
+            if(abs(mario.vel.x) > 0.1):
+                mario.vel.x = 0.1 * self.heading
+            self.maxVel = 0.1
+
         if(self.direction != 0):
             self.animation.update()
             #accelerate

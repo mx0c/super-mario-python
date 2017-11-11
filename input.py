@@ -14,6 +14,11 @@ def checkForInput(mario):
         mario.jumpTrait.start(mario)
     else:
         mario.applyGravity()
+
+    if(keys[K_LSHIFT]):
+        mario.goTrait.boost = True
+    else:
+        mario.goTrait.boost = False
  
     if pygame.mouse.get_pressed()[0]:
         mario.vel.x = 0

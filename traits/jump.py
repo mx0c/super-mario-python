@@ -2,7 +2,7 @@ class jumpTrait():
     def __init__(self):
         self.maxReached = False
         self.timer = 0
-        self.jumpHeight = 8
+        self.jumpHeight = 7
         self.maxVel = 0.1
         self.vel = 0.05
 
