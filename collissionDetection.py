@@ -1,4 +1,6 @@
 import pygame
+import maths
+
 class collided():
     DOWN = 1
     UP = 2
@@ -11,32 +13,61 @@ class Collision():
         self.level = level
         self.result = []
 
-    def checkCollision(self):
+    def checkX(self):
+        #RIGHT
+        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)+1] == 1):
+            if(self.mario.vel.x > 0):
+                self.mario.vel.x = 0
+                self.mario.pos.x = int(self.mario.pos.x)
+        #LEFT
+        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)] == 1):   
+            if(self.mario.vel.x < 0):
+                self.mario.vel.x = 0
+                self.mario.pos.x = int(self.mario.pos.x)+1
+
+    def checkY(self):
         #   a----b
         #   |    | 
         #   c----d
-        self.mario.pos.y += self.mario.vel.y
-        self.mario.pos.x += self.mario.vel.x
-        
-        erg = []
-        a = self.level[int(self.mario.pos.y)][int(self.mario.pos.x)]
-        b = self.level[int(self.mario.pos.y)][int(self.mario.pos.x+1)]
-        c = self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x)]
-        d = self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x+1)]
 
-        self.mario.pos.x -= self.mario.vel.x
-        self.mario.pos.y -= self.mario.vel.y
-        #check for intersection
-        if((c or d) and (not a or not b)):
-            erg.append(collided.DOWN)
-        if((a or b) and (not c or not d)):
-            erg.append(collided.UP)
-        if((a or c) and (not b or not d)):
-            erg.append(collided.LEFT)
-        if((b or d) and (not a or not c)):
-            erg.append(collided.RIGHT)
+        #DOWN C
+        if(self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x+0.1)] == 1):
+            if(self.mario.vel.y > 0):
+                self.mario.vel.y = 0
+                self.mario.pos.y = int(self.mario.pos.y)
+                self.mario.jumpTrait.maxReached = False
+                self.mario.jumpTrait.timer = 0
+                print("#DOWN C")
+        #UP A
+        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x+0.1)] == 1):
+            if(self.mario.vel.y < 0):
+                self.mario.vel.y = 0
+                self.mario.pos.y = int(self.mario.pos.y)+1
+                print("#UP A")
         
-        if(not erg):
-            return [False]
-        else:
-            return erg
+        #DOWN D
+        if(self.level[int(self.mario.pos.y)+1][int(self.mario.pos.x-0.1)+1] == 1):
+            print(self.mario.pos.x,self.mario.pos.y)
+            if(self.mario.vel.y > 0):
+                self.mario.vel.y = 0
+                self.mario.pos.y = int(self.mario.pos.y)
+                self.mario.jumpTrait.maxReached = False
+                self.mario.jumpTrait.timer = 0
+                print("#DOWN D")
+
+        #UP B
+        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x-0.1)+1] == 1):
+            if(self.mario.vel.y < 0):
+                self.mario.vel.y = 0
+                self.mario.pos.y = int(self.mario.pos.y)+1
+                print("#UP B")
+            
+    def checkCollision(self):
+        try:
+            self.checkX()
+            self.checkY()
+        except IndexError:
+            self.mario.pos = maths.vec2D(7,7)
+
+
+        

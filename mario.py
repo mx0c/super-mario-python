@@ -20,26 +20,16 @@ class mario():
         self.collision = Collision(self,level)
 
     def applyGravity(self):
-        if(collided.DOWN not in self.collision.checkCollision() and self.vel.y < self.goTrait.maxVel):
-            self.vel.y += self.gravity
-        else:
-            self.vel.y = 0
-            self.jumpTrait.reset()
+        self.vel.y += self.gravity
 
     def drawMario(self):
         self.goTrait.update(self)
         self.moveMario()
 
+    def debug(self):
+        print(self.pos.x, self.pos.y, self.vel.x, self.vel.y)
+
     def moveMario(self):
-        colissions = self.collision.checkCollision()
-        if(False not in colissions):
-            if(collided.UP in colissions):
-                if(self.vel.y > 0):
-                    self.pos.x += self.vel.x
-            if(collided.LEFT in colissions and collided.DOWN not in colissions and collided.UP not in colissions):
-                if(self.vel.x < 0):
-                    self.pos.y += self.vel.y
-        else:
-            self.pos.y += self.vel.y
-            self.pos.x += self.vel.x
-            
+        self.pos.y += self.vel.y
+        self.pos.x += self.vel.x
+        self.collision.checkCollision()
