@@ -17,7 +17,7 @@ class spritesheet(object):
         if colorkey is not None:
             if colorkey is -1:
                 colorkey = image.get_at((0,0))
-            image.set_colorkey(image.get_at((0,0)), pygame.RLEACCEL)
+            image.set_colorkey(colorkey, pygame.RLEACCEL)
         return pygame.transform.scale(image,(self.tilesize*scalingfactor,self.tilesize*scalingfactor))
     # Load a whole bunch of images and return them as a list
     def images_at(self, rects, colorkey = None):

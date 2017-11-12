@@ -18,3 +18,8 @@ class sprites():
         self.sky = self.TilesSpritesheet.image_at((48, 368, 16, 16),2)
         self.bricks = self.TilesSpritesheet.image_at((16,0,16,16),2)
         self.ground = self.TilesSpritesheet.image_at((0,0,16,16),2)
+
+        self.pipeL = self.TilesSpritesheet.image_at((0,8*16,16,16),2,colorkey=pygame.color.Color(255,255,255))
+        self.pipeR = self.TilesSpritesheet.image_at((16,8*16,16,16),2,colorkey=pygame.color.Color(255,255,255))
+        self.pipe2L = self.TilesSpritesheet.image_at((0,9*16,16,16),2,colorkey=pygame.color.Color(255,255,255))
+        self.pipe2R =self.TilesSpritesheet.image_at((16,9*16,16,16),2,colorkey=pygame.color.Color(255,255,255))

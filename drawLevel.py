@@ -13,19 +13,31 @@ class drawLevel():
                     [0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                     [0,0,1,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0],
                     [0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,0,1,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
-                    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-                    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+                    [0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,0,0,0,0,1],
+                    [1,0,0,0,0,0,0,0,0,0,0,0,0,4,5,0,0,0,1,1],
+                    [1,1,1,1,1,1,1,1,1,1,1,1,1,4,5,1,1,1,1,1],
+                    [1,1,1,1,1,1,1,1,1,1,1,1,1,4,5,1,1,1,1,1]
                 ]
     
     def drawLevel(self,screen):
         for x in range(0,20):
             for y in range(0,15):
-                if(self.level[y][x]):
-                    screen.blit(self.sprites.ground,(x*32,y*32))
-                else:
+                if(self.level[y][x] == 0):
                     screen.blit(self.sprites.sky,(x*32,y*32))
+                elif(self.level[y][x] == 1):
+                    screen.blit(self.sprites.ground,(x*32,y*32))
+                elif(self.level[y][x] == 2):
+                    screen.blit(self.sprites.sky,(x*32,y*32))
+                    screen.blit(self.sprites.pipeL,(x*32,y*32))
+                elif(self.level[y][x] == 3):
+                    screen.blit(self.sprites.sky,(x*32,y*32))
+                    screen.blit(self.sprites.pipeR,(x*32,y*32))
+                elif(self.level[y][x] == 4):
+                    screen.blit(self.sprites.sky,(x*32,y*32))
+                    screen.blit(self.sprites.pipe2L,(x*32,y*32))
+                elif(self.level[y][x] == 5):
+                    screen.blit(self.sprites.sky,(x*32,y*32))
+                    screen.blit(self.sprites.pipe2R,(x*32,y*32))
             
