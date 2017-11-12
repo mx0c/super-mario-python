@@ -15,7 +15,11 @@ class mario():
         self.gravity = gravity
         self.spritesObj = sprites()
         self.jumpTrait = jumpTrait()
-        self.animation = animation([self.spritesObj.mario_run1,self.spritesObj.mario_run2,self.spritesObj.mario_run3],self.spritesObj.mario_idle)
+        self.animation = animation([
+            self.spritesObj.characterSprites["mario_run1"].image,
+            self.spritesObj.characterSprites["mario_run2"].image,
+            self.spritesObj.characterSprites["mario_run3"].image
+        ],self.spritesObj.characterSprites["mario_idle"].image)
         self.goTrait = goTrait(self.animation,screen)
         self.collision = Collision(self,level)
 
