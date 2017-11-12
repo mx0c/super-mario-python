@@ -4,7 +4,7 @@ class spritesheet(object):
     def __init__(self, filename,tilesize):
         try:
             self.tilesize = tilesize
-            self.sheet = pygame.image.load(filename).convert()
+            self.sheet = pygame.image.load(filename).convert_alpha()
         except pygame.error:
             print('Unable to load spritesheet image:', filename)
             raise SystemExit

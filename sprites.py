@@ -19,7 +19,15 @@ class sprites():
         self.bricks = self.TilesSpritesheet.image_at((16,0,16,16),2)
         self.ground = self.TilesSpritesheet.image_at((0,0,16,16),2)
 
-        self.pipeL = self.TilesSpritesheet.image_at((0,8*16,16,16),2,colorkey=pygame.color.Color(255,255,255))
-        self.pipeR = self.TilesSpritesheet.image_at((16,8*16,16,16),2,colorkey=pygame.color.Color(255,255,255))
-        self.pipe2L = self.TilesSpritesheet.image_at((0,9*16,16,16),2,colorkey=pygame.color.Color(255,255,255))
-        self.pipe2R =self.TilesSpritesheet.image_at((16,9*16,16,16),2,colorkey=pygame.color.Color(255,255,255))
+        self.pipeL = self.TilesSpritesheet.image_at((0,10*16,16,16),2)
+        self.pipeR = self.TilesSpritesheet.image_at((16,10*16,16,16),2,colorkey=pygame.color.Color(0,0,0))
+        self.pipe2L = self.TilesSpritesheet.image_at((0,11*16,16,16),2,colorkey=pygame.color.Color(0,0,0))
+        self.pipe2R = self.TilesSpritesheet.image_at((16,11*16,16,16),2,colorkey=pygame.color.Color(0,0,0))
+
+        self.cloud1_1 = self.TilesSpritesheet.image_at((0,20*16,16,16),2,colorkey=pygame.color.Color(0,0,0))
+        self.cloud1_2 = self.TilesSpritesheet.image_at((16,20*16,16,16),2,colorkey=pygame.color.Color(0,0,0))
+        self.cloud1_3 = self.TilesSpritesheet.image_at((32,20*16,16,16),2,colorkey=pygame.color.Color(0,0,0))
+        self.cloud2_1 = self.TilesSpritesheet.image_at((0,21*16,16,16),2,colorkey=pygame.color.Color(0,0,0))
+        self.cloud2_2 = self.TilesSpritesheet.image_at((16,21*16,16,16),2,colorkey=pygame.color.Color(0,0,0))
+        self.cloud2_3 = self.TilesSpritesheet.image_at((32,21*16,16,16),2,colorkey=pygame.color.Color(0,0,0))
+
