@@ -3,9 +3,10 @@ from sprites import sprites
 class drawLevel():
     def __init__(self):
         self.sprites = sprites()
+        self.getLineOfSprites = lambda x: [(self.sprites.getSprite(x)) for i in range(20)]
         self.level = [
-                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("sky"),
                     [0,0,0,0,0,1,0,1,0,0,0,0,6,7,8,0,0,0,0,0],
                     [0,0,0,0,0,0,1,0,0,0,0,0,9,10,11,0,0,0,0,0],
                     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -20,6 +21,7 @@ class drawLevel():
                     [1,1,1,1,1,1,1,1,1,1,1,1,1,4,5,1,1,1,1,1],
                     [1,1,1,1,1,1,1,1,1,1,1,1,1,4,5,1,1,1,1,1]
                 ]
+        print(self.level)
     
     def drawLevel(self,screen):
 

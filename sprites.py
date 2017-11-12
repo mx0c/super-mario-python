@@ -34,4 +34,6 @@ class sprites():
             "cloud2_3": sprite(self.TilesSpritesheet.image_at((32,21*16,16,16),2,colorkey=pygame.color.Color(0,0,0)),False)
         }
 
+    def getSprite(self,name):
+        return self.backgroundSprites[name]
 
