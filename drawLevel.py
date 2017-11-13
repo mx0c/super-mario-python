@@ -7,58 +7,45 @@ class drawLevel():
         self.level = [
                     self.getLineOfSprites("sky"),
                     self.getLineOfSprites("sky"),
-                    [0,0,0,0,0,1,0,1,0,0,0,0,6,7,8,0,0,0,0,0],
-                    [0,0,0,0,0,0,1,0,0,0,0,0,9,10,11,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,0,1,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,0,0,0,0,1],
-                    [1,0,0,0,0,0,0,0,0,0,0,0,0,4,5,0,0,0,1,1],
-                    [1,1,1,1,1,1,1,1,1,1,1,1,1,4,5,1,1,1,1,1],
-                    [1,1,1,1,1,1,1,1,1,1,1,1,1,4,5,1,1,1,1,1]
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("sky"),
+                    self.getLineOfSprites("ground"),
+                    self.getLineOfSprites("ground")
                 ]
-        print(self.level)
+        self.addCloudSprite(5,5)
+        self.addCloudSprite(13,3)
+        self.addPipeSprite(8,10)
+        self.addPipeSprite(10,12)
     
     def drawLevel(self,screen):
-
         for x in range(0,20):
             for y in range(0,15):
                 dimensions = (x*32,y*32)
-                if(self.level[y][x] == 0):
-                    screen.blit(self.sprites.backgroundSprites["sky"].image,dimensions)
-                elif(self.level[y][x] == 1):
-                    screen.blit(self.sprites.backgroundSprites["ground"].image,dimensions)
-                elif(self.level[y][x] == 2):
-                    screen.blit(self.sprites.backgroundSprites["sky"].image,dimensions)
-                    screen.blit(self.sprites.backgroundSprites["pipeL"].image,dimensions)
-                elif(self.level[y][x] == 3):
-                    screen.blit(self.sprites.backgroundSprites["sky"].image,dimensions)
-                    screen.blit(self.sprites.backgroundSprites["pipeL"].image,dimensions)
-                elif(self.level[y][x] == 4):
-                    screen.blit(self.sprites.backgroundSprites["sky"].image,dimensions)
-                    screen.blit(self.sprites.backgroundSprites["pipe2L"].image,dimensions)
-                elif(self.level[y][x] == 5):
-                    screen.blit(self.sprites.backgroundSprites["sky"].image,dimensions)
-                    screen.blit(self.sprites.backgroundSprites["pipe2R"].image,dimensions)
-                elif(self.level[y][x] == 6):
-                    screen.blit(self.sprites.backgroundSprites["sky"].image,dimensions)
-                    screen.blit(self.sprites.backgroundSprites["cloud1_1"].image,dimensions)
-                elif(self.level[y][x] == 7):
-                    screen.blit(self.sprites.backgroundSprites["sky"].image,dimensions)
-                    screen.blit(self.sprites.backgroundSprites["cloud1_2"].image,dimensions)
-                elif(self.level[y][x] == 8):
-                    screen.blit(self.sprites.backgroundSprites["sky"].image,dimensions)
-                    screen.blit(self.sprites.backgroundSprites["cloud1_3"].image,dimensions)
-                elif(self.level[y][x] == 9):
-                    screen.blit(self.sprites.backgroundSprites["sky"].image,dimensions)
-                    screen.blit(self.sprites.backgroundSprites["cloud2_1"].image,dimensions)
-                elif(self.level[y][x] == 10):
-                    screen.blit(self.sprites.backgroundSprites["sky"].image,dimensions)
-                    screen.blit(self.sprites.backgroundSprites["cloud2_2"].image,dimensions)
-                elif(self.level[y][x] == 11):
-                    screen.blit(self.sprites.backgroundSprites["sky"].image,dimensions)
-                    screen.blit(self.sprites.backgroundSprites["cloud2_3"].image,dimensions)
+                screen.blit(self.sprites.getSprite("sky").image,dimensions)
+                screen.blit(self.level[y][x].image,dimensions)
+
+    #TODO: Refactor
+    def addCloudSprite(self,x,y):
+        self.level[y][x] = self.sprites.getSprite("cloud1_1")
+        self.level[y][x+1] = self.sprites.getSprite("cloud1_2")
+        self.level[y][x+2] = self.sprites.getSprite("cloud1_3")
+        self.level[y+1][x] = self.sprites.getSprite("cloud2_1") 
+        self.level[y+1][x+1] = self.sprites.getSprite("cloud2_2")
+        self.level[y+1][x+2] = self.sprites.getSprite("cloud2_3")
+
+    def addPipeSprite(self,x,y):
+        self.level[y][x] = self.sprites.getSprite("pipeL")
+        self.level[y][x+1] = self.sprites.getSprite("pipeR")
+        self.level[y+1][x] = self.sprites.getSprite("pipe2L")
+        self.level[y+1][x+1] = self.sprites.getSprite("pipe2R")
+        self.level[y+2][x] = self.sprites.getSprite("pipe2L")
+        self.level[y+2][x+1] = self.sprites.getSprite("pipe2R")
