@@ -26,3 +26,6 @@ def checkForInput(mario):
         print(mario.pos.x,mario.pos.y)
         mario.pos.x = int(pygame.mouse.get_pos()[0]/32)
         mario.pos.y = int(pygame.mouse.get_pos()[1]/32)
+
+    if pygame.mouse.get_pressed()[1]:
+        print("right")
