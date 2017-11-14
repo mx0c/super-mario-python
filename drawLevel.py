@@ -23,8 +23,8 @@ class drawLevel():
                 ]
         self.addCloudSprite(5,5)
         self.addCloudSprite(13,3)
-        self.addPipeSprite(8,10)
-        self.addPipeSprite(12,12)
+        self.addPipeSprite(8,10,4)
+        self.addPipeSprite(12,12,4)
     
     def drawLevel(self,screen):
         for x in range(0,20):
@@ -43,6 +43,9 @@ class drawLevel():
         self.level[y][x] = self.sprites.getSprite("pipeL")
         self.level[y][x+1] = self.sprites.getSprite("pipeR")
         #add pipe Body
-        for i in range(1,length+1):
-            self.level[y+i][x] = self.sprites.getSprite("pipe2L")
-            self.level[y+i][x+1] = self.sprites.getSprite("pipe2R")
+        try:
+            for i in range(1,length+1):
+                self.level[y+i][x] = self.sprites.getSprite("pipe2L")
+                self.level[y+i][x+1] = self.sprites.getSprite("pipe2R")
+        except IndexError:
+            return
