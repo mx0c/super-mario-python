@@ -3,7 +3,6 @@ from pygame.locals import *
 import spritesheet as sprite
 from Level import Level
 from mario import mario
-import sys
 import input
 
 pygame.init()
@@ -15,12 +14,7 @@ mario = mario(6,2,level.level,screen)
 clock = pygame.time.Clock()
 
 while (True):
-    # check for quit events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-    input.checkForInput(mario)
+    input.checkForInput(mario,level)
     level.drawLevel(screen)
     mario.drawMario()
     # update the screen
