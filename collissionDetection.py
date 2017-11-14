@@ -15,12 +15,12 @@ class Collision():
 
     def checkX(self):
         #RIGHT
-        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)+1] != 0):
+        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)+1].colliding):
             if(self.mario.vel.x > 0):
                 self.mario.vel.x = 0
                 self.mario.pos.x = int(self.mario.pos.x)
         #LEFT
-        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)] != 0):   
+        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)].colliding):   
             if(self.mario.vel.x < 0):
                 self.mario.vel.x = 0
                 self.mario.pos.x = int(self.mario.pos.x)+1
@@ -30,27 +30,26 @@ class Collision():
         #   |    | 
         #   c----d
         #DOWN C
-        if(self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x+0.1)] != 0):
+        if(self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x+0.1)].colliding):
             if(self.mario.vel.y > 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)
                 self.mario.jumpTrait.maxReached = False
                 self.mario.jumpTrait.timer = 0
         #UP A
-        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x+0.1)] != 0):
+        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x+0.1)].colliding):
             if(self.mario.vel.y < 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)+1
         #DOWN D
-        if(self.level[int(self.mario.pos.y)+1][int(self.mario.pos.x-0.1)+1] != 0):
-            print(self.mario.pos.x,self.mario.pos.y)
+        if(self.level[int(self.mario.pos.y)+1][int(self.mario.pos.x-0.1)+1].colliding):
             if(self.mario.vel.y > 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)
                 self.mario.jumpTrait.maxReached = False
                 self.mario.jumpTrait.timer = 0
         #UP B
-        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x-0.1)+1] != 0):
+        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x-0.1)+1].colliding):
             if(self.mario.vel.y < 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)+1

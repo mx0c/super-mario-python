@@ -31,7 +31,12 @@ class sprites():
             "cloud1_3": sprite(self.TilesSpritesheet.image_at((32,20*16,16,16),2,colorkey=pygame.color.Color(0,0,0)),False),
             "cloud2_1": sprite(self.TilesSpritesheet.image_at((0,21*16,16,16),2,colorkey=pygame.color.Color(0,0,0)),False),
             "cloud2_2": sprite(self.TilesSpritesheet.image_at((16,21*16,16,16),2,colorkey=pygame.color.Color(0,0,0)),False),
-            "cloud2_3": sprite(self.TilesSpritesheet.image_at((32,21*16,16,16),2,colorkey=pygame.color.Color(0,0,0)),False)
+            "cloud2_3": sprite(self.TilesSpritesheet.image_at((32,21*16,16,16),2,colorkey=pygame.color.Color(0,0,0)),False),
+            "bush_1": sprite(self.TilesSpritesheet.image_at((11*16,11*16,16,16),2,colorkey=pygame.color.Color(0,0,0)),False),
+            "bush_2": sprite(self.TilesSpritesheet.image_at((12*16,11*16,16,16),2,colorkey=pygame.color.Color(0,0,0)),False),
+            "bush_3": sprite(self.TilesSpritesheet.image_at((13*16,11*16,16,16),2,colorkey=pygame.color.Color(0,0,0)),False)  
         }
 
+    def getSprite(self,name):
+        return self.backgroundSprites[name]
 
