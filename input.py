@@ -1,7 +1,9 @@
 import pygame
 from pygame.locals import *
+from drawLevel import drawLevel
 
 def checkForInput(mario):
+    
     keys = pygame.key.get_pressed()
     if(keys[K_LEFT] and not keys[K_RIGHT]):
         mario.goTrait.direction = -1
@@ -27,5 +29,6 @@ def checkForInput(mario):
         mario.pos.x = int(pygame.mouse.get_pos()[0]/32)
         mario.pos.y = int(pygame.mouse.get_pos()[1]/32)
 
-    if pygame.mouse.get_pressed()[1]:
-        print("right")
+    if pygame.mouse.get_pressed()[2]:
+        pass
+       

@@ -43,7 +43,6 @@ class Collision():
                 self.mario.pos.y = int(self.mario.pos.y)+1
         #DOWN D
         if(self.level[int(self.mario.pos.y)+1][int(self.mario.pos.x-0.1)+1].colliding):
-            print(self.mario.pos.x,self.mario.pos.y)
             if(self.mario.vel.y > 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)
