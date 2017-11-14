@@ -1,8 +1,15 @@
 import pygame
 from pygame.locals import *
 from Level import Level
+import sys
 
-def checkForInput(mario,editor):
+def checkForInput(mario,level):
+    # check for quit events
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
     keys = pygame.key.get_pressed()
     if(keys[K_LEFT] and not keys[K_RIGHT]):
         mario.goTrait.direction = -1
@@ -21,12 +28,16 @@ def checkForInput(mario,editor):
     else:
         mario.goTrait.boost = False
  
+    mouseX = int(pygame.mouse.get_pos()[0]/32)
+    mouseY = int(pygame.mouse.get_pos()[1]/32)
+    if pygame.mouse.get_pressed()[2]:
+        level.addPipeSprite(mouseX,mouseY)
     if pygame.mouse.get_pressed()[0]:
         mario.vel.x = 0
         mario.vel.y = 0       
         print(mario.pos.x,mario.pos.y)
-        mario.pos.x = int(pygame.mouse.get_pos()[0]/32)
-        mario.pos.y = int(pygame.mouse.get_pos()[1]/32)
+        mario.pos.x = mouseX
+        mario.pos.y = mouseY 
         
 
     

@@ -45,12 +45,12 @@ class Level():
             return
 
     def addPipeSprite(self,x,y,length=2):
-        #add Pipe Head
-        self.level[y][x] = self.sprites.getSprite("pipeL")
-        self.level[y][x+1] = self.sprites.getSprite("pipeR")
-        #add pipe Body
         try:
-            for i in range(1,length+1):
+            #add Pipe Head
+            self.level[y][x] = self.sprites.getSprite("pipeL")
+            self.level[y][x+1] = self.sprites.getSprite("pipeR")
+            #add pipe Body
+            for i in range(1,length+20):
                 self.level[y+i][x] = self.sprites.getSprite("pipe2L")
                 self.level[y+i][x+1] = self.sprites.getSprite("pipe2R")
         except IndexError:
