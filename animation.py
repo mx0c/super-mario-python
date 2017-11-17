@@ -8,7 +8,7 @@ class animation():
         self.image = self.images[self.index]
         self.idleSprite = idleSprite
 
-    def update(self,condition=True):
+    def update(self):
         self.timer += 1
         if(self.timer % 15 == 0):
             if(self.index < len(self.images)-1):

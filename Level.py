@@ -4,7 +4,7 @@ import pygame
 class Level():
     def __init__(self):
         self.sprites = sprites()
-        self.getLineOfSprites = lambda x: [(self.sprites.getSprite(x)) for i in range(20)]
+        self.getLineOfSprites = lambda x: [(self.sprites.backgroundSprites.get(x)) for i in range(20)]
         self.level = [
                     self.getLineOfSprites("sky"),
                     self.getLineOfSprites("sky"),
@@ -28,38 +28,47 @@ class Level():
         self.addPipeSprite(12,12,4)
         self.addBushSprite(2,12)
         self.addBushSprite(17,12)
+        self.addRandomBox(4,9)
     
     def drawLevel(self,screen):
         for x in range(0,20):
             for y in range(0,15):
                 dimensions = (x*32,y*32)
-                screen.blit(self.sprites.getSprite("sky").image,dimensions)
-                screen.blit(self.level[y][x].image,dimensions)
+                #Dirty AF--------------------------------------------------##
+                screen.blit(self.sprites.backgroundSprites.get("sky").image,dimensions)##
+                #----------------------------------------------------------##
+                self.level[y][x].drawSprite(x,y,screen)
 
     def addCloudSprite(self,x,y):
         try:
             for yOff in range(0,2):
                 for xOff in range(0,3):
-                    self.level[y+yOff][x+xOff] = self.sprites.getSprite("cloud{}_{}".format(yOff+1,xOff+1))
+                    self.level[y+yOff][x+xOff] = self.sprites.backgroundSprites.get("cloud{}_{}".format(yOff+1,xOff+1))
         except IndexError:
             return
 
     def addPipeSprite(self,x,y,length=2):
         try:
             #add Pipe Head
-            self.level[y][x] = self.sprites.getSprite("pipeL")
-            self.level[y][x+1] = self.sprites.getSprite("pipeR")
+            self.level[y][x] = self.sprites.backgroundSprites.get("pipeL")
+            self.level[y][x+1] = self.sprites.backgroundSprites.get("pipeR")
             #add pipe Body
             for i in range(1,length+20):
-                self.level[y+i][x] = self.sprites.getSprite("pipe2L")
-                self.level[y+i][x+1] = self.sprites.getSprite("pipe2R")
+                self.level[y+i][x] = self.sprites.backgroundSprites.get("pipe2L")
+                self.level[y+i][x+1] = self.sprites.backgroundSprites.get("pipe2R")
         except IndexError:
             return
     
     def addBushSprite(self,x,y):
         try:
-            self.level[y][x] = self.sprites.getSprite("bush_1")
-            self.level[y][x+1] = self.sprites.getSprite("bush_2")
-            self.level[y][x+2] = self.sprites.getSprite("bush_3")
+            self.level[y][x] = self.sprites.backgroundSprites.get("bush_1")
+            self.level[y][x+1] = self.sprites.backgroundSprites.get("bush_2")
+            self.level[y][x+2] = self.sprites.backgroundSprites.get("bush_3")
+        except IndexError:
+            return
+    
+    def addRandomBox(self,x,y):
+        try:
+            self.level[y][x] = self.sprites.animations.get("randomBox")
         except IndexError:
             return
