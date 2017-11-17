@@ -14,13 +14,16 @@ class Collision():
         self.result = []
 
     def checkX(self):
+        #check if left border is reached 
+        if(self.mario.pos.x < 0):
+            raise IndexError  
         #RIGHT
         if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)+1].colliding):
             if(self.mario.vel.x > 0):
                 self.mario.vel.x = 0
                 self.mario.pos.x = int(self.mario.pos.x)
         #LEFT
-        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)].colliding):   
+        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)].colliding): 
             if(self.mario.vel.x < 0):
                 self.mario.vel.x = 0
                 self.mario.pos.x = int(self.mario.pos.x)+1
@@ -53,13 +56,15 @@ class Collision():
             if(self.mario.vel.y < 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)+1
-            
+
     def checkCollision(self):
         try:
             self.checkX()
             self.checkY()
         except IndexError:
-            self.mario.pos = maths.vec2D(7,7)
+            self.mario.vel.x = 0
+            self.mario.pos.x = int(self.mario.pos.x)
+            self.checkY()
 
 
         

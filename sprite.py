@@ -2,6 +2,14 @@ import spritesheet as sprite
 import pygame
 
 class sprite():
-    def __init__(self,image,colliding):
+    def __init__(self,image,colliding,animation = None):
         self.image = image
         self.colliding = colliding 
+        self.animation = animation 
+
+    def drawSprite(self,x,y,screen):
+        if(self.animation == None):
+            screen.blit(self.image,(x*32,y*32))
+        else:
+            self.animation.update()
+            screen.blit(self.animation.image,(x*32,y*32))

@@ -28,8 +28,8 @@ def checkForInput(mario,level):
     else:
         mario.goTrait.boost = False
  
-    mouseX = int(pygame.mouse.get_pos()[0]/32)
-    mouseY = int(pygame.mouse.get_pos()[1]/32)
+    mouseX = pygame.mouse.get_pos()[0]/32
+    mouseY = pygame.mouse.get_pos()[1]/32
     if pygame.mouse.get_pressed()[2]:
         level.addPipeSprite(mouseX,mouseY)
     if pygame.mouse.get_pressed()[0]:
