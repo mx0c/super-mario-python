@@ -15,6 +15,7 @@ clock = pygame.time.Clock()
 
 while (True):
     input.checkForInput(mario,level)
+    pygame.display.set_caption("{:.2f} FPS".format(clock.get_fps()))
     level.drawLevel(screen)
     mario.drawMario()
     # update the screen
