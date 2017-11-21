@@ -1,0 +1,27 @@
+{
+    "spriteSheetURL": "./img/tiles.png",
+    "sprites":[
+        {
+            "name":"randomBox",
+            "images":[
+                {
+                    "x":24,
+                    "y":0,
+                    "scale":2
+                },
+                {
+                    "x":25,
+                    "y":0,
+                    "scale":2
+                },
+                {
+                    "x":26,
+                    "y":0,
+                    "scale":2
+                }
+            ],
+            "collision":true
+        }
+    ]
+}
+
