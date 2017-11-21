@@ -1,8 +1,8 @@
 import pygame
 from pygame.locals import *
-import spritesheet as sprite
+import Spritesheet as Sprite
 from Level import Level
-from mario import mario
+from Mario import Mario
 import input
 
 pygame.init()
@@ -10,7 +10,7 @@ screen = pygame.display.set_mode((640, 480))
 max_frame_rate = 60
 
 level = Level()
-mario = mario(6,2,level.level,screen)
+mario = Mario(6,2,level.level,screen)
 clock = pygame.time.Clock()
 
 while (True):

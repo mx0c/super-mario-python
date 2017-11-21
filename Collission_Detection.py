@@ -1,7 +1,7 @@
 import pygame
-import maths
+import Maths
 
-class collided():
+class Collided():
     DOWN = 1
     UP = 2
     LEFT = 3

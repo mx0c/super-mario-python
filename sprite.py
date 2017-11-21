@@ -1,7 +1,7 @@
-import spritesheet as sprite
+import Spritesheet as Sprite
 import pygame
 
-class sprite():
+class Sprite():
     def __init__(self,image,colliding,animation = None):
         self.image = image
         self.colliding = colliding 

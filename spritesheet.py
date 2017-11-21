@@ -1,6 +1,6 @@
 import pygame
 
-class spritesheet(object):
+class Spritesheet(object):
     def __init__(self, filename,tilesize=16):
         try:
             self.tilesize = tilesize

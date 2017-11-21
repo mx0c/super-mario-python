@@ -1,9 +1,9 @@
-from sprites import sprites
+from Sprites import Sprites
 import pygame
 
 class Level():
     def __init__(self):
-        self.sprites = sprites()
+        self.sprites = Sprites()
         self.getLineOfSprites = lambda x: [(self.sprites.backgroundSprites.get(x)) for i in range(20)]
         self.level = [
                     self.getLineOfSprites("sky"),

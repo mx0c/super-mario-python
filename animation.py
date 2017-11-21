@@ -1,6 +1,6 @@
 import pygame
 
-class animation():
+class Animation():
     def __init__(self,images,idleSprite=None):
         self.images = images
         self.timer = 0
