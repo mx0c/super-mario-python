@@ -23,7 +23,7 @@ class Sprites():
                         colorkey = sprite['colorKey']
                     except KeyError:
                         colorkey = None
-                    dic[sprite['name']] = Sprite(mySpritesheet.image_at(sprite['x'],sprite['y'],sprite['scalefactor'],colorkey),sprite['collision'])
+                    dic[sprite['name']] = Sprite(mySpritesheet.image_at(sprite['x'],sprite['y'],sprite['scalefactor'],colorkey),sprite['collision'],None,sprite['redrawBg'])
                 return dic
             elif data['type'] == "animation":
                 images = []

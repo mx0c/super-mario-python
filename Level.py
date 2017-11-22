@@ -2,8 +2,9 @@ from Sprites import Sprites
 import pygame
 
 class Level():
-    def __init__(self):
+    def __init__(self,screen):
         self.sprites = Sprites()
+        self.screen = screen
         self.getLineOfSprites = lambda x: [(self.sprites.backgroundSprites.get(x)) for i in range(20)]
         self.level = [
                     self.getLineOfSprites("sky"),
@@ -30,14 +31,13 @@ class Level():
         self.addBushSprite(17,12)
         self.addRandomBox(4,9)
     
-    def drawLevel(self,screen):
+    def drawLevel(self):
         for x in range(0,20):
             for y in range(0,15):
                 dimensions = (x*32,y*32)
-                #Dirty AF--------------------------------------------------##
-                screen.blit(self.sprites.backgroundSprites.get("sky").image,dimensions)##
-                #----------------------------------------------------------##
-                self.level[y][x].drawSprite(x,y,screen)
+                if self.level[y][x].redrawBackground:
+                    self.screen.blit(self.sprites.backgroundSprites.get("sky").image,dimensions)
+                self.level[y][x].drawSprite(x,y,self.screen)
 
     def addCloudSprite(self,x,y):
         try:
