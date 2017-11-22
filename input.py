@@ -31,7 +31,7 @@ def checkForInput(mario,level):
     mouseX = pygame.mouse.get_pos()[0]/32
     mouseY = pygame.mouse.get_pos()[1]/32
     if pygame.mouse.get_pressed()[2]:
-        level.addPipeSprite(mouseX,mouseY)
+        mario.camera.pos.x = -mouseX
     if pygame.mouse.get_pressed()[0]:
         mario.vel.x = 0
         mario.vel.y = 0       

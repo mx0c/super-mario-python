@@ -22,7 +22,7 @@ class Mario():
             self.spritesObj.characterSprites["mario_run2"].image,
             self.spritesObj.characterSprites["mario_run3"].image
         ],self.spritesObj.characterSprites["mario_idle"].image)
-        self.goTrait = goTrait(self.animation,screen)
+        self.goTrait = goTrait(self.animation,screen,self.camera)
         self.level = level
         self.collision = Collision(self,level)
 
@@ -39,5 +39,8 @@ class Mario():
     def moveMario(self):
         self.pos.y += self.vel.y
         self.pos.x += self.vel.x
-        self.camera.pos.x = -self.pos.x+9
+        #Camera Offset + Camera Move
+        if self.pos.x > 10 and self.pos.x < 50:
+            self.camera.pos.x = -self.pos.x+10
+        
         self.collision.checkCollision()

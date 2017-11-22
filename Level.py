@@ -10,6 +10,10 @@ class Level():
         
         self.addCloudSprite(5,5)
         self.addCloudSprite(13,3)
+        self.addCloudSprite(26,5)
+        self.addCloudSprite(32,3)
+        self.addCloudSprite(42,6)
+        self.addCloudSprite(55,4)
         self.addPipeSprite(8,10,4)
         self.addPipeSprite(12,12,4)
         self.addBushSprite(2,12)

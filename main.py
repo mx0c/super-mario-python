@@ -18,7 +18,6 @@ while (True):
     pygame.display.set_caption("{:.2f} FPS".format(clock.get_fps()))
     level.drawLevel(mario.camera)
     mario.drawMario()
-    # update the screen
     pygame.display.update()
     clock.tick(max_frame_rate)
 
