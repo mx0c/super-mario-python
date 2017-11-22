@@ -11,9 +11,9 @@ class goTrait():
         
     def update(self,mario):
         if(self.heading == 1):
-            self.screen.blit(self.animation.image ,(mario.pos.x*32,mario.pos.y*32))
+            self.screen.blit(self.animation.image ,(9*32,mario.pos.y*32))
         elif(self.heading == -1):
-            self.screen.blit(pygame.transform.flip(self.animation.image,True,False),(mario.pos.x*32,mario.pos.y*32))
+            self.screen.blit(pygame.transform.flip(self.animation.image,True,False),(9*32,mario.pos.y*32))
         
         if(self.boost):
             self.maxVel = 0.2

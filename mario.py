@@ -16,7 +16,7 @@ class Mario():
         self.gravity = gravity
         self.spritesObj = Sprites()
         self.jumpTrait = jumpTrait()
-        self.camera = Camera()
+        self.camera = Camera(self.pos)
         self.animation = Animation([
             self.spritesObj.characterSprites["mario_run1"].image,
             self.spritesObj.characterSprites["mario_run2"].image,
@@ -39,5 +39,5 @@ class Mario():
     def moveMario(self):
         self.pos.y += self.vel.y
         self.pos.x += self.vel.x
-        self.camera.pos.x = self.pos.x
+        self.camera.pos.x = -self.pos.x+9
         self.collision.checkCollision()

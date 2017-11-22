@@ -7,6 +7,7 @@ class Level():
         self.sprites = Sprites()
         self.screen = screen
         self.level = self.loadLevel("Level1-1.json")
+        
         self.addCloudSprite(5,5)
         self.addCloudSprite(13,3)
         self.addPipeSprite(8,10,4)
@@ -29,12 +30,14 @@ class Level():
             return levely
 
     def drawLevel(self,camera):
-        for x in range(0,20):
+        try:
             for y in range(0,15):
-                dimensions = (x*32,y*32)
-                if self.level[y][x].redrawBackground:
-                    self.screen.blit(self.sprites.backgroundSprites.get("sky").image,dimensions)
-                self.level[y][x].drawSprite(x,y,self.screen)
+                for x in range(0-int(camera.pos.x+1),20-int(camera.pos.x-1)):
+                    if self.level[y][x].redrawBackground:
+                        self.screen.blit(self.sprites.backgroundSprites.get("sky").image,((x+camera.pos.x)*32,y*32))
+                    self.level[y][x].drawSprite(x+camera.pos.x,y,self.screen)
+        except IndexError:
+            return
 
     def addCloudSprite(self,x,y):
         try:
