@@ -1,5 +1,6 @@
 {
     "spriteSheetURL": "./img/characters.gif",
+    "type":"character",
     "sprites":[
         {
             "name":"mario_idle",

@@ -8,16 +8,16 @@ import pprint
 
 class Sprites():
     def __init__(self):
-        self.characterSprites = self.loadSprites("./sprites/CharacterSprites.json","character")
-        self.animations = self.loadSprites("./sprites/AnimationSprites.json","animation")
-        self.backgroundSprites = self.loadSprites("./sprites/BackgroundSprites.json","background")
+        self.characterSprites = self.loadSprites("./sprites/CharacterSprites.json")
+        self.animations = self.loadSprites("./sprites/AnimationSprites.json")
+        self.backgroundSprites = self.loadSprites("./sprites/BackgroundSprites.json")
 
-    def loadSprites(self,url, type):
+    def loadSprites(self,url):
         with open(url) as jsonData:
             data = json.load(jsonData)
             mySpritesheet = Spritesheet(data['spriteSheetURL'],16)
             dic = {}
-            if(type is "background"):
+            if(data['type'] == "background"):
                 for sprite in data['sprites']:
                     try: 
                         colorkey = sprite['colorKey']
@@ -25,14 +25,14 @@ class Sprites():
                         colorkey = None
                     dic[sprite['name']] = Sprite(mySpritesheet.image_at(sprite['x'],sprite['y'],sprite['scalefactor'],colorkey),sprite['collision'])
                 return dic
-            elif type is "animation":
+            elif data['type'] == "animation":
                 images = []
                 for sprite in data['sprites']:
                     for image in sprite['images']:
                         images.append(mySpritesheet.image_at(image['x'],image['y'],image['scale']))
                     dic[sprite['name']] = Sprite(None,True,animation = Animation(images))
                 return dic
-            elif type is "character":
+            elif data['type'] == "character":
                 for sprite in data['sprites']:
                     try: 
                         colorkey = sprite['colorKey']

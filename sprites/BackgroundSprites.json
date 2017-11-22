@@ -1,5 +1,6 @@
 {
     "spriteSheetURL": "./img/tiles.png",
+    "type":"background",
     "sprites":[
         {
             "name":"sky",

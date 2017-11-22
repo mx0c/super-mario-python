@@ -1,5 +1,6 @@
 {
     "spriteSheetURL": "./img/tiles.png",
+    "type":"animation",
     "sprites":[
         {
             "name":"randomBox",
