@@ -42,5 +42,4 @@ class Mario():
         #Camera Offset + Camera Move
         if self.pos.x > 10 and self.pos.x < 50:
             self.camera.pos.x = -self.pos.x+10
-        
         self.collision.checkCollision()

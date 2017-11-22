@@ -6,20 +6,9 @@ class Level():
     def __init__(self,screen):
         self.sprites = Sprites()
         self.screen = screen
-        self.level = self.loadLevel("Level1-1.json")
-        
-        self.addCloudSprite(5,5)
-        self.addCloudSprite(13,3)
-        self.addCloudSprite(26,5)
-        self.addCloudSprite(32,3)
-        self.addCloudSprite(42,6)
-        self.addCloudSprite(55,4)
-        self.addPipeSprite(8,10,4)
-        self.addPipeSprite(12,12,4)
-        self.addBushSprite(2,12)
-        self.addBushSprite(17,12)
-        self.addRandomBox(4,9)
-    
+        self.level = None 
+        self.loadLevel("Level1-1.json")
+         
     def loadLevel(self,levelname):
         with open("./levels/{}".format(levelname)) as jsonData:
             levelx=[]
@@ -31,7 +20,17 @@ class Level():
                     for x in range(layer['ranges']['x'][0],layer['ranges']['x'][1]):
                         levelx.append(self.sprites.backgroundSprites.get(layer['spritename']))
                     levely.append(levelx)
-            return levely
+            self.level = levely
+            for obj in data['level']['objects']:
+                for position in obj['positions']:
+                    if(obj['name'] == "bush"):
+                        self.addBushSprite(position[0],position[1])
+                    elif(obj['name'] == "cloud"):
+                        self.addCloudSprite(position[0],position[1])
+                    elif(obj['name'] == "randomBox"):
+                        self.addRandomBox(position[0],position[1])
+                    elif(obj['name'] == "pipe"):
+                        self.addPipeSprite(position[0],position[1],position[2])
 
     def drawLevel(self,camera):
         try:
