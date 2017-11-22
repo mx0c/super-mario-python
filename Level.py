@@ -28,7 +28,7 @@ class Level():
                     levely.append(levelx)
             return levely
 
-    def drawLevel(self):
+    def drawLevel(self,camera):
         for x in range(0,20):
             for y in range(0,15):
                 dimensions = (x*32,y*32)
