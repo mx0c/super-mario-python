@@ -1,28 +1,12 @@
 from Sprites import Sprites
 import pygame
+import json
 
 class Level():
     def __init__(self,screen):
         self.sprites = Sprites()
         self.screen = screen
-        self.getLineOfSprites = lambda x: [(self.sprites.backgroundSprites.get(x)) for i in range(20)]
-        self.level = [
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("sky"),
-                    self.getLineOfSprites("ground"),
-                    self.getLineOfSprites("ground")
-                ]
+        self.level = self.loadLevel("Level1-1.json")
         self.addCloudSprite(5,5)
         self.addCloudSprite(13,3)
         self.addPipeSprite(8,10,4)
@@ -31,6 +15,19 @@ class Level():
         self.addBushSprite(17,12)
         self.addRandomBox(4,9)
     
+    def loadLevel(self,levelname):
+        with open("./levels/{}".format(levelname)) as jsonData:
+            levelx=[]
+            levely = []
+            data = json.load(jsonData)
+            for layer in data['level']['layers']:
+                for y in range(layer['ranges']['y'][0],layer['ranges']['y'][1]):
+                    levelx = []
+                    for x in range(layer['ranges']['x'][0],layer['ranges']['x'][1]):
+                        levelx.append(self.sprites.backgroundSprites.get(layer['spritename']))
+                    levely.append(levelx)
+            return levely
+
     def drawLevel(self):
         for x in range(0,20):
             for y in range(0,15):
