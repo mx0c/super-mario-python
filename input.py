@@ -36,7 +36,7 @@ def checkForInput(mario,level):
         mario.vel.x = 0
         mario.vel.y = 0       
         print(mario.pos.x,mario.pos.y)
-        mario.pos.x = mouseX
+        mario.pos.x = mouseX-mario.camera.pos.x
         mario.pos.y = mouseY 
         
 
