@@ -1,0 +1,30 @@
+{
+    "spriteSheetURL": "./img/characters.gif",
+    "type":"character",
+    "sprites":[
+        {
+            "name":"goomba-1",
+            "x":296, 
+            "y":187,
+            "scalefactor":2,
+            "colorKey":-1,
+            "collision":false
+        },
+        {
+            "name":"goomba-2",
+            "x":315, 
+            "y":187,
+            "scalefactor":2,
+            "colorKey":-1,
+            "collision":false
+        },
+        {
+            "name":"goomba-flat",
+            "x":277, 
+            "y":187,
+            "scalefactor":2,
+            "colorKey":-1,
+            "collision":false
+        }
+    ]
+}

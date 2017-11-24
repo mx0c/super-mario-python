@@ -33,26 +33,26 @@ class Collision():
         #   |    | 
         #   c----d
         #DOWN C
-        if(self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x+0.1)].colliding):
+        if(self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x+0.05)].colliding):
             if(self.mario.vel.y > 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)
                 self.mario.jumpTrait.maxReached = False
                 self.mario.jumpTrait.timer = 0
         #UP A
-        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x+0.1)].colliding):
+        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x+0.05)].colliding):
             if(self.mario.vel.y < 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)+1
         #DOWN D
-        if(self.level[int(self.mario.pos.y)+1][int(self.mario.pos.x-0.1)+1].colliding):
+        if(self.level[int(self.mario.pos.y)+1][int(self.mario.pos.x-0.05)+1].colliding):
             if(self.mario.vel.y > 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)
                 self.mario.jumpTrait.maxReached = False
                 self.mario.jumpTrait.timer = 0
         #UP B
-        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x-0.1)+1].colliding):
+        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x-0.05)+1].colliding):
             if(self.mario.vel.y < 0):
                 self.mario.vel.y = 0
                 self.mario.pos.y = int(self.mario.pos.y)+1

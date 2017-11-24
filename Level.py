@@ -1,6 +1,7 @@
 from Sprites import Sprites
 import pygame
 import json
+from entities.Goomba import Goomba
 
 class Level():
     def __init__(self,screen):

@@ -8,7 +8,8 @@ import pprint
 
 class Sprites():
     def __init__(self):
-        self.spriteCollection = self.loadSprites([  "./sprites/CharacterSprites.json",
+        self.spriteCollection = self.loadSprites([  "./sprites/Mario.json",
+                                                    "./sprites/Goomba.json",
                                                     "./sprites/AnimationSprites.json",
                                                     "./sprites/BackgroundSprites.json"])
 
