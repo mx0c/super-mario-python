@@ -4,7 +4,8 @@ class goTrait():
         self.animation = animation
         self.direction = 0
         self.heading = 1
-        self.vel = 0.03
+        self.accelVel = 0.04
+        self.decelVel = 0.02
         self.maxVel = 0.1
         self.screen = screen
         self.boost = False        
@@ -28,14 +29,14 @@ class goTrait():
             #accelerate
             self.heading = self.direction
             if(abs(mario.vel.x) < self.maxVel):
-                mario.vel.x += self.vel * self.heading
+                mario.vel.x += self.accelVel * self.heading
         else:
             self.animation.idle()
             #decelerate
             if(mario.vel.x >= 0):
-                mario.vel.x -= self.vel
+                mario.vel.x -= self.decelVel
             else:
-                mario.vel.x += self.vel
+                mario.vel.x += self.accelVel
             #round to zero
             if(round(mario.vel.x,1) == 0):
                 mario.vel.x = 0                
