@@ -37,7 +37,6 @@ class goTrait():
                 mario.vel.x -= self.decelVel
             else:
                 mario.vel.x += self.accelVel
-            #round to zero
-            if(round(mario.vel.x,1) == 0):
+            if(mario.vel.x < 0):
                 mario.vel.x = 0                
 
