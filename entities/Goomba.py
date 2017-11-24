@@ -1,18 +1,16 @@
 from Sprites import Sprites
 from Animation import Animation
 import Maths
+from traits.leftrightwalk import LeftRightWalkTrait
 
 class Goomba():
-    def __init__(self,screen,spriteColl):
+    def __init__(self,screen,spriteColl,x,y,level):
         self.spriteCollection = spriteColl
-        self.animation = Animation([self.spriteCollection.get("goomba-1"),self.spriteCollection.get("goomba-2")])
-        self.pos = Maths.vec2D()
+        self.animation = Animation([self.spriteCollection.get("goomba-1").image,self.spriteCollection.get("goomba-2").image])
         self.screen = screen
+        self.leftrightTrait = LeftRightWalkTrait(self,level,x,y)
 
     def update(self):
-        self.screen.blit(self.animation.image,self.pos.x*32,self.pos.y*32)
+        self.screen.blit(self.animation.image,(self.leftrightTrait.pos.x*32,self.leftrightTrait.pos.y*32))
         self.animation.update()
-
-    def spawnGoomba(self,x,y):
-        self.pos = Maths.vec2D(x,y)
-        self.update()
+        self.leftrightTrait.update()

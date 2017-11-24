@@ -8,62 +8,65 @@ class Collided():
     RIGHT = 4
 
 class Collision():
-    def __init__(self,mario,level):
-        self.mario = mario
+    def __init__(self,entity,level):
+        self.entity = entity
         self.level = level
         self.result = []
 
     def checkX(self):
         #check if left border is reached 
-        if(self.mario.pos.x < 0):
-            raise IndexError  
+        self.xCollided = False
+        if(self.entity.pos.x < 0):
+            self.entity.vel.x = 0
+            self.entity.pos.x = int(self.entity.pos.x)
+            return
         #RIGHT
-        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)+1].colliding):
-            if(self.mario.vel.x > 0):
-                self.mario.vel.x = 0
-                self.mario.pos.x = int(self.mario.pos.x)
+        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x)+1].colliding):
+            if(self.entity.vel.x > 0):
+                self.entity.vel.x = 0
+                self.entity.pos.x = int(self.entity.pos.x)
         #LEFT
-        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x)].colliding): 
-            if(self.mario.vel.x < 0):
-                self.mario.vel.x = 0
-                self.mario.pos.x = int(self.mario.pos.x)+1
+        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x)].colliding): 
+            if(self.entity.vel.x < 0):
+                self.entity.vel.x = 0
+                self.entity.pos.x = int(self.entity.pos.x)+1
 
     def checkY(self):
         #   a----b
         #   |    | 
         #   c----d
         #DOWN C
-        if(self.level[int(self.mario.pos.y+1)][int(self.mario.pos.x+0.05)].colliding):
-            if(self.mario.vel.y > 0):
-                self.mario.vel.y = 0
-                self.mario.pos.y = int(self.mario.pos.y)
-                self.mario.jumpTrait.maxReached = False
-                self.mario.jumpTrait.timer = 0
+        if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x+0.05)].colliding):
+            if(self.entity.vel.y > 0):
+                self.entity.vel.y = 0
+                self.entity.pos.y = int(self.entity.pos.y)
+                self.entity.jumpTrait.maxReached = False
+                self.entity.jumpTrait.timer = 0
         #UP A
-        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x+0.05)].colliding):
-            if(self.mario.vel.y < 0):
-                self.mario.vel.y = 0
-                self.mario.pos.y = int(self.mario.pos.y)+1
+        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x+0.05)].colliding):
+            if(self.entity.vel.y < 0):
+                self.entity.vel.y = 0
+                self.entity.pos.y = int(self.entity.pos.y)+1
         #DOWN D
-        if(self.level[int(self.mario.pos.y)+1][int(self.mario.pos.x-0.05)+1].colliding):
-            if(self.mario.vel.y > 0):
-                self.mario.vel.y = 0
-                self.mario.pos.y = int(self.mario.pos.y)
-                self.mario.jumpTrait.maxReached = False
-                self.mario.jumpTrait.timer = 0
+        if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x-0.05)+1].colliding):
+            if(self.entity.vel.y > 0):
+                self.entity.vel.y = 0
+                self.entity.pos.y = int(self.entity.pos.y)
+                self.entity.jumpTrait.maxReached = False
+                self.entity.jumpTrait.timer = 0
         #UP B
-        if(self.level[int(self.mario.pos.y)][int(self.mario.pos.x-0.05)+1].colliding):
-            if(self.mario.vel.y < 0):
-                self.mario.vel.y = 0
-                self.mario.pos.y = int(self.mario.pos.y)+1
+        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x-0.05)+1].colliding):
+            if(self.entity.vel.y < 0):
+                self.entity.vel.y = 0
+                self.entity.pos.y = int(self.entity.pos.y)+1
 
     def checkCollision(self):
         try:
             self.checkX()
             self.checkY()
         except IndexError:
-            self.mario.vel.x = 0
-            self.mario.pos.x = int(self.mario.pos.x)
+            self.entity.vel.x = 0
+            self.entity.pos.x = int(self.entity.pos.x)
             self.checkY()
 
 

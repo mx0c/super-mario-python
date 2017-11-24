@@ -8,8 +8,9 @@ class Level():
         self.sprites = Sprites()
         self.screen = screen
         self.level = None 
+        self.entityList = []
         self.loadLevel("Level1-1.json")
-         
+
     def loadLevel(self,levelname):
         with open("./levels/{}".format(levelname)) as jsonData:
             levelx=[]
@@ -34,6 +35,17 @@ class Level():
                         self.addPipeSprite(position[0],position[1],position[2])
                     else:
                         self.level[position[1]][position[0]] = self.sprites.spriteCollection.get(obj['name'])
+            for entity in data['level']['entities']:
+                if(entity['name'] == "Goomba"):
+                    for postion in entity['pos']:
+                        self.entityList.append(
+                            Goomba(self.screen,self.sprites.spriteCollection,postion[0],postion[1],self.level)
+                        )
+
+    def updateEntities(self):
+        for entity in self.entityList:
+            entity.update()
+
     def drawLevel(self,camera):
         try:
             for y in range(0,15):
@@ -41,6 +53,7 @@ class Level():
                     if self.level[y][x].redrawBackground:
                         self.screen.blit(self.sprites.spriteCollection.get("sky").image,((x+camera.pos.x)*32,y*32))
                     self.level[y][x].drawSprite(x+camera.pos.x,y,self.screen)
+            self.updateEntities()
         except IndexError:
             return
 
