@@ -18,10 +18,10 @@ class Mario():
         self.jumpTrait = jumpTrait()
         self.camera = Camera(self.pos)
         self.animation = Animation([
-            self.spritesObj.characterSprites["mario_run1"].image,
-            self.spritesObj.characterSprites["mario_run2"].image,
-            self.spritesObj.characterSprites["mario_run3"].image
-        ],self.spritesObj.characterSprites["mario_idle"].image)
+            self.spritesObj.spriteCollection["mario_run1"].image,
+            self.spritesObj.spriteCollection["mario_run2"].image,
+            self.spritesObj.spriteCollection["mario_run3"].image
+        ],self.spritesObj.spriteCollection["mario_idle"].image)
         self.goTrait = goTrait(self.animation,screen,self.camera)
         self.level = level
         self.collision = Collision(self,level)
