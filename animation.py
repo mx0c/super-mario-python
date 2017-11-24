@@ -10,7 +10,7 @@ class Animation():
 
     def update(self):
         self.timer += 1
-        if(self.timer % 15 == 0):
+        if(self.timer % 10 == 0):
             if(self.index < len(self.images)-1):
                 self.index+=1   
             else:

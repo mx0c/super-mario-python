@@ -31,7 +31,8 @@ class Level():
                         self.addRandomBox(position[0],position[1])
                     elif(obj['name'] == "pipe"):
                         self.addPipeSprite(position[0],position[1],position[2])
-
+                    else:
+                        self.level[position[1]][position[0]] = self.sprites.backgroundSprites.get(obj['name'])
     def drawLevel(self,camera):
         try:
             for y in range(0,15):
