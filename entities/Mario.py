@@ -8,29 +8,27 @@ from traits.jump import jumpTrait
 from Animation import Animation
 from Collission_Detection import Collided,Collision
 from Camera import Camera
+from entities.EntityBase import EntityBase
 
-class Mario():
+class Mario(EntityBase):
     def __init__(self,x,y,level,screen,gravity=0.04):
-        self.pos = Maths.vec2D(x,y)
-        self.vel = Maths.vec2D()
-        self.gravity = gravity
-        self.spritesObj = Sprites()
-        self.jumpTrait = jumpTrait()
+        super(Mario,self).__init__(x,y,gravity)
+        self.spriteCollection = Sprites().spriteCollection
         self.camera = Camera(self.pos)
         self.animation = Animation([
-            self.spritesObj.spriteCollection["mario_run1"].image,
-            self.spritesObj.spriteCollection["mario_run2"].image,
-            self.spritesObj.spriteCollection["mario_run3"].image
-        ],self.spritesObj.spriteCollection["mario_idle"].image)
-        self.goTrait = goTrait(self.animation,screen,self.camera)
+            self.spriteCollection["mario_run1"].image,
+            self.spriteCollection["mario_run2"].image,
+            self.spriteCollection["mario_run3"].image
+        ],self.spriteCollection["mario_idle"].image)
+        self.traits = {
+            "jumpTrait":jumpTrait(),
+            "goTrait":goTrait(self.animation,screen,self.camera,self)
+        }
         self.level = level
         self.collision = Collision(self,level)
-
-    def applyGravity(self):
-        self.vel.y += self.gravity
-
+        
     def drawMario(self):
-        self.goTrait.update(self)
+        self.updateTraits(self.traits)
         self.moveMario()
 
     def debug(self):

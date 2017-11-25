@@ -12,21 +12,21 @@ def checkForInput(mario,level):
 
     keys = pygame.key.get_pressed()
     if(keys[K_LEFT] and not keys[K_RIGHT]):
-        mario.goTrait.direction = -1
+        mario.traits['goTrait'].direction = -1
     elif(keys[K_RIGHT] and not keys[K_LEFT]):
-        mario.goTrait.direction =  1
+        mario.traits['goTrait'].direction =  1
     else:
-        mario.goTrait.direction =  0
+        mario.traits['goTrait'].direction =  0
 
     if(keys[K_SPACE]):
-        mario.jumpTrait.start(mario)
+        mario.traits['jumpTrait'].start(mario)
     else:
         mario.applyGravity()
 
     if(keys[K_LSHIFT]):
-        mario.goTrait.boost = True
+        mario.traits['goTrait'].boost = True
     else:
-        mario.goTrait.boost = False
+        mario.traits['goTrait'].boost = False
  
     mouseX = pygame.mouse.get_pos()[0]/32
     mouseY = pygame.mouse.get_pos()[1]/32
