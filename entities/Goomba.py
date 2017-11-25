@@ -10,7 +10,7 @@ class Goomba():
         self.screen = screen
         self.leftrightTrait = LeftRightWalkTrait(self,level,x,y)
 
-    def update(self):
-        self.screen.blit(self.animation.image,(self.leftrightTrait.pos.x*32,self.leftrightTrait.pos.y*32))
+    def update(self,camera):
+        self.screen.blit(self.animation.image,((self.leftrightTrait.pos.x+camera.pos.x)*32,self.leftrightTrait.pos.y*32))
         self.animation.update()
         self.leftrightTrait.update()

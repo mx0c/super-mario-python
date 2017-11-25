@@ -42,9 +42,9 @@ class Level():
                             Goomba(self.screen,self.sprites.spriteCollection,postion[0],postion[1],self.level)
                         )
 
-    def updateEntities(self):
+    def updateEntities(self,cam):
         for entity in self.entityList:
-            entity.update()
+            entity.update(cam)
 
     def drawLevel(self,camera):
         try:
@@ -53,7 +53,7 @@ class Level():
                     if self.level[y][x].redrawBackground:
                         self.screen.blit(self.sprites.spriteCollection.get("sky").image,((x+camera.pos.x)*32,y*32))
                     self.level[y][x].drawSprite(x+camera.pos.x,y,self.screen)
-            self.updateEntities()
+            self.updateEntities(camera)
         except IndexError:
             return
 

@@ -9,7 +9,7 @@ class LeftRightWalkTrait():
         self.collDetection = Collision(self,level)
         self.pos = Maths.vec2D(y,x)
 
-    def update(self):
+    def update(self,):
         self.collDetection.checkX()
         if(self.vel.x == 0):
             self.direction *= -1
