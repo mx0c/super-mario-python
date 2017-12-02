@@ -42,35 +42,28 @@ class Collision():
         #   |    | 
         #   c----d
         #DOWN C
-        coll = []
         if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x+0.05)].colliding and self.entity.vel.y > 0):
             self.entity.vel.y = 0
-            self.entity.pos.y = int(self.entity.pos.y)
+            self.entity.pos.y = round(self.entity.pos.y)
             self.entity.traits['jumpTrait'].maxReached = False
             self.entity.traits['jumpTrait'].timer = 0
-            if(self.debug):
-                coll.append("DOWN LEFT")
+
         #UP A
         if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x+0.05)].colliding and self.entity.vel.y < 0):
             self.entity.vel.y = 0
             self.entity.pos.y = int(self.entity.pos.y)+1
-            if(self.debug):
-                coll.append("UP LEFT")
+
         #DOWN D
         if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y > 0):
             self.entity.vel.y = 0
-            self.entity.pos.y = int(self.entity.pos.y)
+            self.entity.pos.y = round(self.entity.pos.y)
             self.entity.traits['jumpTrait'].maxReached = False
             self.entity.traits['jumpTrait'].timer = 0
-            if(self.debug):
-                coll.append("DOWN RIGHT")
+
         #UP B
         if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y < 0):
             self.entity.vel.y = 0
             self.entity.pos.y = int(self.entity.pos.y)+1
-            if(self.debug):
-                coll.append("DOWN RIGHT")
-        print(coll)
 
     def checkCollision(self):
         try:
