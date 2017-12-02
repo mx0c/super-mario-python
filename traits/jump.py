@@ -9,7 +9,6 @@ class jumpTrait():
         self.entity = entity
 
     def update(self):
-        #initialy set Y-Vel to 0
         if(self.jump):
             if(not self.maxReached):
                 if(self.entity.vel.y < self.maxVel):

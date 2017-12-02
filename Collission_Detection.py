@@ -16,7 +16,6 @@ class Collision():
 
     def checkX(self):
         #check if left border is reached 
-        self.xCollided = False
         if(self.entity.pos.x < 0):
             self.entity.vel.x = 0
             self.entity.pos.x = int(self.entity.pos.x)
@@ -44,7 +43,7 @@ class Collision():
         #DOWN C
         if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x+0.05)].colliding and self.entity.vel.y > 0):
             self.entity.vel.y = 0
-            self.entity.pos.y = round(self.entity.pos.y)
+            self.entity.pos.y = int(self.entity.pos.y)
             self.entity.traits['jumpTrait'].reset()
 
         #UP A
@@ -55,7 +54,7 @@ class Collision():
         #DOWN D
         if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y > 0):
             self.entity.vel.y = 0
-            self.entity.pos.y = round(self.entity.pos.y)
+            self.entity.pos.y = int(self.entity.pos.y)
             self.entity.traits['jumpTrait'].reset()
 
 
