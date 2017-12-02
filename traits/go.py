@@ -5,7 +5,7 @@ class goTrait():
         self.direction = 0
         self.heading = 1
         self.accelVel = 0.04
-        self.decelVel = 0.02
+        self.decelVel = 0.015
         self.maxVel = 0.1
         self.screen = screen
         self.boost = False        
@@ -20,7 +20,6 @@ class goTrait():
             if(abs(self.entity.vel.x) > 0.1):
                 self.entity.vel.x = 0.1 * self.heading
             self.maxVel = 0.1
-
         if(self.direction != 0):
             self.animation.update()
             #accelerate
@@ -33,10 +32,10 @@ class goTrait():
             if(self.entity.vel.x >= 0):
                 self.entity.vel.x -= self.decelVel
             else:
-                self.entity.vel.x += self.accelVel
-            if(self.entity.vel.x < 0):
+                self.entity.vel.x += self.decelVel
+            if(round(self.entity.vel.x,1) == 0):
                 self.entity.vel.x = 0                
-
+    
     def drawEntity(self):
         if(self.heading == 1):
             self.screen.blit(self.animation.image ,((self.camera.pos.x+self.entity.pos.x)*32,self.entity.pos.y*32))

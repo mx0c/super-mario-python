@@ -45,8 +45,7 @@ class Collision():
         if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x+0.05)].colliding and self.entity.vel.y > 0):
             self.entity.vel.y = 0
             self.entity.pos.y = round(self.entity.pos.y)
-            self.entity.traits['jumpTrait'].maxReached = False
-            self.entity.traits['jumpTrait'].timer = 0
+            self.entity.traits['jumpTrait'].reset()
 
         #UP A
         if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x+0.05)].colliding and self.entity.vel.y < 0):
@@ -57,8 +56,8 @@ class Collision():
         if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y > 0):
             self.entity.vel.y = 0
             self.entity.pos.y = round(self.entity.pos.y)
-            self.entity.traits['jumpTrait'].maxReached = False
-            self.entity.traits['jumpTrait'].timer = 0
+            self.entity.traits['jumpTrait'].reset()
+
 
         #UP B
         if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y < 0):
