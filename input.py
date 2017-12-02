@@ -4,30 +4,29 @@ from Level import Level
 import sys
 
 def checkForInput(mario,level):
-    # check for quit events
-    for event in pygame.event.get():
+    events = pygame.event.get()
+    for event in events:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
-    keys = pygame.key.get_pressed()
-    if(keys[K_LEFT] and not keys[K_RIGHT]):
-        mario.traits['goTrait'].direction = -1
-    elif(keys[K_RIGHT] and not keys[K_LEFT]):
-        mario.traits['goTrait'].direction =  1
-    else:
-        mario.traits['goTrait'].direction =  0
-
-    if(keys[K_SPACE]):
-        mario.traits['jumpTrait'].start(mario)
-    else:
-        mario.applyGravity()
-
-    if(keys[K_LSHIFT]):
-        mario.traits['goTrait'].boost = True
-    else:
-        mario.traits['goTrait'].boost = False
+        if event.type == KEYDOWN:
+            if event.key == pygame.K_LEFT and event.key != pygame.K_RIGHT:
+                mario.traits['goTrait'].direction = -1
+            elif event.key == pygame.K_RIGHT and event.key != pygame.K_LEFT:
+                mario.traits['goTrait'].direction =  1
+            if event.key == K_LSHIFT:
+                mario.traits['goTrait'].boost = True
+            if event.key == K_SPACE:
+                mario.traits['jumpTrait'].jump = True
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
+                mario.traits['goTrait'].direction =  0
+            if event.key == pygame.K_LSHIFT:
+                mario.traits['goTrait'].boost = False
+            if event.key == K_SPACE:
+                mario.traits['jumpTrait'].jump = False
  
+def moveMarioWithMouse(mario):
     mouseX = pygame.mouse.get_pos()[0]/32
     mouseY = pygame.mouse.get_pos()[1]/32
     if pygame.mouse.get_pressed()[2]:

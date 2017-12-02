@@ -1,24 +1,25 @@
 class jumpTrait():
-    def __init__(self):
+    def __init__(self,entity):
         self.maxReached = False
         self.timer = 0
-        self.jumpHeight = 7
+        self.jumpHeight = 10
         self.maxVel = 0.1
-        self.vel = 0.05
+        self.vel = 0.04
+        self.jump = False
+        self.entity = entity
 
-    def start(self,mario):
-        #initialy set Y-Vel to 0
-        if(self.timer == 0):
-            mario.vel.y = 0
-        if(not self.maxReached):
-            if(mario.vel.y < self.maxVel):
-                mario.vel.y -= self.vel
-                self.timer+=1
-                if(self.timer > self.jumpHeight):
-                    self.maxReached = True
+    def update(self):
+        if(self.jump):
+            if(not self.maxReached):
+                if(self.entity.vel.y < self.maxVel):
+                    self.entity.vel.y -= self.vel
+                    self.timer+=1
+                    if(self.timer > self.jumpHeight):
+                        self.maxReached = True
+                        self.jump = False
         else:
-            mario.applyGravity()
-    
+            self.entity.applyGravity()
+
     def reset(self):
         self.timer = 0
         self.maxReached = False
