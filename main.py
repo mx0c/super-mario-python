@@ -17,7 +17,6 @@ Dashboard = Dashboard("./img/font.png",8,screen)
 
 while (True):
     input.checkForInput(mario,level)
-    input.moveMarioWithMouse(mario)
     pygame.display.set_caption("{:.2f} FPS".format(clock.get_fps()))
     level.drawLevel(mario.camera)
     mario.drawMario()

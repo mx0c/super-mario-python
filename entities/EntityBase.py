@@ -11,4 +11,7 @@ class EntityBase():
 
     def updateTraits(self,traits):
         for trait in traits.values():
-            trait.update()
+            try:
+                trait.update()
+            except:
+                continue

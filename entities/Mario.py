@@ -21,11 +21,11 @@ class Mario(EntityBase):
             self.spriteCollection["mario_run3"].image
         ],self.spriteCollection["mario_idle"].image)
         self.traits = {
-            "jumpTrait":jumpTrait(self),
+            "jumpTrait":jumpTrait(),
             "goTrait":goTrait(self.animation,screen,self.camera,self)
         }
         self.level = level
-        self.collision = Collision(self,level,True)
+        self.collision = Collision(self,level)
         
     def drawMario(self):
         self.updateTraits(self.traits)
