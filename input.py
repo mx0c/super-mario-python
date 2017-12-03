@@ -4,7 +4,6 @@ import sys
 
 class Input():
     def __init__(self,entity):
-        self.clicked = False
         self.mouseX = 0
         self.mouseY = 0
         self.entity = entity
@@ -17,6 +16,18 @@ class Input():
             self.entity.traits['goTrait'].direction =  1
         if(not(keys[K_LEFT] or keys[K_RIGHT])):
             self.entity.traits['goTrait'].direction =  0
+
+        mouseX = pygame.mouse.get_pos()[0]/32
+        mouseY = pygame.mouse.get_pos()[1]/32
+        if pygame.mouse.get_pressed()[2]:
+            self.entity.levelObj.addGoomba(mouseY,mouseX-self.entity.camera.pos.x)
+        if pygame.mouse.get_pressed()[0]:
+            self.entity.vel.x = 0
+            self.entity.vel.y = 0       
+            print(self.entity.pos.x,self.entity.pos.y)
+            self.entity.pos.x = mouseX
+            self.entity.pos.x = mouseX-self.entity.camera.pos.x
+            self.entity.pos.y = mouseY 
         
         events = pygame.event.get()
         for event in events:
@@ -33,19 +44,7 @@ class Input():
                     self.entity.traits['goTrait'].boost = True
                 if event.key == K_SPACE:
                    self.entity.traits['jumpTrait'].jump = True
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                self.clicked = True
-                self.mouseX = pygame.mouse.get_pos()[0]/32
-                self.mouseY = pygame.mouse.get_pos()[1]/32
-            if event.type == pygame.MOUSEMOTION and self.clicked:
-                self.mouseX = pygame.mouse.get_pos()[0]/32
-                self.mouseY = pygame.mouse.get_pos()[1]/32
-                self.entity.vel.x = 0
-                self.entity.vel.y = 0       
-                self.entity.pos.x = self.mouseX-self.entity.camera.pos.x
-                self.entity.pos.y = self.mouseY 
-            if event.type == pygame.MOUSEBUTTONUP:
-                self.clicked = False
+            
 
 
     

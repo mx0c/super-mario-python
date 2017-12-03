@@ -63,8 +63,6 @@ class Collision():
             except Exception:
                 pass
 
-
-
         #UP B
         if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y < 0):
             self.entity.vel.y = 0

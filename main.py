@@ -12,7 +12,7 @@ max_frame_rate = 60
 
 
 level = Level(screen)
-mario = Mario(0,0,level.level,screen)
+mario = Mario(0,0,level,screen)
 input = Input(mario)
 clock = pygame.time.Clock()
 Dashboard = Dashboard("./img/font.png",8,screen)

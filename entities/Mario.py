@@ -24,8 +24,9 @@ class Mario(EntityBase):
             "jumpTrait":jumpTrait(self),
             "goTrait":goTrait(self.animation,screen,self.camera,self)
         }
-        self.level = level
-        self.collision = Collision(self,level,True)
+        self.level = level.level
+        self.levelObj = level
+        self.collision = Collision(self,self.level,True)
         
     def drawMario(self):
         self.updateTraits(self.traits)

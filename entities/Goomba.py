@@ -18,3 +18,4 @@ class Goomba(EntityBase):
         self.screen.blit(self.animation.image,((self.pos.x+camera.pos.x)*32,self.pos.y*32))
         self.animation.update()
         self.leftrightTrait.update()
+        

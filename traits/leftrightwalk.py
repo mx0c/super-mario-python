@@ -6,11 +6,12 @@ class LeftRightWalkTrait():
         self.direction = 1
         self.entity = entity
         self.collDetection = Collision(self.entity,level)
+        self.speed = 0.025
 
     def update(self,):
         if(self.entity.vel.x == 0):
             self.direction *= -1
-            self.entity.vel.x = 0.025
+            self.entity.vel.x = self.speed
         self.moveEntity()
         self.collDetection.checkCollision()
 

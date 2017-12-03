@@ -90,3 +90,8 @@ class Level():
             self.level[y][x] = self.sprites.spriteCollection.get("randomBox")
         except IndexError:
             return
+
+    def addGoomba(self,x,y):
+        self.entityList.append(
+            Goomba(self.screen,self.sprites.spriteCollection,x,y,self.level)
+        )
