@@ -4,8 +4,8 @@ class goTrait():
         self.animation = animation
         self.direction = 0
         self.heading = 1
-        self.accelVel = 0.010
-        self.decelVel = 0.015
+        self.accelVel = 0.015
+        self.decelVel = 0.010
         self.maxVel = 0.1
         self.screen = screen
         self.boost = False        

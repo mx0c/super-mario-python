@@ -3,7 +3,7 @@ from pygame.locals import *
 import Spritesheet as Sprite
 from Level import Level
 from entities.Mario import Mario
-from input import Input
+from Input import Input
 from Dashboard import Dashboard
 
 pygame.init()
