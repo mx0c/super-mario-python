@@ -44,11 +44,8 @@ class Collision():
         if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x+0.05)].colliding and self.entity.vel.y > 0):
             self.entity.vel.y = 0
             self.entity.pos.y = int(self.entity.pos.y)
-            try:
+            if hasattr(self.entity, 'traits'):
                 self.entity.traits['jumpTrait'].reset()
-            except Exception:
-                pass
-
         #UP A
         if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x+0.05)].colliding and self.entity.vel.y < 0):
             self.entity.vel.y = 0
@@ -58,20 +55,17 @@ class Collision():
         if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y > 0):
             self.entity.vel.y = 0
             self.entity.pos.y = int(self.entity.pos.y)
-            try:
+            if hasattr(self.entity, 'traits'):
                 self.entity.traits['jumpTrait'].reset()
-            except Exception:
-                pass
-
         #UP B
         if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y < 0):
             self.entity.vel.y = 0
             self.entity.pos.y = int(self.entity.pos.y)+1
 
     def checkCollision(self):
-        try:
-            self.checkX()
+        try:            
             self.checkY()
+            self.checkX()
         except IndexError:
             self.entity.vel.x = 0
             self.entity.pos.x = int(self.entity.pos.x)
