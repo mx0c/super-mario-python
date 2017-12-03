@@ -44,7 +44,7 @@ class Collision():
         if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x+0.05)].colliding and self.entity.vel.y > 0):
             self.entity.vel.y = 0
             self.entity.pos.y = int(self.entity.pos.y)
-            if hasattr(self.entity, 'traits'):
+            if self.entity.traits != None:
                 self.entity.traits['jumpTrait'].reset()
         #UP A
         if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x+0.05)].colliding and self.entity.vel.y < 0):
@@ -55,7 +55,7 @@ class Collision():
         if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y > 0):
             self.entity.vel.y = 0
             self.entity.pos.y = int(self.entity.pos.y)
-            if hasattr(self.entity, 'traits'):
+            if self.entity.traits != None:
                 self.entity.traits['jumpTrait'].reset()
         #UP B
         if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y < 0):

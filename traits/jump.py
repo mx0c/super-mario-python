@@ -8,15 +8,16 @@ class jumpTrait():
         self.jump = False
         self.entity = entity
 
-    def update(self):
-        if(self.jump):
-            if(not self.maxReached):
-                if(self.entity.vel.y < self.maxVel):
-                    self.entity.vel.y -= self.vel
-                    self.timer+=1
-                    if(self.timer > self.jumpHeight):
-                        self.maxReached = True
-                        self.jump = False
+    def start(self):
+        #initialy set Y-Vel to 0
+        if(self.timer == 0):
+            self.entity.vel.y = 0
+        if(not self.maxReached):
+            if(self.entity.vel.y < self.maxVel):
+                self.entity.vel.y -= self.vel
+                self.timer+=1
+            if(self.timer > self.jumpHeight):
+                self.maxReached = True
         else:
             self.entity.applyGravity()
 

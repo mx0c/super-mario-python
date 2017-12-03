@@ -29,7 +29,7 @@ class Mario(EntityBase):
         self.collision = Collision(self,self.level,True)
         
     def drawMario(self):
-        self.updateTraits(self.traits)
+        self.updateTraits()
         self.moveMario()
 
     def debug(self):

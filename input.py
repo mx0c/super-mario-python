@@ -10,12 +10,20 @@ class Input():
     
     def checkForInput(self):
         keys = pygame.key.get_pressed()
-        if(keys[K_LEFT]):
+        if(keys[K_LEFT] and not keys[K_RIGHT]):
             self.entity.traits['goTrait'].direction = -1
-        if(keys[K_RIGHT]):
+        elif(keys[K_RIGHT] and not keys[K_LEFT]):
             self.entity.traits['goTrait'].direction =  1
-        if(not(keys[K_LEFT] or keys[K_RIGHT])):
+        else:
             self.entity.traits['goTrait'].direction =  0
+        if(keys[K_SPACE]):
+            self.entity.traits['jumpTrait'].start()
+        else:
+            self.entity.applyGravity()
+        if(keys[K_LSHIFT]):
+            self.entity.traits['goTrait'].boost = True
+        else:
+            self.entity.traits['goTrait'].boost = False
 
         mouseX = pygame.mouse.get_pos()[0]/32
         mouseY = pygame.mouse.get_pos()[1]/32
@@ -34,16 +42,6 @@ class Input():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_LSHIFT:
-                    self.entity.traits['goTrait'].boost = False
-                if event.key == K_SPACE:
-                    self.entity.traits['jumpTrait'].jump = False
-            if event.type == KEYDOWN:
-                if event.key == K_LSHIFT:
-                    self.entity.traits['goTrait'].boost = True
-                if event.key == K_SPACE:
-                   self.entity.traits['jumpTrait'].jump = True
             
 
 
