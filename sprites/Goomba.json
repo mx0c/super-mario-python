@@ -1,6 +1,7 @@
 {
     "spriteSheetURL": "./img/characters.gif",
     "type":"character",
+    "size":[16,16],
     "sprites":[
         {
             "name":"goomba-1",

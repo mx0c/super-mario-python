@@ -9,6 +9,7 @@ class LeftRightWalkTrait():
         self.collDetection = Collision(self.entity,level)
         self.speed = 0.025
         self.entity.vel.x = 0.025 * self.direction
+        self.entity.pos.x +=1
 
     def update(self):
         if(self.entity.vel.x == 0):

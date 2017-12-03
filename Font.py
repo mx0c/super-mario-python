@@ -3,7 +3,7 @@ import pygame
 
 class Font(Spritesheet):
     def __init__(self,filePath,size):
-        Spritesheet.__init__(self,filename=filePath,tilesize=size)
+        Spritesheet.__init__(self,filename=filePath)
         self.chars = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
         self.charSprites = self.loadFont()
 
@@ -16,6 +16,6 @@ class Font(Spritesheet):
             if(charAt == 16):
                 charAt = 0
                 row+=1
-            font.update({char:self.image_at(charAt, row, self.tilesize,colorkey=pygame.color.Color(0,0,0))})
+            font.update({char:self.image_at(charAt, row,2,colorkey=pygame.color.Color(0,0,0),xTileSize=8,yTileSize=8)})
             charAt+=1
         return font

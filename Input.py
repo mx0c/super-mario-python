@@ -28,7 +28,7 @@ class Input():
         mouseX = pygame.mouse.get_pos()[0]/32
         mouseY = pygame.mouse.get_pos()[1]/32
         if pygame.mouse.get_pressed()[2]:
-            self.entity.levelObj.addGoomba(mouseY,mouseX-self.entity.camera.pos.x)
+            self.entity.levelObj.addKoopa(mouseY,mouseX-self.entity.camera.pos.x)
         if pygame.mouse.get_pressed()[0]:
             self.entity.vel.x = 0
             self.entity.vel.y = 0       

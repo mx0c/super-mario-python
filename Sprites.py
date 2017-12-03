@@ -10,6 +10,7 @@ class Sprites():
     def __init__(self):
         self.spriteCollection = self.loadSprites([  "./sprites/Mario.json",
                                                     "./sprites/Goomba.json",
+                                                    "./sprites/Koopa.json",
                                                     "./sprites/AnimationSprites.json",
                                                     "./sprites/BackgroundSprites.json"])
 
@@ -18,7 +19,7 @@ class Sprites():
         for url in urlList:
             with open(url) as jsonData:
                 data = json.load(jsonData)
-                mySpritesheet = Spritesheet(data['spriteSheetURL'],16)
+                mySpritesheet = Spritesheet(data['spriteSheetURL'])
                 dic = {}
                 if(data['type'] == "background"):
                     for sprite in data['sprites']:
@@ -43,7 +44,7 @@ class Sprites():
                             colorkey = sprite['colorKey']
                         except KeyError:
                             colorkey = None
-                        dic[sprite['name']] = Sprite(mySpritesheet.image_at(sprite['x'],sprite['y'],sprite['scalefactor'],colorkey,True),sprite['collision'])
+                        dic[sprite['name']] = Sprite(mySpritesheet.image_at(sprite['x'],sprite['y'],sprite['scalefactor'],colorkey,True,xTileSize=data['size'][0],yTileSize=data['size'][1]),sprite['collision'])
                     resDict.update(dic)
                     continue
         return resDict

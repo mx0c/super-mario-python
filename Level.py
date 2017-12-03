@@ -2,6 +2,7 @@ from Sprites import Sprites
 import pygame
 import json
 from entities.Goomba import Goomba
+from entities.Koopa import Koopa
 
 class Level():
     def __init__(self,screen):
@@ -36,11 +37,12 @@ class Level():
                     else:
                         self.level[position[1]][position[0]] = self.sprites.spriteCollection.get(obj['name'])
             for entity in data['level']['entities']:
-                if(entity['name'] == "Goomba"):
+                if entity['name'] == "Goomba":
                     for postion in entity['pos']:
-                        self.entityList.append(
-                            Goomba(self.screen,self.sprites.spriteCollection,postion[0],postion[1],self.level)
-                        )
+                        self.addGoomba(postion[0],postion[1])
+                elif entity['name'] == "Koopa":
+                    for postion in entity['pos']:
+                        self.addKoopa(postion[0],postion[1])
 
     def updateEntities(self,cam):
         for entity in self.entityList:
@@ -94,4 +96,9 @@ class Level():
     def addGoomba(self,x,y):
         self.entityList.append(
             Goomba(self.screen,self.sprites.spriteCollection,x,y,self.level)
+        )
+    
+    def addKoopa(self,x,y):
+        self.entityList.append(
+            Koopa(self.screen,self.sprites.spriteCollection,x,y,self.level)
         )
