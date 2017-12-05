@@ -1,6 +1,6 @@
 import Maths
 
-class EntityBase():
+class EntityBase(object):
     def __init__(self,x,y,gravity):
         self.pos = Maths.vec2D(x,y)
         self.vel = Maths.vec2D()
