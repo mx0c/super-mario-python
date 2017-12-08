@@ -3,7 +3,6 @@ import pygame
 
 class EntityBase(object):
     def __init__(self,x,y,gravity):
-        self.pos = Maths.vec2D(x,y)
         self.vel = Maths.vec2D()
         self.rect = pygame.Rect(x*32,y*32,32,32)
         self.gravity = gravity
@@ -16,5 +15,5 @@ class EntityBase(object):
         for trait in self.traits.values():
             try:
                 trait.update()
-            except Exception:
+            except AttributeError:
                 pass

@@ -11,10 +11,10 @@ from Camera import Camera
 from entities.EntityBase import EntityBase
 
 class Mario(EntityBase):
-    def __init__(self,x,y,level,screen,gravity=0.04):
+    def __init__(self,x,y,level,screen,gravity=1.25):
         super(Mario,self).__init__(x,y,gravity)
         self.spriteCollection = Sprites().spriteCollection
-        self.camera = Camera(self.pos)
+        self.camera = Camera(self.rect)
         self.animation = Animation([
             self.spriteCollection["mario_run1"].image,
             self.spriteCollection["mario_run2"].image,
@@ -26,9 +26,9 @@ class Mario(EntityBase):
         }
         self.level = level.level
         self.levelObj = level
-        self.collision = Collision(self,self.level,True)
+        self.collision = Collision(self,self.level)
         self.screen = screen
-        
+
     def drawMario(self):
         self.updateTraits()
         self.moveMario()
@@ -38,11 +38,11 @@ class Mario(EntityBase):
         pygame.draw.rect(self.screen,pygame.Color(255,255,255),self.rect,1)
 
     def moveMario(self):
-        self.debug()
-        self.rect.y += self.vel.y*32
-        self.rect.x += self.vel.x*32
-
+        #self.debug()
+        self.rect.y += self.vel.y
+        self.collision.checkY()
+        self.rect.x += self.vel.x
+        self.collision.checkX()
         #Camera Offset + Camera Move
         if self.rect.x/32.0 > 10 and self.rect.x/32.0 < 50:
             self.camera.pos.x = -self.rect.x/32.0+10
-        self.collision.checkCollision()

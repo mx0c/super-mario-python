@@ -7,7 +7,7 @@ class Input():
         self.mouseX = 0
         self.mouseY = 0
         self.entity = entity
-    
+
     def checkForInput(self):
         keys = pygame.key.get_pressed()
         if(keys[K_LEFT] and not keys[K_RIGHT]):
@@ -25,27 +25,23 @@ class Input():
         else:
             self.entity.traits['goTrait'].boost = False
 
-        mouseX = pygame.mouse.get_pos()[0]/32
-        mouseY = pygame.mouse.get_pos()[1]/32
+        mouseX = pygame.mouse.get_pos()[0]
+        mouseY = pygame.mouse.get_pos()[1]
         if pygame.mouse.get_pressed()[2]:
             self.entity.levelObj.addKoopa(mouseY,mouseX-self.entity.camera.pos.x)
         if pygame.mouse.get_pressed()[0]:
             self.entity.vel.x = 0
-            self.entity.vel.y = 0       
-            print(self.entity.pos.x,self.entity.pos.y)
-            self.entity.pos.x = mouseX
-            self.entity.pos.x = mouseX-self.entity.camera.pos.x
-            self.entity.pos.y = mouseY 
-        
+            self.entity.vel.y = 0
+            self.entity.rect.x = mouseX-self.entity.camera.pos.x
+            self.entity.rect.y = mouseY
+
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                sys.exit()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_F5:
                 return False
         return True
-            
-
-
-    

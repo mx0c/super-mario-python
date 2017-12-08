@@ -9,7 +9,7 @@ class Level():
     def __init__(self,screen):
         self.sprites = Sprites()
         self.screen = screen
-        self.level = None 
+        self.level = None
         self.entityList = []
         self.loadLevel("Level1-1.json")
 
@@ -59,7 +59,7 @@ class Level():
                     if self.level[y][x].sprite.redrawBackground:
                         self.screen.blit(self.sprites.spriteCollection.get("sky").image,((x+camera.pos.x)*32,y*32))
                     self.level[y][x].sprite.drawSprite(x+camera.pos.x,y,self.screen)
-                    self.level[y][x].drawRect(self.screen)
+                    #self.level[y][x].drawRect(self.screen)
             self.updateEntities(camera)
         except IndexError:
             return
@@ -86,7 +86,7 @@ class Level():
                 self.level[y+i][x+1] = Tile(self.sprites.spriteCollection.get("pipe2R"),pygame.Rect((x+1)*32,(y+i)*32,32,32))
         except IndexError:
             return
-    
+
     def addBushSprite(self,x,y):
         try:
             self.level[y][x] = Tile(self.sprites.spriteCollection.get("bush_1"),None)
@@ -94,7 +94,7 @@ class Level():
             self.level[y][x+2] = Tile(self.sprites.spriteCollection.get("bush_3"),None)
         except IndexError:
             return
-    
+
     def addRandomBox(self,x,y):
         try:
             self.level[y][x] = Tile(
@@ -108,7 +108,7 @@ class Level():
         self.entityList.append(
             Goomba(self.screen,self.sprites.spriteCollection,x,y,self.level)
         )
-    
+
     def addKoopa(self,x,y):
         self.entityList.append(
             Koopa(self.screen,self.sprites.spriteCollection,x,y,self.level)

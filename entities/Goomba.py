@@ -3,10 +3,11 @@ from Animation import Animation
 import Maths
 from traits.leftrightwalk import LeftRightWalkTrait
 from entities.EntityBase import EntityBase
+import pygame
 
 class Goomba(EntityBase):
     def __init__(self,screen,spriteColl,x,y,level):
-        super(Goomba,self).__init__(y,x-1,0.04)
+        super(Goomba,self).__init__(y,x-1,1.25)
         self.spriteCollection = spriteColl
         self.animation = Animation([self.spriteCollection.get("goomba-1").image,
                                     self.spriteCollection.get("goomba-2").image])
@@ -15,7 +16,8 @@ class Goomba(EntityBase):
 
     def update(self,camera):
         self.applyGravity()
-        self.screen.blit(self.animation.image,((self.pos.x+camera.pos.x)*32,self.pos.y*32))
+        self.screen.blit(self.animation.image,(self.rect.x+camera.pos.x*32,self.rect.y))
         self.animation.update()
         self.leftrightTrait.update()
-        
+        print(self.vel.x)
+        pygame.draw.rect(self.screen,pygame.Color(255,0,0),self.rect,1)
