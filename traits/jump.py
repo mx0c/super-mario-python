@@ -3,8 +3,8 @@ class jumpTrait():
         self.maxReached = False
         self.timer = 0
         self.jumpHeight = 10
-        self.maxVel = 0.1
-        self.vel = 0.04
+        self.maxVel = 3.2
+        self.vel = 1.25
         self.jump = False
         self.entity = entity
 
@@ -24,4 +24,3 @@ class jumpTrait():
     def reset(self):
         self.timer = 0
         self.maxReached = False
-                    
