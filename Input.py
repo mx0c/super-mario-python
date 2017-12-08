@@ -1,6 +1,8 @@
 import pygame
 from pygame.locals import *
 import sys
+from random import randint
+from EntityCollider import EntityCollider
 
 class Input():
     def __init__(self,entity):
@@ -28,7 +30,10 @@ class Input():
         mouseX = pygame.mouse.get_pos()[0]
         mouseY = pygame.mouse.get_pos()[1]
         if pygame.mouse.get_pressed()[2]:
-            self.entity.levelObj.addKoopa(mouseY/32,mouseX/32-self.entity.camera.pos.x)
+            if(randint(0,1) == 0):
+                self.entity.levelObj.addKoopa(mouseY/32,mouseX/32-self.entity.camera.pos.x)
+            else:
+                self.entity.levelObj.addGoomba(mouseY/32,mouseX/32-self.entity.camera.pos.x)
         if pygame.mouse.get_pressed()[0]:
             self.entity.vel.x = 0
             self.entity.vel.y = 0

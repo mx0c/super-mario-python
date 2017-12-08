@@ -9,6 +9,7 @@ from Animation import Animation
 from Collider import Collider
 from Camera import Camera
 from entities.EntityBase import EntityBase
+from EntityCollider import EntityCollider
 
 class Mario(EntityBase):
     def __init__(self,x,y,level,screen,gravity=1.25):
@@ -28,6 +29,7 @@ class Mario(EntityBase):
         self.levelObj = level
         self.collision = Collider(self,self.level)
         self.screen = screen
+        self.EntityCollider = EntityCollider(self)
 
     def drawMario(self):
         self.updateTraits()
@@ -41,3 +43,9 @@ class Mario(EntityBase):
         #Camera Offset + Camera Move
         if self.rect.x/32.0 > 10 and self.rect.x/32.0 < 50:
             self.camera.pos.x = -self.rect.x/32.0+10
+
+    def checkEntityCollision(self):
+        for ent in self.levelObj.entityList:
+            if self.EntityCollider.check(ent):
+                return False
+        return True

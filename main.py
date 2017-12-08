@@ -10,8 +10,8 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((640, 480))
     max_frame_rate = 60
-
     running = True
+
     level = Level(screen)
     mario = Mario(0,0,level,screen)
     input = Input(mario)
@@ -24,6 +24,7 @@ def main():
         dashboard.update()
         running = input.checkForInput()
         mario.drawMario()
+        running = mario.checkEntityCollision()
         pygame.display.update()
         clock.tick(max_frame_rate)
     main()

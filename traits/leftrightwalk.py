@@ -1,10 +1,10 @@
 import Maths
 from Collider import Collider
-import random
+from random import randint
 
 class LeftRightWalkTrait():
     def __init__(self,entity,level):
-        self.direction = -1
+        self.direction = -1 if randint(0,1) == 0 else 1
         self.entity = entity
         self.collDetection = Collider(self.entity,level)
         self.speed = 1
