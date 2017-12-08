@@ -42,7 +42,7 @@ class Input():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.KEYDOWN and pygame.K_F5:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_F5:
                 return False
         return True
             

@@ -27,15 +27,20 @@ class Mario(EntityBase):
         self.level = level.level
         self.levelObj = level
         self.collision = Collision(self,self.level,True)
+        self.screen = screen
         
     def drawMario(self):
         self.updateTraits()
         self.moveMario()
 
     def debug(self):
-        print(self.pos.x, self.pos.y, self.vel.x, self.vel.y)
+        print(self.pos.x, self.pos.y, self.vel.x, self.vel.y,self.rect.x,self.rect.y)
+        pygame.draw.rect(self.screen,pygame.Color(255,255,255),self.rect,1)
 
     def moveMario(self):
+        self.debug()
+        self.rect.y += self.vel.y*32
+        self.rect.x += self.vel.x*32
         self.pos.y += self.vel.y
         self.pos.x += self.vel.x
         #Camera Offset + Camera Move

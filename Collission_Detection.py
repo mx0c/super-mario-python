@@ -1,5 +1,6 @@
 import pygame
 import Maths
+from Tile import Tile
 
 class Collided():
     DOWN = 1
@@ -21,44 +22,43 @@ class Collision():
             self.entity.pos.x = int(self.entity.pos.x)
             return
         #RIGHT
-        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x)+1].colliding and self.entity.vel.x > 0):
+        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x)+1].rect and self.entity.vel.x > 0):
             self.entity.vel.x = 0
             self.entity.pos.x = int(self.entity.pos.x)
-        if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x)+1].colliding and self.entity.vel.x > 0 and self.entity.vel.y < 0):
+        if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x)+1].rect and self.entity.vel.x > 0 and self.entity.vel.y < 0):
             self.entity.vel.x = 0
             self.entity.pos.x = int(self.entity.pos.x)
         #LEFT
-        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x)].colliding and self.entity.vel.x < 0): 
+        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x)].rect and self.entity.vel.x < 0): 
             self.entity.vel.x = 0
             self.entity.pos.x = int(self.entity.pos.x)+1
-        if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x)].colliding and self.entity.vel.x < 0 and self.entity.vel.y < 0):
+        if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x)].rect and self.entity.vel.x < 0 and self.entity.vel.y < 0):
             self.entity.vel.x = 0
             self.entity.pos.x = int(self.entity.pos.x)+1
        
 
     def checkY(self):
-        #   a----b
-        #   |    | 
-        #   c----d
+
+
         #DOWN C
-        if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x+0.05)].colliding and self.entity.vel.y > 0):
+        if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x+0.05)].rect and self.entity.vel.y > 0):
             self.entity.vel.y = 0
             self.entity.pos.y = int(self.entity.pos.y)
             if self.entity.traits != None:
                 self.entity.traits['jumpTrait'].reset()
         #UP A
-        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x+0.05)].colliding and self.entity.vel.y < 0):
+        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x+0.05)].rect and self.entity.vel.y < 0):
             self.entity.vel.y = 0
             self.entity.pos.y = int(self.entity.pos.y)+1
 
         #DOWN D
-        if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y > 0):
+        if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x-0.05)+1].rect and self.entity.vel.y > 0):
             self.entity.vel.y = 0
             self.entity.pos.y = int(self.entity.pos.y)
             if self.entity.traits != None:
                 self.entity.traits['jumpTrait'].reset()
         #UP B
-        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x-0.05)+1].colliding and self.entity.vel.y < 0):
+        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x-0.05)+1].rect and self.entity.vel.y < 0):
             self.entity.vel.y = 0
             self.entity.pos.y = int(self.entity.pos.y)+1
 

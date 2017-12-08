@@ -1,9 +1,11 @@
 import Maths
+import pygame
 
 class EntityBase(object):
     def __init__(self,x,y,gravity):
         self.pos = Maths.vec2D(x,y)
         self.vel = Maths.vec2D()
+        self.rect = pygame.Rect(x*32,y*32,32,32)
         self.gravity = gravity
         self.traits = None
 
