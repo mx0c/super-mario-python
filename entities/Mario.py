@@ -6,7 +6,7 @@ from traits import go,jump
 from traits.go import goTrait
 from traits.jump import jumpTrait
 from Animation import Animation
-from Collission_Detection import Collision
+from Collider import Collider
 from Camera import Camera
 from entities.EntityBase import EntityBase
 
@@ -26,19 +26,14 @@ class Mario(EntityBase):
         }
         self.level = level.level
         self.levelObj = level
-        self.collision = Collision(self,self.level)
+        self.collision = Collider(self,self.level)
         self.screen = screen
 
     def drawMario(self):
         self.updateTraits()
         self.moveMario()
 
-    def debug(self):
-        print(self.pos.x, self.pos.y, self.vel.x, self.vel.y,self.rect.x,self.rect.y)
-        pygame.draw.rect(self.screen,pygame.Color(255,255,255),self.rect,1)
-
     def moveMario(self):
-        #self.debug()
         self.rect.y += self.vel.y
         self.collision.checkY()
         self.rect.x += self.vel.x

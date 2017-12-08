@@ -39,7 +39,7 @@ class Level():
                     elif(obj['name'] == "pipe"):
                         self.addPipeSprite(position[0],position[1],position[2])
                     else:
-                        self.level[position[1]][position[0]] = Tile(self.sprites.spriteCollection.get(obj['name']),pygame.Rect(position[1]*32,position[0]*32,32,32))
+                        self.level[position[1]][position[0]] = Tile(self.sprites.spriteCollection.get(obj['name']),pygame.Rect(position[0]*32,position[1]*32,32,32))
             for entity in data['level']['entities']:
                 if entity['name'] == "Goomba":
                     for postion in entity['pos']:

@@ -1,15 +1,14 @@
 import Maths
-from Collission_Detection import Collision
+from Collider import Collider
 import random
 
 class LeftRightWalkTrait():
     def __init__(self,entity,level):
-        self.direction = 1 if random.randint(0,1) == 1 else -1
+        self.direction = -1
         self.entity = entity
-        self.collDetection = Collision(self.entity,level)
-        self.speed = 0.8
+        self.collDetection = Collider(self.entity,level)
+        self.speed = 1
         self.entity.vel.x = self.speed * self.direction
-        self.entity.rect.x += 1
 
     def update(self):
         if(self.entity.vel.x == 0):
@@ -22,3 +21,6 @@ class LeftRightWalkTrait():
         self.collDetection.checkY()
         self.entity.rect.x += self.entity.vel.x
         self.collDetection.checkX()
+
+
+

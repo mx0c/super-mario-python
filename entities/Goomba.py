@@ -19,5 +19,4 @@ class Goomba(EntityBase):
         self.screen.blit(self.animation.image,(self.rect.x+camera.pos.x*32,self.rect.y))
         self.animation.update()
         self.leftrightTrait.update()
-        print(self.vel.x)
-        pygame.draw.rect(self.screen,pygame.Color(255,0,0),self.rect,1)
+        
