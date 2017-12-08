@@ -6,7 +6,7 @@ from traits import go,jump
 from traits.go import goTrait
 from traits.jump import jumpTrait
 from Animation import Animation
-from Collission_Detection import Collided,Collision
+from Collission_Detection import Collision
 from Camera import Camera
 from entities.EntityBase import EntityBase
 
@@ -41,9 +41,8 @@ class Mario(EntityBase):
         self.debug()
         self.rect.y += self.vel.y*32
         self.rect.x += self.vel.x*32
-        self.pos.y += self.vel.y
-        self.pos.x += self.vel.x
+
         #Camera Offset + Camera Move
-        if self.pos.x > 10 and self.pos.x < 50:
-            self.camera.pos.x = -self.pos.x+10
+        if self.rect.x/32.0 > 10 and self.rect.x/32.0 < 50:
+            self.camera.pos.x = -self.rect.x/32.0+10
         self.collision.checkCollision()

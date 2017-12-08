@@ -41,6 +41,6 @@ class goTrait():
     
     def drawEntity(self):
         if(self.heading == 1):
-            self.screen.blit(self.animation.image ,((self.camera.pos.x+self.entity.pos.x)*32,self.entity.pos.y*32))
+            self.screen.blit(self.animation.image ,(self.camera.pos.x*32+self.entity.rect.x,self.entity.rect.y))
         elif(self.heading == -1):
-            self.screen.blit(pygame.transform.flip(self.animation.image,True,False),((self.camera.pos.x+self.entity.pos.x)*32,self.entity.pos.y*32))
+            self.screen.blit(pygame.transform.flip(self.animation.image,True,False),(self.camera.pos.x*32+self.entity.rect.x,self.entity.rect.y))

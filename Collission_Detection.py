@@ -2,12 +2,6 @@ import pygame
 import Maths
 from Tile import Tile
 
-class Collided():
-    DOWN = 1
-    UP = 2
-    LEFT = 3
-    RIGHT = 4
-
 class Collision():
     def __init__(self,entity,level,debug=False):
         self.entity = entity
@@ -16,60 +10,39 @@ class Collision():
         self.debug = debug
 
     def checkX(self):
-        #check if left border is reached 
-        if(self.entity.pos.x < 0):
-            self.entity.vel.x = 0
-            self.entity.pos.x = int(self.entity.pos.x)
-            return
-        #RIGHT
-        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x)+1].rect and self.entity.vel.x > 0):
-            self.entity.vel.x = 0
-            self.entity.pos.x = int(self.entity.pos.x)
-        if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x)+1].rect and self.entity.vel.x > 0 and self.entity.vel.y < 0):
-            self.entity.vel.x = 0
-            self.entity.pos.x = int(self.entity.pos.x)
-        #LEFT
-        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x)].rect and self.entity.vel.x < 0): 
-            self.entity.vel.x = 0
-            self.entity.pos.x = int(self.entity.pos.x)+1
-        if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x)].rect and self.entity.vel.x < 0 and self.entity.vel.y < 0):
-            self.entity.vel.x = 0
-            self.entity.pos.x = int(self.entity.pos.x)+1
+        for row in self.level:
+            for tile in row:
+                try:
+                    if self.entity.rect.colliderect(tile.rect):
+                        if self.entity.vel.x > 0: 
+                            self.entity.rect.right = tile.rect.left
+                            self.entity.vel.x = 0
+                        if self.entity.vel.x < 0: 
+                            self.entity.rect.left = tile.rect.right
+                            self.entity.vel.x = 0
+                except TypeError:
+                    pass
        
-
     def checkY(self):
+        for row in self.level:
+            for tile in row:
+                try:
+                    if self.entity.rect.colliderect(tile.rect):
+                        if self.entity.vel.y > 0:
+                            self.entity.rect.bottom = tile.rect.top
+                            self.entity.vel.y = 0
+                        if self.entity.vel.y < 0:
+                            self.entity.rect.top = tile.rect.bottom
+                            self.entity.vel.y = 0
+                except TypeError:
+                    pass
 
+    def checkCollision(self):          
+        self.checkY()
+        self.checkX()
+        
 
-        #DOWN C
-        if(self.level[int(self.entity.pos.y+1)][int(self.entity.pos.x+0.05)].rect and self.entity.vel.y > 0):
-            self.entity.vel.y = 0
-            self.entity.pos.y = int(self.entity.pos.y)
-            if self.entity.traits != None:
-                self.entity.traits['jumpTrait'].reset()
-        #UP A
-        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x+0.05)].rect and self.entity.vel.y < 0):
-            self.entity.vel.y = 0
-            self.entity.pos.y = int(self.entity.pos.y)+1
-
-        #DOWN D
-        if(self.level[int(self.entity.pos.y)+1][int(self.entity.pos.x-0.05)+1].rect and self.entity.vel.y > 0):
-            self.entity.vel.y = 0
-            self.entity.pos.y = int(self.entity.pos.y)
-            if self.entity.traits != None:
-                self.entity.traits['jumpTrait'].reset()
-        #UP B
-        if(self.level[int(self.entity.pos.y)][int(self.entity.pos.x-0.05)+1].rect and self.entity.vel.y < 0):
-            self.entity.vel.y = 0
-            self.entity.pos.y = int(self.entity.pos.y)+1
-
-    def checkCollision(self):
-        try:            
-            self.checkY()
-            self.checkX()
-        except IndexError:
-            self.entity.vel.x = 0
-            self.entity.pos.x = int(self.entity.pos.x)
-            self.checkY()
+    
 
 
         
