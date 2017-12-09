@@ -1,6 +1,6 @@
-from Sprites import Sprites
-from Animation import Animation
-import Maths
+from classes.Sprites import Sprites
+from classes.Animation import Animation
+import classes.Maths
 from traits.leftrightwalk import LeftRightWalkTrait
 from entities.EntityBase import EntityBase
 import pygame

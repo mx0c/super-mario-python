@@ -1,5 +1,5 @@
-import Maths
-from Collider import Collider
+import classes.Maths
+from classes.Collider import Collider
 from random import randint
 
 class LeftRightWalkTrait():

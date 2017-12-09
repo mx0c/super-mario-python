@@ -1,9 +1,9 @@
-from Sprites import Sprites
+from classes.Sprites import Sprites
 import pygame
 import json
 from entities.Goomba import Goomba
 from entities.Koopa import Koopa
-from Tile import Tile
+from classes.Tile import Tile
 
 class Level():
     def __init__(self,screen):

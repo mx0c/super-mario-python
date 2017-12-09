@@ -1,4 +1,4 @@
-from Spritesheet import Spritesheet
+from classes.Spritesheet import Spritesheet
 import pygame
 
 class Font(Spritesheet):

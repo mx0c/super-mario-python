@@ -1,10 +1,10 @@
 import pygame
 from pygame.locals import *
-import Spritesheet as Sprite
-from Level import Level
+import classes.Spritesheet as Sprite
+from classes.Level import Level
 from entities.Mario import Mario
-from Input import Input
-from Dashboard import Dashboard
+from classes.Input import Input
+from classes.Dashboard import Dashboard
 
 def main():
     pygame.init()
@@ -24,7 +24,8 @@ def main():
         dashboard.update()
         running = input.checkForInput()
         mario.drawMario()
-        running = mario.checkEntityCollision()
+        if(running):
+            running = mario.checkEntityCollision()
         pygame.display.update()
         clock.tick(max_frame_rate)
     main()

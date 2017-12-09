@@ -1,4 +1,4 @@
-from Font import Font
+from classes.Font import Font
 import pygame
 
 class Dashboard(Font):

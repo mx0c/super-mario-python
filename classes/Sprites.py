@@ -1,8 +1,8 @@
-from Spritesheet import Spritesheet
+from classes.Spritesheet import Spritesheet
 import pygame
 from pygame.color import Color
-from Sprite import Sprite
-from Animation import Animation
+from classes.Sprite import Sprite
+from classes.Animation import Animation
 import json
 import pprint
 

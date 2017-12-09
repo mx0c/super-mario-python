@@ -1,6 +1,6 @@
 import pygame
-import Maths
-from Tile import Tile
+import classes.Maths
+from classes.Tile import Tile
 
 class Collider():
     def __init__(self,entity,level):

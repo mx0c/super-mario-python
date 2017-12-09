@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 import sys
 from random import randint
-from EntityCollider import EntityCollider
+from classes.EntityCollider import EntityCollider
 
 class Input():
     def __init__(self,entity):

@@ -1,4 +1,4 @@
-import Spritesheet as Sprite
+import classes.Spritesheet as Sprite
 import pygame
 
 class Sprite():

@@ -1,15 +1,15 @@
-from Sprites import Sprites
+from classes.Sprites import Sprites
 import pygame
 from pygame.locals import *
-import Maths
+import classes.Maths
 from traits import go,jump
 from traits.go import goTrait
 from traits.jump import jumpTrait
-from Animation import Animation
-from Collider import Collider
-from Camera import Camera
+from classes.Animation import Animation
+from classes.Collider import Collider
+from classes.Camera import Camera
 from entities.EntityBase import EntityBase
-from EntityCollider import EntityCollider
+from classes.EntityCollider import EntityCollider
 
 class Mario(EntityBase):
     def __init__(self,x,y,level,screen,gravity=1.25):

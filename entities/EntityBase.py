@@ -1,9 +1,9 @@
-import Maths
+from classes.Maths import vec2D
 import pygame
 
 class EntityBase(object):
     def __init__(self,x,y,gravity):
-        self.vel = Maths.vec2D()
+        self.vel = vec2D()
         self.rect = pygame.Rect(x*32,y*32,32,32)
         self.gravity = gravity
         self.traits = None
