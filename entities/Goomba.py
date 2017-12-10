@@ -15,8 +15,14 @@ class Goomba(EntityBase):
         self.leftrightTrait = LeftRightWalkTrait(self,level)
 
     def update(self,camera):
-        self.applyGravity()
-        self.screen.blit(self.animation.image,(self.rect.x+camera.pos.x*32,self.rect.y))
-        self.animation.update()
-        self.leftrightTrait.update()
-        
+        if(self.alive):
+            self.applyGravity()
+            self.screen.blit(self.animation.image,(self.rect.x+camera.pos.x*32,self.rect.y))
+            self.animation.update()
+            self.leftrightTrait.update()
+        else:
+            if(self.timer < self.timeAfterDeath):
+                self.screen.blit(self.spriteCollection.get("goomba-flat").image,(self.rect.x+camera.pos.x*32,self.rect.y))
+            else:
+                self.alive = None
+            self.timer+=0.1

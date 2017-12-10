@@ -51,6 +51,8 @@ class Level():
     def updateEntities(self,cam):
         for entity in self.entityList:
             entity.update(cam)
+            if(entity.alive == None):
+                self.entityList.remove(entity)
 
     def drawLevel(self,camera):
         try:

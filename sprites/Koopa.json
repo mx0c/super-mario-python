@@ -21,8 +21,8 @@
         },
         {
             "name":"koopa-hiding",
-            "x":144, 
-            "y":206,
+            "x":45, 
+            "y":80,
             "scalefactor":2,
             "colorKey":-1,
             "collision":false

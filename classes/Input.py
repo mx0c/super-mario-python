@@ -20,8 +20,6 @@ class Input():
             self.entity.traits['goTrait'].direction =  0
         if(keys[K_SPACE]):
             self.entity.traits['jumpTrait'].start()
-        else:
-            self.entity.applyGravity()
         if(keys[K_LSHIFT]):
             self.entity.traits['goTrait'].boost = True
         else:
@@ -48,5 +46,4 @@ class Input():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 sys.exit()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_F5:
-                return False
-        return True
+                self.entity.restart = True

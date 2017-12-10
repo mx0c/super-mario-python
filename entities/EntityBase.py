@@ -7,6 +7,9 @@ class EntityBase(object):
         self.rect = pygame.Rect(x*32,y*32,32,32)
         self.gravity = gravity
         self.traits = None
+        self.alive = True
+        self.timeAfterDeath = 25
+        self.timer = 0
 
     def applyGravity(self):
          self.vel.y += self.gravity

@@ -5,7 +5,7 @@ class goTrait():
         self.direction = 0
         self.heading = 1
         self.accelVel = 0.64
-        self.decelVel = 0.32
+        self.decelVel = 0.5
         self.maxVel = 3.2
         self.screen = screen
         self.boost = False

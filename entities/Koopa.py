@@ -13,15 +13,25 @@ class Koopa(EntityBase):
                                     self.spriteCollection.get("koopa-2").image])
         self.screen = screen
         self.leftrightTrait = LeftRightWalkTrait(self,level)
+        self.timer = 0
+        self.timeAfterDeath = 25
 
     def update(self,camera):
-        self.applyGravity()
-        self.drawKoopa(camera)
-        self.animation.update()
-        self.leftrightTrait.update()
+        if(self.alive):
+            self.applyGravity()
+            self.drawKoopa(camera)
+            self.animation.update()
+            self.leftrightTrait.update()
+        else:
+            if(self.timer < self.timeAfterDeath):
+                self.screen.blit(self.spriteCollection.get("koopa-hiding").image,(self.rect.x+camera.pos.x*32,self.rect.y-32))
+            else:
+                self.alive = None
+            self.timer+=0.1
 
     def drawKoopa(self,camera):
         if self.leftrightTrait.direction == -1:
             self.screen.blit(self.animation.image,(self.rect.x+camera.pos.x*32,self.rect.y-32))
         else:
             self.screen.blit(pygame.transform.flip(self.animation.image,True,False),(self.rect.x+camera.pos.x*32,self.rect.y-32))
+    

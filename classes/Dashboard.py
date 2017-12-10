@@ -2,10 +2,10 @@ from classes.Font import Font
 import pygame
 
 class Dashboard(Font):
-    def __init__(self,filePath,size,screen):
+    def __init__(self,filePath,size,screen,mario):
         Font.__init__(self,filePath,size)
         self.screen = screen
-        self.points = 0
+        self.mario = mario
         self.levelName = "1-1"
         self.coins = 0
         self.ticks = 0
@@ -13,7 +13,7 @@ class Dashboard(Font):
 
     def update(self):
         self.drawText("MARIO",50,20,15)
-        self.drawText("000000",50,37,15)
+        self.drawText(self.genPointsString(),50,37,15)
 
         self.drawText("@x00",225,37,15)
 
@@ -34,6 +34,14 @@ class Dashboard(Font):
             charSprite = pygame.transform.scale(self.charSprites[char],(size,size))
             self.screen.blit(charSprite,(x,y))
             x+=size+1
+
+    def genPointsString(self):
+        pointsString = ""
+        zerosLeft = 6-len(str(self.mario.points))
+        for i in range(0,zerosLeft):
+            pointsString+="0"
+        pointsString+=str(self.mario.points)
+        return pointsString
 
     def genTimeString(self):
         timeStr = ""

@@ -10,6 +10,7 @@ from classes.Collider import Collider
 from classes.Camera import Camera
 from entities.EntityBase import EntityBase
 from classes.EntityCollider import EntityCollider
+from traits.bounce import bounceTrait
 
 class Mario(EntityBase):
     def __init__(self,x,y,level,screen,gravity=1.25):
@@ -23,17 +24,21 @@ class Mario(EntityBase):
         ],self.spriteCollection["mario_idle"].image)
         self.traits = {
             "jumpTrait":jumpTrait(self),
-            "goTrait":goTrait(self.animation,screen,self.camera,self)
+            "goTrait":goTrait(self.animation,screen,self.camera,self),
+            "bounceTrait":bounceTrait(self)
         }
         self.level = level.level
         self.levelObj = level
         self.collision = Collider(self,self.level)
         self.screen = screen
         self.EntityCollider = EntityCollider(self)
+        self.points = 0
+        self.restart = False
 
     def drawMario(self):
         self.updateTraits()
         self.moveMario()
+        self.applyGravity()
 
     def moveMario(self):
         self.rect.y += self.vel.y
@@ -43,9 +48,22 @@ class Mario(EntityBase):
         #Camera Offset + Camera Move
         if self.rect.x/32.0 > 10 and self.rect.x/32.0 < 50:
             self.camera.pos.x = -self.rect.x/32.0+10
+        self.checkEntityCollision()
 
     def checkEntityCollision(self):
         for ent in self.levelObj.entityList:
-            if self.EntityCollider.check(ent):
-                return False
-        return True
+            collission = self.EntityCollider.check(ent)
+            if collission == "top" and ent.alive == True:
+                self.bounce()
+                self.killEntity(ent)
+            elif collission and ent.alive == True:
+                #game over
+                self.restart = True
+
+    def bounce(self):
+        self.traits['bounceTrait'].jump = True
+
+    def killEntity(self,ent):
+        ent.alive = False
+        self.points += 100
+                

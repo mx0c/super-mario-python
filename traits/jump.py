@@ -2,9 +2,9 @@ class jumpTrait():
     def __init__(self,entity):
         self.maxReached = False
         self.timer = 0
-        self.jumpHeight = 10
-        self.maxVel = 3.2
-        self.vel = 1.25
+        self.jumpHeight = 15
+        self.maxVel = 6
+        self.vel = 2
         self.jump = False
         self.entity = entity
 
@@ -18,9 +18,7 @@ class jumpTrait():
                 self.timer+=1
             if(self.timer > self.jumpHeight):
                 self.maxReached = True
-        else:
-            self.entity.applyGravity()
-
+    
     def reset(self):
         self.timer = 0
         self.maxReached = False
