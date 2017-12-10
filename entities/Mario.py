@@ -17,11 +17,10 @@ class Mario(EntityBase):
         super(Mario,self).__init__(x,y,gravity)
         self.spriteCollection = Sprites().spriteCollection
         self.camera = Camera(self.rect)
-        self.animation = Animation([
-            self.spriteCollection["mario_run1"].image,
+        self.animation = Animation([self.spriteCollection["mario_run1"].image,
             self.spriteCollection["mario_run2"].image,
             self.spriteCollection["mario_run3"].image
-        ],self.spriteCollection["mario_idle"].image)
+        ],self.spriteCollection["mario_idle"].image,self.spriteCollection["mario_jump"].image)
         self.traits = {
             "jumpTrait":jumpTrait(self),
             "goTrait":goTrait(self.animation,screen,self.camera,self),
@@ -35,7 +34,7 @@ class Mario(EntityBase):
         self.points = 0
         self.restart = False
 
-    def drawMario(self):
+    def update(self):
         self.updateTraits()
         self.moveMario()
         self.applyGravity()
@@ -54,8 +53,15 @@ class Mario(EntityBase):
         for ent in self.levelObj.entityList:
             collission = self.EntityCollider.check(ent)
             if collission == "top" and ent.alive == True:
+                self.vel.y = 0
+                self.rect.bottom = ent.rect.top
                 self.bounce()
                 self.killEntity(ent)
+            elif collission == "top" and ent.alive == "sleeping":
+                self.vel.y = 0
+                self.rect.bottom = ent.rect.top
+                self.bounce()
+                ent.alive = False
             elif collission and ent.alive == True:
                 #game over
                 self.restart = True
@@ -64,6 +70,10 @@ class Mario(EntityBase):
         self.traits['bounceTrait'].jump = True
 
     def killEntity(self,ent):
-        ent.alive = False
+        if ent.__class__.__name__ != "Koopa":
+            ent.alive = False
+        else:
+            ent.timer = 0
+            ent.alive = "sleeping"
         self.points += 100
                 

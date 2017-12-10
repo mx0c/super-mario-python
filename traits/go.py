@@ -28,9 +28,15 @@ class goTrait():
             else:
                 if(self.entity.vel.x > -self.maxVel):
                     self.entity.vel.x += self.accelVel * self.heading
-            self.animation.update()
+            if(not self.entity.traits["jumpTrait"].inAir):
+                self.animation.update()
+            else:
+                self.animation.inAir()
         else:
-            self.animation.idle()
+            if(not self.entity.traits["jumpTrait"].inAir):
+                self.animation.idle()
+            else:
+                self.animation.inAir()
             if(self.entity.vel.x >= 0):
                 self.entity.vel.x -= self.decelVel
             else:

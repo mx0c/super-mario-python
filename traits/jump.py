@@ -5,14 +5,12 @@ class jumpTrait():
         self.jumpHeight = 15
         self.maxVel = 6
         self.vel = 2
-        self.jump = False
+        self.inAir = False
         self.entity = entity
 
     def start(self):
-        #initialy set Y-Vel to 0
-        if(self.timer == 0):
-            self.entity.vel.y = 0
-        if(not self.maxReached):
+        if(not self.maxReached and not self.entity.traits["bounceTrait"].jump):
+            self.inAir = True
             if(self.entity.vel.y < self.maxVel):
                 self.entity.vel.y -= self.vel
                 self.timer+=1
@@ -22,3 +20,4 @@ class jumpTrait():
     def reset(self):
         self.timer = 0
         self.maxReached = False
+        self.inAir = False

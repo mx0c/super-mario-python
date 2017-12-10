@@ -22,7 +22,7 @@ def main():
         level.drawLevel(mario.camera)
         dashboard.update()
         input.checkForInput()
-        mario.drawMario()
+        mario.update()
         pygame.display.update()
         clock.tick(max_frame_rate)
     main()
