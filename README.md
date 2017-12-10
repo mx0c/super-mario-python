@@ -13,5 +13,6 @@ This is inspired by Meth-Meth-Method's: https://github.com/meth-meth-method/supe
 
 * Pygame
 
+## How it looks so far:
 ![Alt text](https://i.imgur.com/pGf4624.png)
-https://imgur.com/a/dEJMS
+
