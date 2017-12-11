@@ -4,6 +4,7 @@ import json
 from entities.Goomba import Goomba
 from entities.Koopa import Koopa
 from classes.Tile import Tile
+from entities.Coin import Coin
 
 class Level():
     def __init__(self,screen):
@@ -106,9 +107,8 @@ class Level():
             )
 
     def addCoin(self,x,y):
-        self.level[y][x] = Tile(
-            self.sprites.spriteCollection.get("coin"),
-            pygame.Rect(x*32,y*32,32,32)
+        self.entityList.append(
+            Coin(self.screen,self.sprites.spriteCollection,x,y)
         )
 
     def addGoomba(self,x,y):
