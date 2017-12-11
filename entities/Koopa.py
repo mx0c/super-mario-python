@@ -51,7 +51,8 @@ class Koopa(EntityBase):
             if(self.timer > 500):
                 #delete entity
                 self.alive = None
-            self.timer+=6
+        self.timer+=6
+
         
     def sleepingInShell(self,camera):
         if(self.timer < self.timeAfterDeath):
