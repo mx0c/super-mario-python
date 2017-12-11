@@ -26,9 +26,8 @@ class Mario(EntityBase):
             "goTrait":goTrait(self.animation,screen,self.camera,self),
             "bounceTrait":bounceTrait(self)
         }
-        self.level = level.level
         self.levelObj = level
-        self.collision = Collider(self,self.level)
+        self.collision = Collider(self,level.level)
         self.screen = screen
         self.EntityCollider = EntityCollider(self)
         self.points = 0
@@ -52,18 +51,19 @@ class Mario(EntityBase):
     def checkEntityCollision(self):
         for ent in self.levelObj.entityList:
             collission = self.EntityCollider.check(ent)
-            if collission == "top" and ent.alive == True:
-                self.vel.y = 0
+            if collission == "top" and (ent.alive == True or ent.alive == "shellBouncing"):
                 self.rect.bottom = ent.rect.top
                 self.bounce()
                 self.killEntity(ent)
             elif collission == "top" and ent.alive == "sleeping":
-                self.vel.y = 0
                 self.rect.bottom = ent.rect.top
                 self.bounce()
-                ent.timer = 0
                 ent.alive = False
             elif collission and ent.alive == "sleeping":
+                if(ent.rect.right < self.rect.left):
+                    ent.leftrightTrait.direction = 1
+                else:
+                    ent.leftrightTrait.direction = -1
                 ent.alive = "shellBouncing"
             elif collission and ent.alive == True:
                 #game over
