@@ -41,7 +41,7 @@ class goTrait():
                 self.entity.vel.x -= self.decelVel
             else:
                 self.entity.vel.x += self.decelVel
-            if(round(self.entity.vel.x) == 0):
+            if(int(self.entity.vel.x) == 0):
                 self.entity.vel.x = 0
         self.drawEntity()
 

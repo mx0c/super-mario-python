@@ -13,5 +13,6 @@ class EntityCollider():
             if(rect2.collidepoint(rect1.midleft) or rect2.collidepoint(rect1.midright)):
                 return True
             else:
-                return "top"
+                if(self.entity.vel.y > 0):
+                    return "top"
         return True

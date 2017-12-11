@@ -62,6 +62,8 @@ class Mario(EntityBase):
                 self.rect.bottom = ent.rect.top
                 self.bounce()
                 ent.alive = False
+            elif collission and ent.alive == "sleeping":
+                ent.alive = "shellBouncing"
             elif collission and ent.alive == True:
                 #game over
                 self.restart = True

@@ -13,7 +13,7 @@ class LeftRightWalkTrait():
     def update(self):
         if(self.entity.vel.x == 0):
             self.direction *= -1
-            self.entity.vel.x = self.speed * self.direction
+        self.entity.vel.x = self.speed * self.direction
         self.moveEntity()
 
     def moveEntity(self):
