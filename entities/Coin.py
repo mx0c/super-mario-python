@@ -1,13 +1,17 @@
 from entities.EntityBase import EntityBase
 from classes.Animation import Animation
+import pygame
 
 class Coin(EntityBase):
-    def __init__(self,screen,spriteCollection,x,y):
-        super(Coin,self).__init__(y,x,0)
+    def __init__(self,screen,spriteCollection,x,y,gravity = 0):
+        super(Coin,self).__init__(x,y,gravity)
         self.screen = screen
         self.spriteCollection = spriteCollection
         self.animation = self.spriteCollection.get('coin').animation
-
+        self.type = "coin"
 
     def update(self,cam):
-        self.animation.update()
+        if(self.alive):
+            self.animation.update()
+            self.screen.blit(self.animation.image,(self.rect.x+cam.pos.x*32,self.rect.y))
+            self.applyGravity()
