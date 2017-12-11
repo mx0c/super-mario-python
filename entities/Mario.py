@@ -51,29 +51,35 @@ class Mario(EntityBase):
     def checkEntityCollision(self):
         for ent in self.levelObj.entityList:
             collission = self.EntityCollider.check(ent)
-            if collission == "top" and (ent.alive == True or ent.alive == "shellBouncing"):
-                self.rect.bottom = ent.rect.top
-                self.bounce()
+            if(collission != False and ent.type=="coin"):
                 self.killEntity(ent)
-            elif collission == "top" and ent.alive == "sleeping":
-                self.rect.bottom = ent.rect.top
-                self.bounce()
-                ent.alive = False
-            elif collission and ent.alive == "sleeping":
-                if(ent.rect.right < self.rect.left):
-                    ent.leftrightTrait.direction = 1
-                else:
-                    ent.leftrightTrait.direction = -1
-                ent.alive = "shellBouncing"
-            elif collission and ent.alive == True:
-                #game over
-                self.restart = True
+            else:
+                if collission == "top" and (ent.alive == True or ent.alive == "shellBouncing"):
+                    self.rect.bottom = ent.rect.top
+                    self.bounce()
+                    self.killEntity(ent)
+                elif collission == "top" and ent.alive == "sleeping":
+                    self.rect.bottom = ent.rect.top
+                    self.bounce()
+                    ent.alive = False
+                elif collission and ent.alive == "sleeping":
+                    if(ent.rect.right < self.rect.left):
+                        ent.leftrightTrait.direction = 1
+                    else:
+                        ent.leftrightTrait.direction = -1
+                    ent.alive = "shellBouncing"
+                elif collission and ent.alive == True:
+                    #game over
+                    self.restart = True
 
     def bounce(self):
         self.traits['bounceTrait'].jump = True
 
     def killEntity(self,ent):
-        if ent.__class__.__name__ != "Koopa":
+        if ent.__class__.__name__ == "Coin":
+            ent.alive = None
+            ent.rect = None
+        elif ent.__class__.__name__ != "Koopa":
             ent.alive = False
         else:
             ent.timer = 0

@@ -4,6 +4,7 @@ import json
 from entities.Goomba import Goomba
 from entities.Koopa import Koopa
 from classes.Tile import Tile
+from entities.Coin import Coin
 
 class Level():
     def __init__(self,screen):
@@ -38,6 +39,8 @@ class Level():
                         self.addRandomBox(position[0],position[1])
                     elif(obj['name'] == "pipe"):
                         self.addPipeSprite(position[0],position[1],position[2])
+                    elif(obj['name'] == "coin"):
+                        self.addCoin(position[0],position[1])
                     else:
                         self.level[position[1]][position[0]] = Tile(self.sprites.spriteCollection.get(obj['name']),pygame.Rect(position[0]*32,position[1]*32,32,32))
             for entity in data['level']['entities']:
@@ -98,13 +101,15 @@ class Level():
             return
 
     def addRandomBox(self,x,y):
-        try:
             self.level[y][x] = Tile(
                 self.sprites.spriteCollection.get("randomBox"),
                 pygame.Rect(x*32,y*32,32,32)
             )
-        except IndexError:
-            return
+
+    def addCoin(self,x,y):
+        self.entityList.append(
+            Coin(self.screen,self.sprites.spriteCollection,x,y)
+        )
 
     def addGoomba(self,x,y):
         self.entityList.append(

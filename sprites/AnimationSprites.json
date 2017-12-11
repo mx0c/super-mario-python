@@ -21,7 +21,32 @@
                     "scale":2
                 }
             ],
-            "collision":true
+            "collision":true,
+            "redrawBackground":false,
+            "deltaTime":10
+        },
+        {
+            "name":"coin",
+            "images":[
+                {
+                    "x":24,
+                    "y":1,
+                    "scale":2
+                },
+                {
+                    "x":25,
+                    "y":1,
+                    "scale":2
+                },
+                {
+                    "x":26,
+                    "y":1,
+                    "scale":2
+                }
+            ],
+            "collision":false,
+            "redrawBackground":true,
+            "deltaTime":50
         }
     ]
 }

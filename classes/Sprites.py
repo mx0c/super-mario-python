@@ -31,11 +31,11 @@ class Sprites():
                     resDict.update(dic)
                     continue
                 elif data['type'] == "animation":
-                    images = []
                     for sprite in data['sprites']:
+                        images = []
                         for image in sprite['images']:
-                            images.append(mySpritesheet.image_at(image['x'],image['y'],image['scale']))
-                        dic[sprite['name']] = Sprite(None,True,animation = Animation(images))
+                            images.append(mySpritesheet.image_at(image['x'],image['y'],image['scale'],colorkey=-1))
+                        dic[sprite['name']] = Sprite(None,True,animation = Animation(images,deltaTime = sprite["deltaTime"]),redrawBackground = sprite['redrawBackground'])
                     resDict.update(dic)
                     continue
                 elif data['type'] == "character":
