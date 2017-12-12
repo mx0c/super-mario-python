@@ -21,9 +21,8 @@
                     "scale":2
                 }
             ],
-            "collision":true,
-            "redrawBackground":false,
-            "deltaTime":10
+            "deltaTime":10,
+            "colorKey": null
         },
         {
             "name":"coin",
@@ -44,9 +43,8 @@
                     "scale":2
                 }
             ],
-            "collision":false,
-            "redrawBackground":true,
-            "deltaTime":50
+            "deltaTime":40,
+            "colorKey": -1
         }
     ]
 }

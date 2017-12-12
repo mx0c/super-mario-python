@@ -34,8 +34,8 @@ class Sprites():
                     for sprite in data['sprites']:
                         images = []
                         for image in sprite['images']:
-                            images.append(mySpritesheet.image_at(image['x'],image['y'],image['scale'],colorkey=-1))
-                        dic[sprite['name']] = Sprite(None,True,animation = Animation(images,deltaTime = sprite["deltaTime"]),redrawBackground = sprite['redrawBackground'])
+                            images.append(mySpritesheet.image_at(image['x'],image['y'],image['scale'],colorkey = sprite['colorKey']))
+                        dic[sprite['name']] = Sprite(None,None,animation = Animation(images,deltaTime = sprite["deltaTime"]))
                     resDict.update(dic)
                     continue
                 elif data['type'] == "character":

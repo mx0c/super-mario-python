@@ -11,11 +11,11 @@ class Collider():
     def checkX(self):
         #check for left level border
         if(self.entity.rect.x < 0):
-            self.entity.vel.x = 0
+            self.entity.rect.x = 0
             return
         #check for right level border
-        if(self.entity.rect.x/32 > 59):
-            self.entity.vel.x = 0
+        if(self.entity.rect.x/32.0 > 59):
+            self.entity.rect.x = 59*32
             return
 
         for row in self.level:
