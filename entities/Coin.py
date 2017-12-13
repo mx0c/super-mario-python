@@ -8,10 +8,8 @@ class Coin(EntityBase):
         self.screen = screen
         self.spriteCollection = spriteCollection
         self.animation = self.spriteCollection.get('coin').animation
-        self.type = "coin"
 
     def update(self,cam):
         if(self.alive):
             self.animation.update()
             self.screen.blit(self.animation.image,(self.rect.x+cam.pos.x*32,self.rect.y))
-            self.applyGravity()

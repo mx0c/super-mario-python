@@ -51,8 +51,9 @@ class Mario(EntityBase):
     def checkEntityCollision(self):
         for ent in self.levelObj.entityList:
             collission = self.EntityCollider.check(ent)
-            if(collission != False and ent.type=="coin"):
-                self.killEntity(ent)
+            if(collission != False and ent.__class__.__name__ == "Coin"):
+                self.levelObj.entityList.remove(ent)
+                self.points += 100
             else:
                 if collission == "top" and (ent.alive == True or ent.alive == "shellBouncing"):
                     self.rect.bottom = ent.rect.top
@@ -74,12 +75,9 @@ class Mario(EntityBase):
 
     def bounce(self):
         self.traits['bounceTrait'].jump = True
-
+        
     def killEntity(self,ent):
-        if ent.__class__.__name__ == "Coin":
-            ent.alive = None
-            ent.rect = None
-        elif ent.__class__.__name__ != "Koopa":
+        if ent.__class__.__name__ != "Koopa":
             ent.alive = False
         else:
             ent.timer = 0

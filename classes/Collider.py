@@ -14,13 +14,13 @@ class Collider():
             self.entity.rect.x = 0
             return
         #check for right level border
-        if(self.entity.rect.x/32.0 > 59):
+        if(self.entity.getPosIndex().x > 58):
             self.entity.rect.x = 59*32
             return
-
-        for row in self.level:
-            for tile in row:
-                #Only check if theres a collision Rectangle
+        rows = [self.level[self.entity.getPosIndex().y],self.level[self.entity.getPosIndex().y+1]]
+        for row in rows:
+            tiles = row[self.entity.getPosIndex().x:self.entity.getPosIndex().x+2]
+            for tile in tiles:
                 if(tile.rect is not None):
                     if self.entity.rect.colliderect(tile.rect):
                         if self.entity.vel.x > 0:
@@ -31,17 +31,19 @@ class Collider():
                             self.entity.vel.x = 0
 
     def checkY(self):
-        for row in self.level:
-            for tile in row:
-                #Only check if theres a collision Rectangle
+        rows = [self.level[self.entity.getPosIndex().y],self.level[self.entity.getPosIndex().y+1]]
+        for row in rows:
+            tiles = row[self.entity.getPosIndex().x:self.entity.getPosIndex().x+2]
+            for tile in tiles:
                 if(tile.rect is not None):
                     if self.entity.rect.colliderect(tile.rect):
                         if self.entity.vel.y > 0:
                             self.entity.rect.bottom = tile.rect.top
                             self.entity.vel.y = 0
+                            #TODO: Refactor
                             try:
                                 self.entity.traits["jumpTrait"].reset()
-                            except:
+                            except Exception:
                                 pass
                         if self.entity.vel.y < 0:
                             self.entity.rect.top = tile.rect.bottom
