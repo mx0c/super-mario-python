@@ -12,11 +12,14 @@ class Collider():
         #check for left level border
         if(self.entity.rect.x < 0):
             self.entity.rect.x = 0
+            self.entity.vel.x = 0
             return
         #check for right level border
-        if(self.entity.getPosIndex().x > 58):
+        if(self.entity.rect.x/32.0 > 59):
             self.entity.rect.x = 59*32
+            self.entity.vel.x = 0
             return
+
         rows = [self.level[self.entity.getPosIndex().y],self.level[self.entity.getPosIndex().y+1]]
         for row in rows:
             tiles = row[self.entity.getPosIndex().x:self.entity.getPosIndex().x+2]
