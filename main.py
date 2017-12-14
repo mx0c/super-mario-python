@@ -12,10 +12,11 @@ def main():
     max_frame_rate = 60
 
     level = Level(screen)
-    mario = Mario(0,0,level,screen)
+    dashboard = Dashboard("./img/font.png",8,screen)
+    mario = Mario(0,0,level,screen,dashboard)
     input = Input(mario)
     clock = pygame.time.Clock()
-    dashboard = Dashboard("./img/font.png",8,screen,mario)
+
 
     while (not mario.restart):
         pygame.display.set_caption("{:.2f} FPS".format(clock.get_fps()))

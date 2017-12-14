@@ -13,7 +13,7 @@ from classes.EntityCollider import EntityCollider
 from traits.bounce import bounceTrait
 
 class Mario(EntityBase):
-    def __init__(self,x,y,level,screen,gravity=1.25):
+    def __init__(self,x,y,level,screen,dashboard,gravity=1.25):
         super(Mario,self).__init__(x,y,gravity)
         self.spriteCollection = Sprites().spriteCollection
         self.camera = Camera(self.rect)
@@ -30,7 +30,7 @@ class Mario(EntityBase):
         self.collision = Collider(self,level.level)
         self.screen = screen
         self.EntityCollider = EntityCollider(self)
-        self.points = 0
+        self.dashboard = dashboard
         self.restart = False
 
     def update(self):
@@ -53,7 +53,8 @@ class Mario(EntityBase):
             collission = self.EntityCollider.check(ent)
             if(collission != False and ent.__class__.__name__ == "Coin"):
                 self.levelObj.entityList.remove(ent)
-                self.points += 100
+                self.dashboard.points += 100
+                self.dashboard.coins += 1
             else:
                 if collission == "top" and (ent.alive == True or ent.alive == "shellBouncing"):
                     self.rect.bottom = ent.rect.top
@@ -82,5 +83,5 @@ class Mario(EntityBase):
         else:
             ent.timer = 0
             ent.alive = "sleeping"
-        self.points += 100
+        self.dashboard.points += 100
                 

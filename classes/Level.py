@@ -64,7 +64,6 @@ class Level():
                     if self.level[y][x].sprite.redrawBackground:
                         self.screen.blit(self.sprites.spriteCollection.get("sky").image,((x+camera.pos.x)*32,y*32))
                     self.level[y][x].sprite.drawSprite(x+camera.pos.x,y,self.screen)
-                    #self.level[y][x].drawRect(self.screen)
             self.updateEntities(camera)
         except IndexError:
             return

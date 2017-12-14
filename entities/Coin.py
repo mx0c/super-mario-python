@@ -1,6 +1,7 @@
 from entities.EntityBase import EntityBase
 from classes.Animation import Animation
 import pygame
+from copy import deepcopy
 
 class Coin(EntityBase):
     def __init__(self,screen,spriteCollection,x,y,gravity = 0):
