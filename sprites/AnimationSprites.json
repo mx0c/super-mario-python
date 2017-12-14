@@ -43,7 +43,7 @@
                     "scale":2
                 }
             ],
-            "deltaTime":45,
+            "deltaTime":10,
             "colorKey": -1
         }
     ]
