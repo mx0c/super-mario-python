@@ -9,15 +9,7 @@ class Collider():
         self.result = []
 
     def checkX(self):
-        #check for left level border
-        if(self.entity.rect.x < 0):
-            self.entity.rect.x = 0
-            self.entity.vel.x = 0
-            return
-        #check for right level border
-        if(self.entity.rect.x/32.0 > 59):
-            self.entity.rect.x = 59*32
-            self.entity.vel.x = 0
+        if(self.leftLevelBorderReached() or self.rightLevelBorderReached()):
             return
 
         rows = [self.level[self.entity.getPosIndex().y],self.level[self.entity.getPosIndex().y+1]]
@@ -43,12 +35,22 @@ class Collider():
                         if self.entity.vel.y > 0:
                             self.entity.rect.bottom = tile.rect.top
                             self.entity.vel.y = 0
-                            #TODO: Refactor
-                            try:
-                                self.entity.traits["jumpTrait"].reset()
-                            except Exception:
-                                pass
+                            #reset jump on bottom
+                            if self.entity.traits != None:
+                                if 'jumpTrait' in  self.entity.traits:
+                                    self.entity.traits["jumpTrait"].reset()
                         if self.entity.vel.y < 0:
                             self.entity.rect.top = tile.rect.bottom
                             self.entity.vel.y = 0
 
+    def rightLevelBorderReached(self):
+        if(self.entity.rect.x/32.0 > 59):
+            self.entity.rect.x = 59*32
+            self.entity.vel.x = 0
+            return True
+
+    def leftLevelBorderReached(self):
+          if(self.entity.rect.x < 0):
+            self.entity.rect.x = 0
+            self.entity.vel.x = 0
+            return True
