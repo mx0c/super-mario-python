@@ -1,4 +1,6 @@
 import pygame
+from pygame.transform import flip
+
 class goTrait():
     def __init__(self,animation,screen,camera,ent):
         self.animation = animation
@@ -47,6 +49,6 @@ class goTrait():
 
     def drawEntity(self):
         if(self.heading == 1):
-            self.screen.blit(self.animation.image ,(self.camera.pos.x*32+self.entity.rect.x,self.entity.rect.y))
+            self.screen.blit(self.animation.image ,self.entity.getPos())
         elif(self.heading == -1):
-            self.screen.blit(pygame.transform.flip(self.animation.image,True,False),(self.camera.pos.x*32+self.entity.rect.x,self.entity.rect.y))
+            self.screen.blit(flip(self.animation.image,True,False),self.entity.getPos())

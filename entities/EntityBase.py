@@ -8,7 +8,7 @@ class EntityBase(object):
         self.gravity = gravity
         self.traits = None
         self.alive = True
-        self.timeAfterDeath = 25
+        self.timeAfterDeath = 5
         self.timer = 0
 
     def applyGravity(self):
@@ -21,7 +21,12 @@ class EntityBase(object):
             except AttributeError:
                 pass
     
-    def getPosIndex(self):
-        x = int(self.rect.x/32)
-        y = int(self.rect.y/32)
+    def getPosIndex(self,float=False):
+        if(float):
+            x = self.rect.x/32.0
+            y = self.rect.y/32.0
+        else:
+            x = int(self.rect.x/32)
+            y = int(self.rect.y/32)
         return vec2D(x,y)
+

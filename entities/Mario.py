@@ -16,11 +16,13 @@ class Mario(EntityBase):
     def __init__(self,x,y,level,screen,dashboard,gravity=1.25):
         super(Mario,self).__init__(x,y,gravity)
         self.spriteCollection = Sprites().spriteCollection
-        self.camera = Camera(self.rect)
+        self.camera = Camera(self.rect,self)
+        
         self.animation = Animation([self.spriteCollection["mario_run1"].image,
             self.spriteCollection["mario_run2"].image,
             self.spriteCollection["mario_run3"].image
         ],self.spriteCollection["mario_idle"].image,self.spriteCollection["mario_jump"].image)
+
         self.traits = {
             "jumpTrait":jumpTrait(self),
             "goTrait":goTrait(self.animation,screen,self.camera,self),
@@ -36,6 +38,8 @@ class Mario(EntityBase):
     def update(self):
         self.updateTraits()
         self.moveMario()
+        self.camera.move()
+        self.checkEntityCollision()
         self.applyGravity()
 
     def moveMario(self):
@@ -43,10 +47,6 @@ class Mario(EntityBase):
         self.collision.checkY()
         self.rect.x += self.vel.x
         self.collision.checkX()
-        #Camera Offset + Camera Move
-        if self.rect.x/32.0 > 10 and self.rect.x/32.0 < 50:
-            self.camera.pos.x = -self.rect.x/32.0+10
-        self.checkEntityCollision()
 
     def checkEntityCollision(self):
         for ent in self.levelObj.entityList:
@@ -71,7 +71,6 @@ class Mario(EntityBase):
                         ent.leftrightTrait.direction = -1
                     ent.alive = "shellBouncing"
                 elif collission and ent.alive == True:
-                    #game over
                     self.gameOver()
 
     def bounce(self):
@@ -96,3 +95,5 @@ class Mario(EntityBase):
             pygame.display.update()
         self.restart = True
 
+    def getPos(self):
+        return (self.camera.pos.x*32+self.rect.x, self.rect.y)

@@ -11,8 +11,10 @@ class Collider():
     def checkX(self):
         if(self.leftLevelBorderReached() or self.rightLevelBorderReached()):
             return
-
-        rows = [self.level[self.entity.getPosIndex().y],self.level[self.entity.getPosIndex().y+1]]
+        try:
+            rows = [self.level[self.entity.getPosIndex().y],self.level[self.entity.getPosIndex().y+1]]
+        except Exception:
+            return
         for row in rows:
             tiles = row[self.entity.getPosIndex().x:self.entity.getPosIndex().x+2]
             for tile in tiles:
@@ -26,7 +28,14 @@ class Collider():
                             self.entity.vel.x = 0
 
     def checkY(self):
-        rows = [self.level[self.entity.getPosIndex().y],self.level[self.entity.getPosIndex().y+1]]
+        try:
+            rows = [self.level[self.entity.getPosIndex().y],self.level[self.entity.getPosIndex().y+1]]
+        except Exception:
+            try:
+                self.entity.gameOver()
+            except Exception:
+                self.entity.alive = None
+            return
         for row in rows:
             tiles = row[self.entity.getPosIndex().x:self.entity.getPosIndex().x+2]
             for tile in tiles:
@@ -44,7 +53,7 @@ class Collider():
                             self.entity.vel.y = 0
 
     def rightLevelBorderReached(self):
-        if(self.entity.rect.x/32.0 > 59):
+        if(self.entity.getPosIndex(True).x > 59):
             self.entity.rect.x = 59*32
             self.entity.vel.x = 0
             return True

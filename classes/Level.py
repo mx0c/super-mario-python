@@ -5,6 +5,7 @@ from entities.Goomba import Goomba
 from entities.Koopa import Koopa
 from classes.Tile import Tile
 from entities.Coin import Coin
+from copy import deepcopy
 
 class Level():
     def __init__(self,screen):
@@ -41,6 +42,8 @@ class Level():
                         self.addPipeSprite(position[0],position[1],position[2])
                     elif(obj['name'] == "coin"):
                         self.addCoin(position[0],position[1])
+                    elif(obj['name'] == "sky"):
+                        self.level[position[1]][position[0]] = Tile(self.sprites.spriteCollection.get(obj['name']),None)
                     else:
                         self.level[position[1]][position[0]] = Tile(self.sprites.spriteCollection.get(obj['name']),pygame.Rect(position[0]*32,position[1]*32,32,32))
             for entity in data['level']['entities']:
