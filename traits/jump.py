@@ -17,7 +17,7 @@ class jumpTrait():
                 self.entity.vel.y -= self.vel
             if(self.timer > self.jumpHeight):
                 self.maxReached = True
-                self.entity.gravity = 1.25
+                self.entity.gravity = 1.00
     
     def reset(self):
         self.timer = 0

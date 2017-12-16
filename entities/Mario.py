@@ -72,7 +72,7 @@ class Mario(EntityBase):
                     ent.alive = "shellBouncing"
                 elif collission and ent.alive == True:
                     #game over
-                    self.restart = True
+                    self.gameOver()
 
     def bounce(self):
         self.traits['bounceTrait'].jump = True
@@ -85,3 +85,14 @@ class Mario(EntityBase):
             ent.alive = "sleeping"
         self.dashboard.points += 100
                 
+    def gameOver(self):
+        srf = pygame.Surface((640,480))
+        srf.set_colorkey((255,255,255), pygame.RLEACCEL)
+        
+        for i in range(500,20,-3):
+            srf.fill((0,0,0))
+            pygame.draw.circle(srf,(255,255,255),(int(self.camera.pos.x*32+self.rect.x)+16,self.rect.y+16),i)
+            self.screen.blit(srf,(0,0))
+            pygame.display.update()
+        self.restart = True
+
