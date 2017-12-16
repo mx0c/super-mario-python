@@ -4,14 +4,9 @@ This is inspired by Meth-Meth-Method's: https://github.com/meth-meth-method/supe
 
 ## Running
 
-* Install Python
-* Run `pip install pygame`.
 * Clone repository.
+* Run `pip install pygame`.
 * Run `python main.py`.
-
-## Dependencies
-
-* Pygame
 
 ## Have Fun
 
