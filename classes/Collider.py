@@ -5,7 +5,8 @@ from classes.Tile import Tile
 class Collider():
     def __init__(self,entity,level):
         self.entity = entity
-        self.level = level
+        self.level = level.level
+        self.levelObj = level
         self.result = []
 
     def checkX(self):
@@ -53,8 +54,8 @@ class Collider():
                             self.entity.vel.y = 0
 
     def rightLevelBorderReached(self):
-        if(self.entity.getPosIndex(True).x > 59):
-            self.entity.rect.x = 59*32
+        if(self.entity.getPosIndex(True).x > self.levelObj.levelLength-1):
+            self.entity.rect.x = (self.levelObj.levelLength-1)*32
             self.entity.vel.x = 0
             return True
 

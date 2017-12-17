@@ -1,5 +1,6 @@
 {
     "id":0,
+    "length":60,
     "level":{
         "objects":[
             {
@@ -31,14 +32,6 @@
                     [32,3],
                     [42,6],
                     [55,4]
-                ]
-            },
-            {
-                "name":"randomBox",
-                "positions":[
-                    [4,9],
-                    [42,5],
-                    [56,2]
                 ]
             },
             {
@@ -76,6 +69,32 @@
                     [58,8],
                     [59,8]
                 ]
+            }
+        ],
+        "layers":[
+            {
+                "spritename":"sky",
+                "ranges":{
+                    "x":[0,60],
+                    "y":[0,13]
+                }
+            },
+            {
+                "spritename":"ground",
+                "ranges":{
+                    "x":[0,60],
+                    "y":[14,16]
+                }
+            }
+        ],
+        "entities":[
+            {
+                "name":"randomBox",
+                "positions":[
+                    [4,9],
+                    [42,5],
+                    [56,2]
+                ]
             },
             {
                 "name":"coin",
@@ -109,28 +128,10 @@
                     [56,11],
                     [56,12]
                 ]
-            }
-        ],
-        "layers":[
-            {
-                "spritename":"sky",
-                "ranges":{
-                    "x":[0,60],
-                    "y":[0,13]
-                }
             },
             {
-                "spritename":"ground",
-                "ranges":{
-                    "x":[0,60],
-                    "y":[14,16]
-                }
-            }
-        ],
-        "entities":[
-            {
                 "name":"Goomba",
-                "pos": [
+                "positions": [
                     [12,12],
                     [12,15],
                     [10,8]
@@ -138,7 +139,7 @@
             },
             {
                 "name":"Koopa",
-                "pos": [
+                "positions": [
                     [12,25],
                     [12,22],
                     [12,33],

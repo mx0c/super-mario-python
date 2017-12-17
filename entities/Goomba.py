@@ -13,6 +13,7 @@ class Goomba(EntityBase):
                                     self.spriteCollection.get("goomba-2").image])
         self.screen = screen
         self.leftrightTrait = LeftRightWalkTrait(self,level)
+        self.type = "Mob"
 
     def update(self,camera):
         if(self.alive):

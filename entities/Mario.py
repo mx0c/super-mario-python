@@ -29,7 +29,7 @@ class Mario(EntityBase):
             "bounceTrait":bounceTrait(self)
         }
         self.levelObj = level
-        self.collision = Collider(self,level.level)
+        self.collision = Collider(self,level)
         self.screen = screen
         self.EntityCollider = EntityCollider(self)
         self.dashboard = dashboard
@@ -39,8 +39,8 @@ class Mario(EntityBase):
         self.updateTraits()
         self.moveMario()
         self.camera.move()
-        self.checkEntityCollision()
         self.applyGravity()
+        self.checkEntityCollision()
 
     def moveMario(self):
         self.rect.y += self.vel.y
@@ -51,27 +51,30 @@ class Mario(EntityBase):
     def checkEntityCollision(self):
         for ent in self.levelObj.entityList:
             collission = self.EntityCollider.check(ent)
-            if(collission != False and ent.__class__.__name__ == "Coin"):
-                self.levelObj.entityList.remove(ent)
-                self.dashboard.points += 100
-                self.dashboard.coins += 1
-            else:
-                if collission == "top" and (ent.alive == True or ent.alive == "shellBouncing"):
-                    self.rect.bottom = ent.rect.top
-                    self.bounce()
-                    self.killEntity(ent)
-                elif collission == "top" and ent.alive == "sleeping":
-                    self.rect.bottom = ent.rect.top
-                    self.bounce()
-                    ent.alive = False
-                elif collission and ent.alive == "sleeping":
-                    if(ent.rect.right < self.rect.left):
-                        ent.leftrightTrait.direction = 1
-                    else:
-                        ent.leftrightTrait.direction = -1
-                    ent.alive = "shellBouncing"
-                elif collission and ent.alive == True:
-                    self.gameOver()
+            if(collission != False):
+                if(ent.type == "Item"):
+                        self.levelObj.entityList.remove(ent)
+                        self.dashboard.points += 100
+                        self.dashboard.coins += 1
+                elif(ent.type == "Block"):
+                    ent.triggered = True
+                elif(ent.type == "Mob"):
+                    if collission == "top" and (ent.alive == True or ent.alive == "shellBouncing"):
+                        self.rect.bottom = ent.rect.top
+                        self.bounce()
+                        self.killEntity(ent)
+                    elif collission == "top" and ent.alive == "sleeping":
+                        self.rect.bottom = ent.rect.top
+                        self.bounce()
+                        ent.alive = False
+                    elif collission and ent.alive == "sleeping":
+                        if(ent.rect.x < self.rect.x):
+                            ent.leftrightTrait.direction = -1
+                        else:
+                            ent.leftrightTrait.direction = 1
+                        ent.alive = "shellBouncing"
+                    elif collission and ent.alive == True:
+                        self.gameOver()
 
     def bounce(self):
         self.traits['bounceTrait'].jump = True

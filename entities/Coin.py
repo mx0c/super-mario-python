@@ -9,6 +9,7 @@ class Coin(EntityBase):
         self.screen = screen
         self.spriteCollection = spriteCollection
         self.animation = copy(self.spriteCollection.get('coin').animation)
+        self.type = "Item"
 
     def update(self,cam):
         if(self.alive):

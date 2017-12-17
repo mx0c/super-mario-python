@@ -27,6 +27,14 @@
             "collision":true
         },
         {
+            "name":"empty",
+            "x":27,
+            "y":0,
+            "redrawBg":false,
+            "scalefactor":2,
+            "collision":true
+        },
+        {
             "name":"pipeL",
             "x":0,
             "y":10,

@@ -10,6 +10,7 @@ class EntityBase(object):
         self.alive = True
         self.timeAfterDeath = 5
         self.timer = 0
+        self.type = ""
 
     def applyGravity(self):
          self.vel.y += self.gravity

@@ -15,6 +15,7 @@ class Koopa(EntityBase):
         self.leftrightTrait = LeftRightWalkTrait(self,level)
         self.timer = 0
         self.timeAfterDeath = 35
+        self.type = "Mob"
 
     def update(self,camera):
         if(self.alive == True):
