@@ -11,12 +11,14 @@ from classes.Camera import Camera
 from entities.EntityBase import EntityBase
 from classes.EntityCollider import EntityCollider
 from traits.bounce import bounceTrait
+from sfx.Sound import Sound
 
 class Mario(EntityBase):
     def __init__(self,x,y,level,screen,dashboard,gravity=1.25):
         super(Mario,self).__init__(x,y,gravity)
         self.spriteCollection = Sprites().spriteCollection
         self.camera = Camera(self.rect,self)
+        self.sound = Sound()
         
         self.animation = Animation([self.spriteCollection["mario_run1"].image,
             self.spriteCollection["mario_run2"].image,
@@ -56,7 +58,10 @@ class Mario(EntityBase):
                         self.levelObj.entityList.remove(ent)
                         self.dashboard.points += 100
                         self.dashboard.coins += 1
+                        self.sound.play_sfx(self.sound.coin)
                 elif(ent.type == "Block"):
+                    if(not ent.triggered):
+                        self.sound.play_sfx(self.sound.bump)
                     ent.triggered = True
                 elif(ent.type == "Mob"):
                     if collission == "top" and (ent.alive == True or ent.alive == "shellBouncing"):
