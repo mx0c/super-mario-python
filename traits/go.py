@@ -16,7 +16,7 @@ class goTrait():
 
     def update(self):
         if(self.boost):
-            self.maxVel = 6.4
+            self.maxVel = 5.5
         else:
             if(abs(self.entity.vel.x) > 3.2):
                 self.entity.vel.x = 3.2 * self.heading
