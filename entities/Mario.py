@@ -64,6 +64,8 @@ class Mario(EntityBase):
                         self.sound.play_sfx(self.sound.bump)
                     ent.triggered = True
                 elif(ent.type == "Mob"):
+                    if(collission == "top"):
+                        self.sound.play_sfx(self.sound.bump)
                     if collission == "top" and (ent.alive == True or ent.alive == "shellBouncing"):
                         self.rect.bottom = ent.rect.top
                         self.bounce()
