@@ -17,7 +17,6 @@ def main():
     input = Input(mario)
     clock = pygame.time.Clock()
 
-
     while (not mario.restart):
         pygame.display.set_caption("{:.2f} FPS".format(clock.get_fps()))
         level.drawLevel(mario.camera)
@@ -26,6 +25,7 @@ def main():
         mario.update()
         pygame.display.update()
         clock.tick(max_frame_rate)
+    mario.sound.shutdown()
     main()
 
 if __name__ == "__main__":
