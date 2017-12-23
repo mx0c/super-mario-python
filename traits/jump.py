@@ -9,6 +9,8 @@ class jumpTrait():
         self.entity = entity
 
     def start(self):
+        if(not self.inAir and not self.maxReached):
+            self.entity.sound.jump.play()
         if(not self.maxReached and not self.entity.traits["bounceTrait"].jump):
             self.inAir = True
             self.entity.gravity = 0

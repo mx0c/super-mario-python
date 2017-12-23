@@ -11,7 +11,7 @@ from classes.Camera import Camera
 from entities.EntityBase import EntityBase
 from classes.EntityCollider import EntityCollider
 from traits.bounce import bounceTrait
-from sfx.Sound import Sound
+from classes.Sound import Sound
 
 class Mario(EntityBase):
     def __init__(self,x,y,level,screen,dashboard,gravity=1.25):
@@ -64,13 +64,13 @@ class Mario(EntityBase):
                         self.sound.play_sfx(self.sound.bump)
                     ent.triggered = True
                 elif(ent.type == "Mob"):
-                    if(collission == "top"):
-                        self.sound.play_sfx(self.sound.bump)
                     if collission == "top" and (ent.alive == True or ent.alive == "shellBouncing"):
+                        self.sound.play_sfx(self.sound.stomp)
                         self.rect.bottom = ent.rect.top
                         self.bounce()
                         self.killEntity(ent)
                     elif collission == "top" and ent.alive == "sleeping":
+                        self.sound.play_sfx(self.sound.stomp)
                         self.rect.bottom = ent.rect.top
                         self.bounce()
                         ent.alive = False
@@ -97,12 +97,16 @@ class Mario(EntityBase):
     def gameOver(self):
         srf = pygame.Surface((640,480))
         srf.set_colorkey((255,255,255), pygame.RLEACCEL)
+        self.sound.sfx_channel.play(self.sound.death)
+        self.sound.music_channel.stop()
         
-        for i in range(500,20,-3):
+        for i in range(500,20,-2):
             srf.fill((0,0,0))
             pygame.draw.circle(srf,(255,255,255),(int(self.camera.pos.x*32+self.rect.x)+16,self.rect.y+16),i)
             self.screen.blit(srf,(0,0))
             pygame.display.update()
+        while(self.sound.sfx_channel.get_busy()):
+            pass
         self.restart = True
 
     def getPos(self):

@@ -7,7 +7,7 @@ from classes.Input import Input
 from classes.Dashboard import Dashboard
 
 def main():
-    pygame.mixer.pre_init(44100, -16, 2, 2048)
+    pygame.mixer.pre_init(44100, -16, 2, 4096)
     pygame.init()
     screen = pygame.display.set_mode((640, 480))
     max_frame_rate = 60
@@ -26,7 +26,6 @@ def main():
         mario.update()
         pygame.display.update()
         clock.tick(max_frame_rate)
-    mario.sound.shutdown()
     main()
 
 if __name__ == "__main__":
