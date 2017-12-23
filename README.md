@@ -8,9 +8,13 @@ This is inspired by Meth-Meth-Method's: https://github.com/meth-meth-method/supe
 * Run `pip install pygame`.
 * Run `python main.py`.
 
-## Have Fun
+## Controls
 
-Have fun by pressing left or right mouse button 😛
+LeftArrowKey: Move left
+RightArrowKey: Move right
+Space: Jump
+Shift: Boost
+Left and right Mouseclick: Try it 😛
 
 ## How it looks so far:
 ![Alt text](https://i.imgur.com/pGf4624.png)
