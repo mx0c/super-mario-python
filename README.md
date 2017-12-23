@@ -10,11 +10,11 @@ This is inspired by Meth-Meth-Method's: https://github.com/meth-meth-method/supe
 
 ## Controls
 
-LeftArrowKey: Move left
-RightArrowKey: Move right
-Space: Jump
-Shift: Boost
-Left and right Mouseclick: Try it 😛
+* LeftArrowKey: Move left  
+* RightArrowKey: Move right  
+* Space: Jump  
+* Shift: Boost   
+* Left and right Mouseclick: Try it 😛   
 
 ## How it looks so far:
 ![Alt text](https://i.imgur.com/pGf4624.png)
