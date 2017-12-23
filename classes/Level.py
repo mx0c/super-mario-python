@@ -9,8 +9,10 @@ from entities.Coin import Coin
 from copy import copy
 
 class Level():
-    def __init__(self,screen):
+    def __init__(self,screen,sound,dashboard):
         self.sprites = Sprites()
+        self.dashboard = dashboard
+        self.sound = sound
         self.screen = screen
         self.level = None
         self.levelLength = 0
@@ -124,7 +126,7 @@ class Level():
             pygame.Rect(x*32,y*32-1,32,32)
         )
         self.entityList.append(
-            RandomBox(self.screen,self.sprites.spriteCollection,x,y)
+            RandomBox(self.screen,self.sprites.spriteCollection,x,y,self.sound,self.dashboard)
         )
 
     def addCoin(self,x,y):

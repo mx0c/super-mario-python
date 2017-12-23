@@ -5,6 +5,7 @@ from classes.Level import Level
 from entities.Mario import Mario
 from classes.Input import Input
 from classes.Dashboard import Dashboard
+from classes.Sound import Sound
 
 def main():
     pygame.mixer.pre_init(44100, -16, 2, 4096)
@@ -12,9 +13,10 @@ def main():
     screen = pygame.display.set_mode((640, 480))
     max_frame_rate = 60
 
-    level = Level(screen)
+    sound = Sound()
     dashboard = Dashboard("./img/font.png",8,screen)
-    mario = Mario(0,0,level,screen,dashboard)
+    level = Level(screen,sound,dashboard)
+    mario = Mario(0,0,level,screen,dashboard,sound)
     input = Input(mario)
     clock = pygame.time.Clock()
 

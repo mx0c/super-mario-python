@@ -14,11 +14,11 @@ from traits.bounce import bounceTrait
 from classes.Sound import Sound
 
 class Mario(EntityBase):
-    def __init__(self,x,y,level,screen,dashboard,gravity=1.25):
+    def __init__(self,x,y,level,screen,dashboard,sound,gravity=1.25):
         super(Mario,self).__init__(x,y,gravity)
         self.spriteCollection = Sprites().spriteCollection
         self.camera = Camera(self.rect,self)
-        self.sound = Sound()
+        self.sound = sound
         
         self.animation = Animation([self.spriteCollection["mario_run1"].image,
             self.spriteCollection["mario_run2"].image,
