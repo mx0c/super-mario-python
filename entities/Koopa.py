@@ -1,6 +1,6 @@
 from classes.Sprites import Sprites
 from classes.Animation import Animation
-import classes.Maths
+from classes.Maths import vec2D
 import pygame
 from traits.leftrightwalk import LeftRightWalkTrait
 from entities.EntityBase import EntityBase
@@ -16,6 +16,7 @@ class Koopa(EntityBase):
         self.timer = 0
         self.timeAfterDeath = 35
         self.type = "Mob"
+        self.dashboard = level.dashboard
 
     def update(self,camera):
         if(self.alive == True):
@@ -41,13 +42,19 @@ class Koopa(EntityBase):
         self.leftrightTrait.update()
 
     def die(self,camera):
+        if(self.timer == 0):
+            self.textPos = vec2D(self.rect.x+3,self.rect.y-32)
         if(self.timer < self.timeAfterDeath):
+            self.textPos.y+=-0.5
+            self.dashboard.drawText("100",self.textPos.x+camera.pos.x*32,self.textPos.y,8)
             self.vel.y -= 0.5
             self.rect.y += self.vel.y
             self.screen.blit(self.spriteCollection.get("koopa-hiding").image,(self.rect.x+camera.pos.x*32,self.rect.y-32))
         else:
             self.vel.y += 0.3
             self.rect.y += self.vel.y
+            self.textPos.y+=-0.5
+            self.dashboard.drawText("100",self.textPos.x+camera.pos.x*32,self.textPos.y,8)
             self.screen.blit(self.spriteCollection.get("koopa-hiding").image,(self.rect.x+camera.pos.x*32,self.rect.y-32))
             if(self.timer > 500):
                 #delete entity

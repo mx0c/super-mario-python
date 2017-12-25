@@ -11,8 +11,9 @@ class Sprites():
         self.spriteCollection = self.loadSprites([  "./sprites/Mario.json",
                                                     "./sprites/Goomba.json",
                                                     "./sprites/Koopa.json",
-                                                    "./sprites/AnimationSprites.json",
-                                                    "./sprites/BackgroundSprites.json"])
+                                                    "./sprites/Animations.json",
+                                                    "./sprites/BackgroundSprites.json",
+                                                    "./sprites/ItemAnimations.json"])
 
     def loadSprites(self,urlList):
         resDict = {}
@@ -38,7 +39,7 @@ class Sprites():
                         dic[sprite['name']] = Sprite(None,None,animation = Animation(images,deltaTime = sprite["deltaTime"]))
                     resDict.update(dic)
                     continue
-                elif data['type'] == "character":
+                elif data['type'] == "character" or data['type'] == "item":
                     for sprite in data['sprites']:
                         try: 
                             colorkey = sprite['colorKey']

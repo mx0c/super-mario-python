@@ -21,7 +21,7 @@ class EntityBase(object):
                 trait.update()
             except AttributeError:
                 pass
-    
+
     def getPosIndex(self,float=False):
         if(float):
             x = self.rect.x/32.0

@@ -2,9 +2,10 @@ from entities.EntityBase import EntityBase
 from classes.Animation import Animation
 import pygame
 from copy import copy
+from entities.Item import Item
 
 class RandomBox(EntityBase):
-    def __init__(self,screen,spriteCollection,x,y,gravity = 0):
+    def __init__(self,screen,spriteCollection,x,y,sound,dashboard,gravity = 0):
         super(RandomBox,self).__init__(x,y,gravity)
         self.screen = screen
         self.spriteCollection = spriteCollection
@@ -13,26 +14,25 @@ class RandomBox(EntityBase):
         self.triggered = False
         self.time = 0
         self.maxTime = 10
+        self.sound = sound
+        self.dashboard = dashboard
         self.vel = 1
+        self.item = Item(spriteCollection,screen,self.rect.x,self.rect.y)
 
     def update(self,cam):
         if(self.alive and self.triggered == False):
-            self.animation.update()
-            self.screen.blit(self.spriteCollection.get("sky").image,(self.rect.x+cam.pos.x*32,self.rect.y))
-            self.screen.blit(self.animation.image,(self.rect.x+cam.pos.x*32,self.rect.y-1))
+            self.animation.update()      
         else:
             self.animation.image = self.spriteCollection.get("empty").image
+            self.item.spawnCoin(cam,self.sound,self.dashboard)
             if(self.time < self.maxTime):
                 self.time +=1
                 self.rect.y -= self.vel
-                self.screen.blit(self.spriteCollection.get("sky").image,(self.rect.x+cam.pos.x*32,self.rect.y+2))
-                self.screen.blit(self.animation.image,(self.rect.x+cam.pos.x*32,self.rect.y-1))
             else:
                 if(self.time < self.maxTime*2):
                     self.time+=1
                     self.rect.y += self.vel
-                    self.screen.blit(self.spriteCollection.get("sky").image,(self.rect.x+cam.pos.x*32,self.rect.y+2))
-                    self.screen.blit(self.animation.image,(self.rect.x+cam.pos.x*32,self.rect.y-1))
-                else:
-                    self.screen.blit(self.spriteCollection.get("sky").image,(self.rect.x+cam.pos.x*32,self.rect.y))
-                    self.screen.blit(self.animation.image,(self.rect.x+cam.pos.x*32,self.rect.y-1))
+        self.screen.blit(self.spriteCollection.get("sky").image,(self.rect.x+cam.pos.x*32,self.rect.y+2))
+        self.screen.blit(self.animation.image,(self.rect.x+cam.pos.x*32,self.rect.y-1))
+
+

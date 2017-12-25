@@ -1,6 +1,6 @@
 from classes.Sprites import Sprites
 from classes.Animation import Animation
-import classes.Maths
+from classes.Maths import vec2D
 from traits.leftrightwalk import LeftRightWalkTrait
 from entities.EntityBase import EntityBase
 import pygame
@@ -14,6 +14,8 @@ class Goomba(EntityBase):
         self.screen = screen
         self.leftrightTrait = LeftRightWalkTrait(self,level)
         self.type = "Mob"
+        self.dashboard = level.dashboard
+
 
     def update(self,camera):
         if(self.alive):
@@ -22,7 +24,11 @@ class Goomba(EntityBase):
             self.animation.update()
             self.leftrightTrait.update()
         else:
+            if(self.timer == 0):
+                self.textPos = vec2D(self.rect.x+3,self.rect.y)
             if(self.timer < self.timeAfterDeath):
+                self.textPos.y+= -0.5
+                self.dashboard.drawText("100",self.textPos.x+camera.pos.x*32,self.textPos.y,8)
                 self.screen.blit(self.spriteCollection.get("goomba-flat").image,(self.rect.x+camera.pos.x*32,self.rect.y))
             else:
                 self.alive = None
