@@ -17,7 +17,7 @@ class RandomBox(EntityBase):
         self.sound = sound
         self.dashboard = dashboard
         self.vel = 1
-        self.item = Item(spriteCollection,screen,self.rect.x,self.rect.y-16)
+        self.item = Item(spriteCollection,screen,self.rect.x,self.rect.y)
 
     def update(self,cam):
         if(self.alive and self.triggered == False):

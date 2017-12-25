@@ -55,10 +55,10 @@ class Mario(EntityBase):
             collission = self.EntityCollider.check(ent)
             if(collission != False):
                 if(ent.type == "Item"):
-                        self.levelObj.entityList.remove(ent)
-                        self.dashboard.points += 100
-                        self.dashboard.coins += 1
-                        self.sound.play_sfx(self.sound.coin)
+                    self.levelObj.entityList.remove(ent)
+                    self.dashboard.points += 100
+                    self.dashboard.coins += 1
+                    self.sound.play_sfx(self.sound.coin)
                 elif(ent.type == "Block"):
                     if(not ent.triggered):
                         self.sound.play_sfx(self.sound.bump)
@@ -72,6 +72,7 @@ class Mario(EntityBase):
                     elif collission == "top" and ent.alive == "sleeping":
                         self.sound.play_sfx(self.sound.stomp)
                         self.rect.bottom = ent.rect.top
+                        ent.timer = 0
                         self.bounce()
                         ent.alive = False
                     elif collission and ent.alive == "sleeping":
@@ -106,6 +107,7 @@ class Mario(EntityBase):
             self.screen.blit(srf,(0,0))
             pygame.display.update()
         while(self.sound.sfx_channel.get_busy()):
+            pygame.display.update()
             pass
         self.restart = True
 

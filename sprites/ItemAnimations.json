@@ -8,22 +8,22 @@
                 {
                     "x":0, 
                     "y":7,
-                    "scale":1
+                    "scale":2
                 },
                 {
                     "x":1, 
                     "y":7,
-                    "scale":1
+                    "scale":2
                 },
                 {
                     "x":2, 
                     "y":7,
-                    "scale":1
+                    "scale":2
                 },
                 {
                     "x":3, 
                     "y":7,
-                    "scale":1
+                    "scale":2
                 }
             ],
             "deltaTime":10,
