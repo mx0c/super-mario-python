@@ -14,4 +14,4 @@ class Coin(EntityBase):
     def update(self,cam):
         if(self.alive):
             self.animation.update()
-            self.screen.blit(self.animation.image,(self.rect.x+cam.pos.x*32,self.rect.y))
+            self.screen.blit(self.animation.image,(self.rect.x+cam.x,self.rect.y))

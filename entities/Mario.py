@@ -103,7 +103,7 @@ class Mario(EntityBase):
         
         for i in range(500,20,-2):
             srf.fill((0,0,0))
-            pygame.draw.circle(srf,(255,255,255),(int(self.camera.pos.x*32+self.rect.x)+16,self.rect.y+16),i)
+            pygame.draw.circle(srf,(255,255,255),(int(self.camera.x+self.rect.x)+16,self.rect.y+16),i)
             self.screen.blit(srf,(0,0))
             pygame.display.update()
         while(self.sound.sfx_channel.get_busy()):
@@ -112,4 +112,4 @@ class Mario(EntityBase):
         self.restart = True
 
     def getPos(self):
-        return (self.camera.pos.x*32+self.rect.x, self.rect.y)
+        return (self.camera.x+self.rect.x, self.rect.y)

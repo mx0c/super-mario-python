@@ -32,7 +32,7 @@ class RandomBox(EntityBase):
                 if(self.time < self.maxTime*2):
                     self.time+=1
                     self.rect.y += self.vel
-        self.screen.blit(self.spriteCollection.get("sky").image,(self.rect.x+cam.pos.x*32,self.rect.y+2))
-        self.screen.blit(self.animation.image,(self.rect.x+cam.pos.x*32,self.rect.y-1))
+        self.screen.blit(self.spriteCollection.get("sky").image,(self.rect.x+cam.x,self.rect.y+2))
+        self.screen.blit(self.animation.image,(self.rect.x+cam.x,self.rect.y-1))
 
 

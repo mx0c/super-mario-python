@@ -28,8 +28,8 @@ class Item(Dashboard):
             elif(self.coin_animation.timer < 45):
                 self.itemVel.y+=0.5
                 self.ItemPos.y += self.itemVel.y
-            self.screen.blit(self.coin_animation.image,(self.ItemPos.x+cam.pos.x*32,self.ItemPos.y))
+            self.screen.blit(self.coin_animation.image,(self.ItemPos.x+cam.x,self.ItemPos.y))
         elif(self.coin_animation.timer < 80):
             self.itemVel.y = -0.75
             self.ItemPos.y += self.itemVel.y
-            self.drawText("100",self.ItemPos.x+3+cam.pos.x*32,self.ItemPos.y,8)
+            self.drawText("100",self.ItemPos.x+3+cam.x,self.ItemPos.y,8)

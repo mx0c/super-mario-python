@@ -14,4 +14,4 @@ class Sprite():
             screen.blit(self.image,dimensions)
         else:
             self.animation.update()
-            screen.blit(self.animation.image,(x*32,y*32))
+            screen.blit(self.animation.image,dimensions)

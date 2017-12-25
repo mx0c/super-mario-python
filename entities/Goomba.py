@@ -20,7 +20,7 @@ class Goomba(EntityBase):
     def update(self,camera):
         if(self.alive):
             self.applyGravity()
-            self.screen.blit(self.animation.image,(self.rect.x+camera.pos.x*32,self.rect.y))
+            self.screen.blit(self.animation.image,(self.rect.x+camera.x,self.rect.y))
             self.animation.update()
             self.leftrightTrait.update()
         else:
@@ -28,8 +28,8 @@ class Goomba(EntityBase):
                 self.textPos = vec2D(self.rect.x+3,self.rect.y)
             if(self.timer < self.timeAfterDeath):
                 self.textPos.y+= -0.5
-                self.dashboard.drawText("100",self.textPos.x+camera.pos.x*32,self.textPos.y,8)
-                self.screen.blit(self.spriteCollection.get("goomba-flat").image,(self.rect.x+camera.pos.x*32,self.rect.y))
+                self.dashboard.drawText("100",self.textPos.x+camera.x,self.textPos.y,8)
+                self.screen.blit(self.spriteCollection.get("goomba-flat").image,(self.rect.x+camera.x,self.rect.y))
             else:
                 self.alive = None
             self.timer+=0.1
