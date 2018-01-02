@@ -98,7 +98,7 @@ class Mario(EntityBase):
     def gameOver(self):
         srf = pygame.Surface((640,480))
         srf.set_colorkey((255,255,255), pygame.RLEACCEL)
-        self.sound.sfx_channel.play(self.sound.death)
+        self.sound.play_sfx(self.sound.death)
         self.sound.music_channel.stop()
         
         for i in range(500,20,-2):

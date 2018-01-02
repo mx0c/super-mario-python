@@ -46,6 +46,6 @@ class Input():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                sys.exit()
+                self.entity.restart = True
             if event.type == pygame.KEYDOWN and event.key == pygame.K_F5:
                 self.entity.restart = True

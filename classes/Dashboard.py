@@ -4,6 +4,7 @@ import pygame
 class Dashboard(Font):
     def __init__(self,filePath,size,screen):
         Font.__init__(self,filePath,size)
+        self.state = "menu"
         self.screen = screen
         self.levelName = "1-1"
         self.points = 0
@@ -21,7 +22,8 @@ class Dashboard(Font):
         self.drawText(str(self.levelName),395,37,15)
 
         self.drawText("TIME",520,20,15)
-        self.drawText(self.genTimeString(),535,37,15)
+        if(self.state != "menu"):
+            self.drawText(self.genTimeString(),535,37,15)
 
         #update Time
         self.ticks+=1

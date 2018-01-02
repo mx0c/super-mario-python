@@ -50,6 +50,15 @@
             "scalefactor":2,
             "colorKey":-1,
             "collision":false
+        },
+        {
+            "name":"mario_dead",
+            "x":355,
+            "y":44,
+            "scalefactor":2,
+            "colorKey":-1,
+            "collision":false
+
         }
     ]
 }
