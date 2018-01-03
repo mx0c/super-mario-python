@@ -12,6 +12,7 @@ from entities.EntityBase import EntityBase
 from classes.EntityCollider import EntityCollider
 from traits.bounce import bounceTrait
 from classes.Sound import Sound
+from classes.Input import Input
 
 class Mario(EntityBase):
     def __init__(self,x,y,level,screen,dashboard,sound,gravity=1.25):
@@ -19,6 +20,7 @@ class Mario(EntityBase):
         self.spriteCollection = Sprites().spriteCollection
         self.camera = Camera(self.rect,self)
         self.sound = sound
+        self.input = Input(self)
         
         self.animation = Animation([self.spriteCollection["mario_run1"].image,
             self.spriteCollection["mario_run2"].image,
@@ -43,6 +45,7 @@ class Mario(EntityBase):
         self.camera.move()
         self.applyGravity()
         self.checkEntityCollision()
+        self.input.checkForInput()
 
     def moveMario(self):
         self.rect.y += self.vel.y
@@ -106,9 +109,10 @@ class Mario(EntityBase):
             pygame.draw.circle(srf,(255,255,255),(int(self.camera.x+self.rect.x)+16,self.rect.y+16),i)
             self.screen.blit(srf,(0,0))
             pygame.display.update()
+            self.input.checkForInput()
         while(self.sound.sfx_channel.get_busy()):
             pygame.display.update()
-            pass
+            self.input.checkForInput()
         self.restart = True
 
     def getPos(self):

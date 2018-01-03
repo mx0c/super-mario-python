@@ -18,17 +18,17 @@ def main():
     sound = Sound()
     level = Level(screen,sound,dashboard)
     menu = Menu(screen,dashboard,level,sound)
+    
     while(not menu.start):
         menu.update()
+    
     mario = Mario(0,0,level,screen,dashboard,sound)
-    input = Input(mario)
     clock = pygame.time.Clock()
 
     while (not mario.restart):
         pygame.display.set_caption("{:.2f} FPS".format(clock.get_fps()))
         level.drawLevel(mario.camera)
         dashboard.update()
-        input.checkForInput()
         mario.update()
         pygame.display.update()
         clock.tick(max_frame_rate)
