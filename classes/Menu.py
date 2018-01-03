@@ -71,7 +71,11 @@ class Menu():
             for x in range(0,20):
                 self.screen.blit(self.level.sprites.spriteCollection.get("ground").image,(x*32,y*32))
         self.screen.blit(self.menu_banner,(150,80))
-
+        self.screen.blit(self.level.sprites.spriteCollection.get("mario_idle").image,(2*32,12*32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("bush_1").image,(14*32,12*32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("bush_2").image,(15*32,12*32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("bush_3").image,(16*32,12*32))
+        
     def drawSettings(self):        
         self.drawDot()
         self.dashboard.drawText("MUSIC",180,280,24)
