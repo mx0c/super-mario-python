@@ -104,6 +104,8 @@ class Menu():
                 elif(event.key == pygame.K_RETURN):
                     if(not self.inSettings):
                         if(self.state == 0):
+                            self.dashboard.state = "play"
+                            self.dashboard.time = 0
                             self.start = True
                         elif(self.state == 1):
                             self.inSettings = True
