@@ -74,7 +74,10 @@ class Menu():
         self.screen.blit(self.level.sprites.spriteCollection.get("mario_idle").image,(2*32,12*32))
         self.screen.blit(self.level.sprites.spriteCollection.get("bush_1").image,(14*32,12*32))
         self.screen.blit(self.level.sprites.spriteCollection.get("bush_2").image,(15*32,12*32))
-        self.screen.blit(self.level.sprites.spriteCollection.get("bush_3").image,(16*32,12*32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("bush_2").image,(16*32,12*32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("bush_2").image,(17*32,12*32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("bush_3").image,(18*32,12*32))
+        #self.screen.blit(self.level.sprites.spriteCollection.get("goomba-1").image,(16*32,12*32))
         
     def drawSettings(self):        
         self.drawDot()

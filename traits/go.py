@@ -7,7 +7,7 @@ class goTrait():
         self.direction = 0
         self.heading = 1
         self.accelVel = 0.64
-        self.decelVel = 0.5
+        self.decelVel = 0.3
         self.maxVel = 3.2
         self.screen = screen
         self.boost = False
@@ -22,6 +22,7 @@ class goTrait():
                 self.entity.vel.x = 3.2 * self.heading
             self.maxVel = 3.2
 
+
         if(self.direction != 0):
             self.heading = self.direction
             if(self.heading == 1):
@@ -30,21 +31,24 @@ class goTrait():
             else:
                 if(self.entity.vel.x > -self.maxVel):
                     self.entity.vel.x += self.accelVel * self.heading
+            
             if(not self.entity.traits["jumpTrait"].inAir):
                 self.animation.update()
             else:
-                self.animation.inAir()
+                self.animation.inAir()   
         else:
-            if(not self.entity.traits["jumpTrait"].inAir):
-                self.animation.idle()
-            else:
-                self.animation.inAir()
+            self.animation.update()
             if(self.entity.vel.x >= 0):
                 self.entity.vel.x -= self.decelVel
             else:
                 self.entity.vel.x += self.decelVel
             if(int(self.entity.vel.x) == 0):
                 self.entity.vel.x = 0
+                if(self.entity.traits["jumpTrait"].inAir):
+                    self.animation.inAir()
+                else:
+                    self.animation.idle()
+            
         self.drawEntity()
 
     def drawEntity(self):

@@ -101,8 +101,9 @@ class Mario(EntityBase):
     def gameOver(self):
         srf = pygame.Surface((640,480))
         srf.set_colorkey((255,255,255), pygame.RLEACCEL)
-        self.sound.play_sfx(self.sound.death)
+        srf.set_alpha(128)  
         self.sound.music_channel.stop()
+        self.sound.music_channel.play(self.sound.death)
         
         for i in range(500,20,-2):
             srf.fill((0,0,0))
@@ -110,7 +111,7 @@ class Mario(EntityBase):
             self.screen.blit(srf,(0,0))
             pygame.display.update()
             self.input.checkForInput()
-        while(self.sound.sfx_channel.get_busy()):
+        while(self.sound.music_channel.get_busy()):
             pygame.display.update()
             self.input.checkForInput()
         self.restart = True
