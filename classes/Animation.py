@@ -1,7 +1,7 @@
 import pygame
 
 class Animation():
-    def __init__(self,images,idleSprite=None,airSprite=None,deltaTime = 8):
+    def __init__(self,images,idleSprite=None,airSprite=None,deltaTime = 7):
         self.images = images
         self.timer = 0
         self.index = 0
