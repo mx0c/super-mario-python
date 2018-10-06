@@ -23,11 +23,8 @@ class EntityBase(object):
             except AttributeError:
                 pass
 
-    def getPosIndex(self, float=False):
-        if(float):
-            x = self.rect.x / 32.0
-            y = self.rect.y / 32.0
-        else:
-            x = int(self.rect.x / 32)
-            y = int(self.rect.y / 32)
-        return vec2D(x, y)
+    def getPosIndex(self):
+        return vec2D(int(self.rect.x / 32), int(self.rect.y / 32))
+
+    def getPosIndexAsFloat(self):
+        return vec2D(self.rect.x / 32.0, self.rect.y / 32.0)

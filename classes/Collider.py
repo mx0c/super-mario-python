@@ -59,7 +59,7 @@ class Collider():
                             self.entity.vel.y = 0
 
     def rightLevelBorderReached(self):
-        if(self.entity.getPosIndex(True).x > self.levelObj.levelLength - 1):
+        if(self.entity.getPosIndexAsFloat().x > self.levelObj.levelLength - 1):
             self.entity.rect.x = (self.levelObj.levelLength - 1) * 32
             self.entity.vel.x = 0
             return True
