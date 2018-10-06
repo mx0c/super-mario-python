@@ -1,5 +1,5 @@
 class jumpTrait():
-    def __init__(self,entity):
+    def __init__(self, entity):
         self.maxReached = False
         self.timer = 0
         self.jumpHeight = 5
@@ -13,13 +13,13 @@ class jumpTrait():
             self.entity.sound.play_sfx(self.entity.sound.jump)
         if(not self.maxReached and not self.entity.traits["bounceTrait"].jump):
             self.inAir = True
-            self.timer+=1
+            self.timer += 1
             if(self.entity.vel.y < self.maxVel):
                 self.entity.vel.y -= self.vel
-            #Maximum reached
+            # Maximum reached
             if(self.timer > self.jumpHeight):
                 self.maxReached = True
-    
+
     def reset(self):
         self.timer = 0
         self.maxReached = False
