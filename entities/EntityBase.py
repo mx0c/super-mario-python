@@ -1,10 +1,11 @@
 from classes.Maths import vec2D
 import pygame
 
+
 class EntityBase(object):
-    def __init__(self,x,y,gravity):
+    def __init__(self, x, y, gravity):
         self.vel = vec2D()
-        self.rect = pygame.Rect(x*32,y*32,32,32)
+        self.rect = pygame.Rect(x * 32, y * 32, 32, 32)
         self.gravity = gravity
         self.traits = None
         self.alive = True
@@ -13,7 +14,7 @@ class EntityBase(object):
         self.type = ""
 
     def applyGravity(self):
-         self.vel.y += self.gravity
+        self.vel.y += self.gravity
 
     def updateTraits(self):
         for trait in self.traits.values():
@@ -22,12 +23,11 @@ class EntityBase(object):
             except AttributeError:
                 pass
 
-    def getPosIndex(self,float=False):
+    def getPosIndex(self, float=False):
         if(float):
-            x = self.rect.x/32.0
-            y = self.rect.y/32.0
+            x = self.rect.x / 32.0
+            y = self.rect.y / 32.0
         else:
-            x = int(self.rect.x/32)
-            y = int(self.rect.y/32)
-        return vec2D(x,y)
-
+            x = int(self.rect.x / 32)
+            y = int(self.rect.y / 32)
+        return vec2D(x, y)

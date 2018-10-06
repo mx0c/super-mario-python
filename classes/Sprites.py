@@ -6,16 +6,17 @@ from classes.Animation import Animation
 import json
 import pprint
 
+
 class Sprites():
     def __init__(self):
-        self.spriteCollection = self.loadSprites([  "./sprites/Mario.json",
-                                                    "./sprites/Goomba.json",
-                                                    "./sprites/Koopa.json",
-                                                    "./sprites/Animations.json",
-                                                    "./sprites/BackgroundSprites.json",
-                                                    "./sprites/ItemAnimations.json"])
+        self.spriteCollection = self.loadSprites(["./sprites/Mario.json",
+                                                  "./sprites/Goomba.json",
+                                                  "./sprites/Koopa.json",
+                                                  "./sprites/Animations.json",
+                                                  "./sprites/BackgroundSprites.json",
+                                                  "./sprites/ItemAnimations.json"])
 
-    def loadSprites(self,urlList):
+    def loadSprites(self, urlList):
         resDict = {}
         for url in urlList:
             with open(url) as jsonData:
@@ -24,36 +25,42 @@ class Sprites():
                 dic = {}
                 if(data['type'] == "background"):
                     for sprite in data['sprites']:
-                        try: 
+                        try:
                             colorkey = sprite['colorKey']
                         except KeyError:
                             colorkey = None
-                        dic[sprite['name']] = Sprite(mySpritesheet.image_at(sprite['x'],sprite['y'],sprite['scalefactor'],colorkey),sprite['collision'],None,sprite['redrawBg'])
+                        dic[sprite['name']] = Sprite(mySpritesheet.image_at(
+                            sprite['x'], sprite['y'], sprite['scalefactor'], colorkey), sprite['collision'], None, sprite['redrawBg'])
                     resDict.update(dic)
                     continue
                 elif data['type'] == "animation":
                     for sprite in data['sprites']:
                         images = []
                         for image in sprite['images']:
-                            images.append(mySpritesheet.image_at(image['x'],image['y'],image['scale'],colorkey = sprite['colorKey']))
-                        dic[sprite['name']] = Sprite(None,None,animation = Animation(images,deltaTime = sprite["deltaTime"]))
+                            images.append(
+                                mySpritesheet.image_at(
+                                    image['x'],
+                                    image['y'],
+                                    image['scale'],
+                                    colorkey=sprite['colorKey']))
+                        dic[sprite['name']] = Sprite(None, None, animation=Animation(
+                            images, deltaTime=sprite["deltaTime"]))
                     resDict.update(dic)
                     continue
                 elif data['type'] == "character" or data['type'] == "item":
                     for sprite in data['sprites']:
-                        try: 
+                        try:
                             colorkey = sprite['colorKey']
                         except KeyError:
                             colorkey = None
-                        dic[sprite['name']] = Sprite(mySpritesheet.image_at(sprite['x'],sprite['y'],sprite['scalefactor'],colorkey,True,xTileSize=data['size'][0],yTileSize=data['size'][1]),sprite['collision'])
+                        dic[sprite['name']] = Sprite(mySpritesheet.image_at(sprite['x'],
+                                                                            sprite['y'],
+                                                                            sprite['scalefactor'],
+                                                                            colorkey,
+                                                                            True,
+                                                                            xTileSize=data['size'][0],
+                                                                            yTileSize=data['size'][1]),
+                                                     sprite['collision'])
                     resDict.update(dic)
                     continue
         return resDict
-
-
-
-
-            
-
-
-

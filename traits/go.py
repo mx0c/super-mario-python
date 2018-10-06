@@ -1,8 +1,9 @@
 import pygame
 from pygame.transform import flip
 
+
 class goTrait():
-    def __init__(self,animation,screen,camera,ent):
+    def __init__(self, animation, screen, camera, ent):
         self.animation = animation
         self.direction = 0
         self.heading = 1
@@ -24,7 +25,6 @@ class goTrait():
                 self.entity.vel.x = 3.2 * self.heading
             self.maxVel = 3.2
 
-
         if(self.direction != 0):
             self.heading = self.direction
             if(self.heading == 1):
@@ -33,11 +33,11 @@ class goTrait():
             else:
                 if(self.entity.vel.x > -self.maxVel):
                     self.entity.vel.x += self.accelVel * self.heading
-            
+
             if(not self.entity.traits["jumpTrait"].inAir):
                 self.animation.update()
             else:
-                self.animation.inAir()   
+                self.animation.inAir()
         else:
             self.animation.update()
             if(self.entity.vel.x >= 0):
@@ -54,6 +54,11 @@ class goTrait():
 
     def drawEntity(self):
         if(self.heading == 1):
-            self.screen.blit(self.animation.image ,self.entity.getPos())
+            self.screen.blit(self.animation.image, self.entity.getPos())
         elif(self.heading == -1):
-            self.screen.blit(flip(self.animation.image,True,False),self.entity.getPos())
+            self.screen.blit(
+                flip(
+                    self.animation.image,
+                    True,
+                    False),
+                self.entity.getPos())
