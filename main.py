@@ -1,9 +1,6 @@
 import pygame
-from pygame.locals import *
-import classes.Spritesheet as Sprite
 from classes.Level import Level
 from entities.Mario import Mario
-from classes.Input import Input
 from classes.Dashboard import Dashboard
 from classes.Sound import Sound
 from classes.Menu import Menu

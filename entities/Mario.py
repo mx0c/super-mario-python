@@ -26,13 +26,16 @@ class Mario(EntityBase):
         self.animation = Animation([self.spriteCollection["mario_run1"].image,
                                     self.spriteCollection["mario_run2"].image,
                                     self.spriteCollection["mario_run3"].image
-                                    ], self.spriteCollection["mario_idle"].image, self.spriteCollection["mario_jump"].image)
-
+                                   ],
+                                    self.spriteCollection["mario_idle"].image,
+                                    self.spriteCollection["mario_jump"].image)
+        
         self.traits = {
             "jumpTrait": jumpTrait(self),
             "goTrait": goTrait(self.animation, screen, self.camera, self),
             "bounceTrait": bounceTrait(self)
         }
+        
         self.levelObj = level
         self.collision = Collider(self, level)
         self.screen = screen
@@ -56,39 +59,47 @@ class Mario(EntityBase):
 
     def checkEntityCollision(self):
         for ent in self.levelObj.entityList:
-            collission = self.EntityCollider.check(ent)
-            if(collission != False):
+            collisionState = self.EntityCollider.check(ent)
+            if collisionState.isColliding:
                 if(ent.type == "Item"):
-                    self.levelObj.entityList.remove(ent)
-                    self.dashboard.points += 100
-                    self.dashboard.coins += 1
-                    self.sound.play_sfx(self.sound.coin)
+                    self._onCollisionWithItem(ent)
                 elif(ent.type == "Block"):
-                    if(not ent.triggered):
-                        self.sound.play_sfx(self.sound.bump)
-                    ent.triggered = True
+                    self._onCollisionWithBlock(ent)
                 elif(ent.type == "Mob"):
-                    if collission == "top" and (
-                            ent.alive == True or ent.alive == "shellBouncing"):
-                        self.sound.play_sfx(self.sound.stomp)
-                        self.rect.bottom = ent.rect.top
-                        self.bounce()
-                        self.killEntity(ent)
-                    elif collission == "top" and ent.alive == "sleeping":
-                        self.sound.play_sfx(self.sound.stomp)
-                        self.rect.bottom = ent.rect.top
-                        ent.timer = 0
-                        self.bounce()
-                        ent.alive = False
-                    elif collission and ent.alive == "sleeping":
-                        if(ent.rect.x < self.rect.x):
-                            ent.leftrightTrait.direction = -1
-                        else:
-                            ent.leftrightTrait.direction = 1
-                        ent.alive = "shellBouncing"
-                    elif collission and ent.alive == True:
-                        self.gameOver()
+                    self._onCollisionWithMob(ent, collisionState)
 
+    def _onCollisionWithItem(self, item):
+        self.levelObj.entityList.remove(item)
+        self.dashboard.points += 100
+        self.dashboard.coins += 1
+        self.sound.play_sfx(self.sound.coin)
+
+    def _onCollisionWithBlock(self, block):
+        if(not block.triggered):
+            self.sound.play_sfx(self.sound.bump)
+        block.triggered = True
+
+    def _onCollisionWithMob(self, mob, collisionState):
+        if collisionState.isTop and (mob.alive is True or mob.alive == "shellBouncing"):
+            self.sound.play_sfx(self.sound.stomp)
+            self.rect.bottom = mob.rect.top
+            self.bounce()
+            self.killEntity(mob)
+        elif collisionState.isTop and mob.alive == "sleeping":
+            self.sound.play_sfx(self.sound.stomp)
+            self.rect.bottom = mob.rect.top
+            mob.timer = 0
+            self.bounce()
+            mob.alive = False
+        elif collisionState.isTop and mob.alive == "sleeping":
+            if(mob.rect.x < self.rect.x):
+                mob.leftrightTrait.direction = -1
+            else:
+                mob.leftrightTrait.direction = 1
+            mob.alive = "shellBouncing"
+        elif collisionState.isColliding and mob.alive == True:
+            self.gameOver()
+    
     def bounce(self):
         self.traits['bounceTrait'].jump = True
 
