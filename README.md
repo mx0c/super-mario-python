@@ -4,9 +4,13 @@ This is inspired by Meth-Meth-Method's: https://github.com/meth-meth-method/supe
 
 ## Running
 
-* Clone repository.
-* Run `pip install pygame`.
-* Run `python main.py`.
+* $ pip install pygame
+* $ python main.py
+
+## Standalone windows build
+
+* $ pip install py2exe
+* $ python compile.py py2exe
 
 ## Controls
 
@@ -14,9 +18,9 @@ This is inspired by Meth-Meth-Method's: https://github.com/meth-meth-method/supe
 * RightArrowKey: Move right  
 * Space: Jump  
 * Shift: Boost   
-* Left and right Mouseclick: Try it 😛   
+* Left and right Mouseclick: secret   
 
-## How it looks so far:
+## Current state:
 ![Alt text](https://i.imgur.com/pGf4624.png)
 
 ## Contribution
