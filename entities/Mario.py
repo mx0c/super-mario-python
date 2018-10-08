@@ -26,16 +26,16 @@ class Mario(EntityBase):
         self.animation = Animation([self.spriteCollection["mario_run1"].image,
                                     self.spriteCollection["mario_run2"].image,
                                     self.spriteCollection["mario_run3"].image
-                                   ],
-                                    self.spriteCollection["mario_idle"].image,
-                                    self.spriteCollection["mario_jump"].image)
-        
+                                    ],
+                                   self.spriteCollection["mario_idle"].image,
+                                   self.spriteCollection["mario_jump"].image)
+
         self.traits = {
             "jumpTrait": jumpTrait(self),
             "goTrait": goTrait(self.animation, screen, self.camera, self),
             "bounceTrait": bounceTrait(self)
         }
-        
+
         self.levelObj = level
         self.collision = Collider(self, level)
         self.screen = screen
@@ -99,7 +99,7 @@ class Mario(EntityBase):
             mob.alive = "shellBouncing"
         elif collisionState.isColliding and mob.alive == True:
             self.gameOver()
-    
+
     def bounce(self):
         self.traits['bounceTrait'].jump = True
 
