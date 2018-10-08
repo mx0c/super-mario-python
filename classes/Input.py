@@ -58,5 +58,5 @@ class Input():
         return pygame.mouse.get_pressed()[2]
 
     def checkIfRestartEvent(self, event):
-        return (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE) or 
-        (event.type == pygame.KEYDOWN and event.key == pygame.K_F5)
+        return (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE) or \
+               (event.type == pygame.KEYDOWN and event.key == pygame.K_F5)
