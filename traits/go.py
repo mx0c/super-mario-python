@@ -34,7 +34,7 @@ class goTrait():
                 if(self.entity.vel.x > -self.maxVel):
                     self.entity.vel.x += self.accelVel * self.heading
 
-            if(not self.entity.traits["jumpTrait"].inAir):
+            if(not self.entity.inAir):
                 self.animation.update()
             else:
                 self.animation.inAir()
@@ -46,7 +46,7 @@ class goTrait():
                 self.entity.vel.x += self.decelVel
             if(int(self.entity.vel.x) == 0):
                 self.entity.vel.x = 0
-                if(self.entity.traits["jumpTrait"].inAir):
+                if(self.entity.inAir):
                     self.animation.inAir()
                 else:
                     self.animation.idle()

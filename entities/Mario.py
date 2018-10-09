@@ -16,12 +16,13 @@ from classes.Input import Input
 
 
 class Mario(EntityBase):
-    def __init__(self, x, y, level, screen, dashboard, sound, gravity=1.25):
+    def __init__(self, x, y, level, screen, dashboard, sound, gravity=0.75):
         super(Mario, self).__init__(x, y, gravity)
         self.spriteCollection = Sprites().spriteCollection
         self.camera = Camera(self.rect, self)
         self.sound = sound
         self.input = Input(self)
+        self.inAir = False
 
         self.animation = Animation([self.spriteCollection["mario_run1"].image,
                                     self.spriteCollection["mario_run2"].image,
