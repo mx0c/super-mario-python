@@ -6,10 +6,9 @@ from entities.Koopa import Koopa
 from entities.RandomBox import RandomBox
 from classes.Tile import Tile
 from entities.Coin import Coin
-from copy import copy
 
 
-class Level():
+class Level:
     def __init__(self, screen, sound, dashboard):
         self.sprites = Sprites()
         self.dashboard = dashboard
@@ -29,26 +28,18 @@ class Level():
             self.levelLength = data['length']
 
     def loadEntities(self, data):
-        for entity in data['level']['entities']:
-            for position in entity['positions']:
-                if entity['name'] == "Goomba":
-                    self.addGoomba(position[0], position[1])
-                elif entity['name'] == "Koopa":
-                    self.addKoopa(position[0], position[1])
-                elif entity['name'] == "coin":
-                    self.addCoin(position[0], position[1])
-                elif entity['name'] == "randomBox":
-                    self.addRandomBox(position[0], position[1])
+        [self.addRandomBox(x, y) for x, y in data['level']['entities']['randomBox']]
+        [self.addGoomba(x, y) for x, y in data['level']['entities']['Goomba']]
+        [self.addKoopa(x, y) for x, y in data['level']['entities']['Koopa']]
+        [self.addRandomBox(x, y) for x, y in data['level']['entities']['coin']]
 
     def loadLayers(self, data):
-        levelx = []
         levely = []
         for layer in data['level']['layers']:
-            for y in range(layer['ranges']['y'][0], layer['ranges']['y'][1]):
+            for y in range(*layer['ranges']['y']):
                 levelx = []
-                for x in range(layer['ranges']['x'][0],
-                               layer['ranges']['x'][1]):
-                    if(layer['spritename'] == 'sky'):
+                for x in range(*layer['ranges']['x']):
+                    if layer['spritename'] == 'sky':
                         levelx.append(
                             Tile(
                                 self.sprites.spriteCollection.get(
