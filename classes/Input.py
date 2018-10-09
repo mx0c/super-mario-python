@@ -59,4 +59,4 @@ class Input():
 
     def checkIfRestartEvent(self, event):
         return (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE) or \
-               (event.type == pygame.KEYDOWN and event.key == pygame.K_F5)
+        (event.type == pygame.KEYDOWN and event.key == pygame.K_F5)
