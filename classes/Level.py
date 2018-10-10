@@ -35,23 +35,14 @@ class Level:
 
     def loadLayers(self, data):
         levely = []
-        for layer in data['level']['layers']:
-            for y in range(*layer['ranges']['y']):
-                levelx = []
-                for x in range(*layer['ranges']['x']):
-                    if layer['spritename'] == 'sky':
-                        levelx.append(
-                            Tile(
-                                self.sprites.spriteCollection.get(
-                                    layer['spritename']),
-                                None))
-                    else:
-                        levelx.append(
-                            Tile(
-                                self.sprites.spriteCollection.get(
-                                    layer['spritename']), pygame.Rect(
-                                    x * 32, (y - 1) * 32, 32, 32)))
-                levely.append(levelx)
+        for y in range(*data['level']['layers']['sky']['y']):
+            levely.append([Tile(self.sprites.spriteCollection.get('sky'), None) for x in
+                           range(*data['level']['layers']['sky']['x'])])
+
+        for y in range(*data['level']['layers']['ground']['y']):
+             levely.append([Tile(self.sprites.spriteCollection.get('ground'), pygame.Rect(
+                                 x * 32, (y - 1) * 32, 32, 32)) for x in
+                            range(*data['level']['layers']['ground']['x'])])
         self.level = levely
 
     def loadObjects(self, data):

@@ -56,22 +56,16 @@
                     [59,8]
                 ]
             },
-        "layers": [
-            {
-                "spritename":"sky",
-                "ranges":{
+        "layers": {
+                "sky":{
                     "x":[0,60],
                     "y":[0,13]
-                }
-            },
-            {
-                "spritename":"ground",
-                "ranges":{
+                },
+                "ground":{
                     "x":[0,60],
                     "y":[14,16]
                 }
-            }
-        ],
+            },
         "entities": {
                 "randomBox":[
                     [4,8],
