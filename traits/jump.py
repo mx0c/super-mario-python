@@ -1,15 +1,19 @@
+from pygame.time import get_ticks
+
 class jumpTrait():
     def __init__(self, entity):
-        self.vel = 15
+        self.vel = -8
         self.entity = entity
-        
-    def start(self):
-        if(not self.entity.inAir):
-            self.entity.sound.play_sfx(self.entity.sound.jump)
-        if(not self.entity.inAir):
-            if(not self.entity.inAir):
-                self.entity.vel.y -= self.vel
-                self.entity.inAir = True
+        self.startTime = 0
+        self.maxTime = 300
+
+    def jump(self, jumping):
+        if (jumping and not self.entity.inAir):
+            self.startTime = get_ticks()
+
+        if (jumping and get_ticks() - self.startTime < self.maxTime):
+            self.entity.vel.y = self.vel
+            self.entity.inAir = True
 
     def reset(self):
         self.entity.inAir = False

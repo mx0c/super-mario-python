@@ -23,7 +23,9 @@ class Input():
         else:
             self.entity.traits['goTrait'].direction = 0
         if(pressedKeys[K_SPACE]):
-            self.entity.traits['jumpTrait'].start()
+            self.entity.traits['jumpTrait'].jump(True)
+        else:
+            self.entity.traits['jumpTrait'].jump(False)
         if(pressedKeys[K_LSHIFT]):
             self.entity.traits['goTrait'].boost = True
         else:
