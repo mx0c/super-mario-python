@@ -31,7 +31,7 @@ class Level:
         [self.addRandomBox(x, y) for x, y in data['level']['entities']['randomBox']]
         [self.addGoomba(x, y) for x, y in data['level']['entities']['Goomba']]
         [self.addKoopa(x, y) for x, y in data['level']['entities']['Koopa']]
-        [self.addRandomBox(x, y) for x, y in data['level']['entities']['coin']]
+        [self.addCoin(x, y) for x, y in data['level']['entities']['coin']]
 
     def loadLayers(self, data):
         layers = []
