@@ -2,50 +2,36 @@
     "id":0,
     "length":60,
     "level":{
-        "objects":[
-            {
-                "name":"bush",
-                "positions":[
+        "objects": {
+                "bush":[
                     [2,12],
                     [17,12],
                     [24,12],
                     [34,12],
                     [40,12],
                     [44,12]
-                ]
-            },
-            {
-                "name":"sky",
-                "positions":[
+                ],
+                "sky":[
                     [48,13],
                     [49,13],
                     [48,14],
                     [49,14]
-                ]
-            },
-            {
-                "name":"cloud",
-                "positions":[
+                ],
+                "cloud":[
                     [5,5],
                     [13,3],
                     [26,5],
                     [32,3],
                     [42,6],
                     [55,4]
-                ]
-            },
-            {
-                "name":"pipe",
-                "positions":[
+                ],
+                "pipe":[
                     [8,10,4],
                     [12,12,4],
                     [22,12,4],
                     [29,9,6]
-                ]
-            },
-            {
-                "name":"ground",
-                "positions":[
+                ],
+                "ground":[
                     [40,9],
                     [41,9],
                     [42,9],
@@ -69,9 +55,8 @@
                     [58,8],
                     [59,8]
                 ]
-            }
-        ],
-        "layers":[
+            },
+        "layers": [
             {
                 "spritename":"sky",
                 "ranges":{
@@ -87,8 +72,7 @@
                 }
             }
         ],
-        "entities":
-            {
+        "entities": {
                 "randomBox":[
                     [4,8],
                     [4,3],
