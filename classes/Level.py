@@ -34,16 +34,15 @@ class Level:
         [self.addRandomBox(x, y) for x, y in data['level']['entities']['coin']]
 
     def loadLayers(self, data):
-        levely = []
-        for y in range(*data['level']['layers']['sky']['y']):
-            levely.append([Tile(self.sprites.spriteCollection.get('sky'), None) for x in
-                           range(*data['level']['layers']['sky']['x'])])
-
-        for y in range(*data['level']['layers']['ground']['y']):
-             levely.append([Tile(self.sprites.spriteCollection.get('ground'), pygame.Rect(
-                                 x * 32, (y - 1) * 32, 32, 32)) for x in
-                            range(*data['level']['layers']['ground']['x'])])
-        self.level = levely
+        layers = []
+        for x in range(*data['level']['layers']['sky']['x']):
+            layers.append((
+                        [Tile(self.sprites.spriteCollection.get('sky'), None) for y in
+                         range(*data['level']['layers']['sky']['y'])] +
+                        [Tile(self.sprites.spriteCollection.get('ground'), pygame.Rect(
+                            x * 32, (y - 1) * 32, 32, 32)) for y in
+                         range(*data['level']['layers']['ground']['y'])]))
+        self.level = list(map(list, zip(*layers)))
 
     def loadObjects(self, data):
         [self.addBushSprite(x, y) for x, y in data['level']['objects']['bush']]
@@ -58,7 +57,7 @@ class Level:
     def updateEntities(self, cam):
         for entity in self.entityList:
             entity.update(cam)
-            if(entity.alive  is None):
+            if (entity.alive is None):
                 self.entityList.remove(entity)
 
     def drawLevel(self, camera):
