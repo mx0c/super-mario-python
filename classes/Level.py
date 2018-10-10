@@ -34,50 +34,30 @@ class Level:
         [self.addRandomBox(x, y) for x, y in data['level']['entities']['coin']]
 
     def loadLayers(self, data):
-        levely = []
-        for layer in data['level']['layers']:
-            for y in range(*layer['ranges']['y']):
-                levelx = []
-                for x in range(*layer['ranges']['x']):
-                    if layer['spritename'] == 'sky':
-                        levelx.append(
-                            Tile(
-                                self.sprites.spriteCollection.get(
-                                    layer['spritename']),
-                                None))
-                    else:
-                        levelx.append(
-                            Tile(
-                                self.sprites.spriteCollection.get(
-                                    layer['spritename']), pygame.Rect(
-                                    x * 32, (y - 1) * 32, 32, 32)))
-                levely.append(levelx)
-        self.level = levely
+        layers = []
+        for x in range(*data['level']['layers']['sky']['x']):
+            layers.append((
+                        [Tile(self.sprites.spriteCollection.get('sky'), None) for y in
+                         range(*data['level']['layers']['sky']['y'])] +
+                        [Tile(self.sprites.spriteCollection.get('ground'), pygame.Rect(
+                            x * 32, (y - 1) * 32, 32, 32)) for y in
+                         range(*data['level']['layers']['ground']['y'])]))
+        self.level = list(map(list, zip(*layers)))
 
     def loadObjects(self, data):
-        for obj in data['level']['objects']:
-            for position in obj['positions']:
-                if(obj['name'] == "bush"):
-                    self.addBushSprite(position[0], position[1])
-                elif(obj['name'] == "cloud"):
-                    self.addCloudSprite(position[0], position[1])
-                elif(obj['name'] == "randomBox"):
-                    self.addRandomBox(position[0], position[1])
-                elif(obj['name'] == "pipe"):
-                    self.addPipeSprite(position[0], position[1], position[2])
-                elif(obj['name'] == "coin"):
-                    self.addCoin(position[0], position[1])
-                elif(obj['name'] == "sky"):
-                    self.level[position[1]][position[0]] = Tile(
-                        self.sprites.spriteCollection.get(obj['name']), None)
-                else:
-                    self.level[position[1]][position[0]] = Tile(self.sprites.spriteCollection.get(
-                        obj['name']), pygame.Rect(position[0] * 32, position[1] * 32, 32, 32))
+        [self.addBushSprite(x, y) for x, y in data['level']['objects']['bush']]
+        [self.addCloudSprite(x, y) for x, y in data['level']['objects']['cloud']]
+        [self.addPipeSprite(x, y, z) for x, y, z in data['level']['objects']['pipe']]
+        for x, y in data['level']['objects']['sky']:
+            self.level[y][x] = Tile(self.sprites.spriteCollection.get('sky'), None)
+        for x, y in data['level']['objects']['ground']:
+            self.level[y][x] = Tile(self.sprites.spriteCollection.get('ground'),
+                                    pygame.Rect(x * 32, y * 32, 32, 32))
 
     def updateEntities(self, cam):
         for entity in self.entityList:
             entity.update(cam)
-            if(entity.alive is None):
+            if (entity.alive is None):
                 self.entityList.remove(entity)
 
     def drawLevel(self, camera):
