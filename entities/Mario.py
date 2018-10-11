@@ -20,17 +20,20 @@ class Mario(EntityBase):
         self.input = Input(self)
         self.inAir = False
 
-        self.animation = Animation([self.spriteCollection["mario_run1"].image,
-                                    self.spriteCollection["mario_run2"].image,
-                                    self.spriteCollection["mario_run3"].image
-                                    ],
-                                   self.spriteCollection["mario_idle"].image,
-                                   self.spriteCollection["mario_jump"].image)
+        self.animation = Animation(
+            [
+                self.spriteCollection["mario_run1"].image,
+                self.spriteCollection["mario_run2"].image,
+                self.spriteCollection["mario_run3"].image,
+            ],
+            self.spriteCollection["mario_idle"].image,
+            self.spriteCollection["mario_jump"].image,
+        )
 
         self.traits = {
             "jumpTrait": jumpTrait(self),
             "goTrait": goTrait(self.animation, screen, self.camera, self),
-            "bounceTrait": bounceTrait(self)
+            "bounceTrait": bounceTrait(self),
         }
 
         self.levelObj = level
@@ -89,7 +92,7 @@ class Mario(EntityBase):
             self.bounce()
             mob.alive = False
         elif collisionState.isTop and mob.alive == "sleeping":
-            if(mob.rect.x < self.rect.x):
+            if mob.rect.x < self.rect.x:
                 mob.leftrightTrait.direction = -1
             else:
                 mob.leftrightTrait.direction = 1
@@ -98,7 +101,7 @@ class Mario(EntityBase):
             self.gameOver()
 
     def bounce(self):
-        self.traits['bounceTrait'].jump = True
+        self.traits["bounceTrait"].jump = True
 
     def killEntity(self, ent):
         if ent.__class__.__name__ != "Koopa":
@@ -118,8 +121,11 @@ class Mario(EntityBase):
         for i in range(500, 20, -2):
             srf.fill((0, 0, 0))
             pygame.draw.circle(
-                srf, (255, 255, 255), (int(
-                    self.camera.x + self.rect.x) + 16, self.rect.y + 16), i)
+                srf,
+                (255, 255, 255),
+                (int(self.camera.x + self.rect.x) + 16, self.rect.y + 16),
+                i,
+            )
             self.screen.blit(srf, (0, 0))
             pygame.display.update()
             self.input.checkForInput()

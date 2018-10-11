@@ -9,7 +9,7 @@ class Item(Dashboard):
         self.ItemPos = vec2D(x, y)
         self.itemVel = vec2D(0, 0)
         self.screen = screen
-        self.coin_animation = copy(collection.get('coin-item').animation)
+        self.coin_animation = copy(collection.get("coin-item").animation)
         self.sound_played = False
 
     def spawnCoin(self, cam, sound, dashboard):
@@ -26,9 +26,8 @@ class Item(Dashboard):
                 self.itemVel.y += 0.5
                 self.ItemPos.y += self.itemVel.y
             self.screen.blit(
-                self.coin_animation.image,
-                (self.ItemPos.x + cam.x,
-                 self.ItemPos.y))
+                self.coin_animation.image, (self.ItemPos.x + cam.x, self.ItemPos.y)
+            )
         elif self.coin_animation.timer < 80:
             self.itemVel.y = -0.75
             self.ItemPos.y += self.itemVel.y

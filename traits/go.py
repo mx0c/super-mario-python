@@ -56,8 +56,5 @@ class goTrait:
             self.screen.blit(self.animation.image, self.entity.getPos())
         elif self.heading == -1:
             self.screen.blit(
-                flip(
-                    self.animation.image,
-                    True,
-                    False),
-                self.entity.getPos())
+                flip(self.animation.image, True, False), self.entity.getPos()
+            )

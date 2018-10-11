@@ -25,52 +25,65 @@ class Level:
             self.loadLayers(data)
             self.loadObjects(data)
             self.loadEntities(data)
-            self.levelLength = data['length']
+            self.levelLength = data["length"]
 
     def loadEntities(self, data):
-        [self.addRandomBox(x, y) for x, y in data['level']['entities']['randomBox']]
-        [self.addGoomba(x, y) for x, y in data['level']['entities']['Goomba']]
-        [self.addKoopa(x, y) for x, y in data['level']['entities']['Koopa']]
-        [self.addRandomBox(x, y) for x, y in data['level']['entities']['coin']]
+        [self.addRandomBox(x, y) for x, y in data["level"]["entities"]["randomBox"]]
+        [self.addGoomba(x, y) for x, y in data["level"]["entities"]["Goomba"]]
+        [self.addKoopa(x, y) for x, y in data["level"]["entities"]["Koopa"]]
+        [self.addRandomBox(x, y) for x, y in data["level"]["entities"]["coin"]]
 
     def loadLayers(self, data):
         layers = []
-        for x in range(*data['level']['layers']['sky']['x']):
-            layers.append((
-                        [Tile(self.sprites.spriteCollection.get('sky'), None) for y in
-                         range(*data['level']['layers']['sky']['y'])] +
-                        [Tile(self.sprites.spriteCollection.get('ground'), pygame.Rect(
-                            x * 32, (y - 1) * 32, 32, 32)) for y in
-                         range(*data['level']['layers']['ground']['y'])]))
+        for x in range(*data["level"]["layers"]["sky"]["x"]):
+            layers.append(
+                (
+                    [
+                        Tile(self.sprites.spriteCollection.get("sky"), None)
+                        for y in range(*data["level"]["layers"]["sky"]["y"])
+                    ]
+                    + [
+                        Tile(
+                            self.sprites.spriteCollection.get("ground"),
+                            pygame.Rect(x * 32, (y - 1) * 32, 32, 32),
+                        )
+                        for y in range(*data["level"]["layers"]["ground"]["y"])
+                    ]
+                )
+            )
         self.level = list(map(list, zip(*layers)))
 
     def loadObjects(self, data):
-        [self.addBushSprite(x, y) for x, y in data['level']['objects']['bush']]
-        [self.addCloudSprite(x, y) for x, y in data['level']['objects']['cloud']]
-        [self.addPipeSprite(x, y, z) for x, y, z in data['level']['objects']['pipe']]
-        for x, y in data['level']['objects']['sky']:
-            self.level[y][x] = Tile(self.sprites.spriteCollection.get('sky'), None)
-        for x, y in data['level']['objects']['ground']:
-            self.level[y][x] = Tile(self.sprites.spriteCollection.get('ground'),
-                                    pygame.Rect(x * 32, y * 32, 32, 32))
+        [self.addBushSprite(x, y) for x, y in data["level"]["objects"]["bush"]]
+        [self.addCloudSprite(x, y) for x, y in data["level"]["objects"]["cloud"]]
+        [self.addPipeSprite(x, y, z) for x, y, z in data["level"]["objects"]["pipe"]]
+        for x, y in data["level"]["objects"]["sky"]:
+            self.level[y][x] = Tile(self.sprites.spriteCollection.get("sky"), None)
+        for x, y in data["level"]["objects"]["ground"]:
+            self.level[y][x] = Tile(
+                self.sprites.spriteCollection.get("ground"),
+                pygame.Rect(x * 32, y * 32, 32, 32),
+            )
 
     def updateEntities(self, cam):
         for entity in self.entityList:
             entity.update(cam)
-            if (entity.alive is None):
+            if entity.alive is None:
                 self.entityList.remove(entity)
 
     def drawLevel(self, camera):
         try:
             for y in range(0, 15):
-                for x in range(0 - int(camera.pos.x + 1),
-                               20 - int(camera.pos.x - 1)):
+                for x in range(0 - int(camera.pos.x + 1), 20 - int(camera.pos.x - 1)):
                     if self.level[y][x].sprite is not None:
                         if self.level[y][x].sprite.redrawBackground:
-                            self.screen.blit(self.sprites.spriteCollection.get(
-                                "sky").image, ((x + camera.pos.x) * 32, y * 32))
+                            self.screen.blit(
+                                self.sprites.spriteCollection.get("sky").image,
+                                ((x + camera.pos.x) * 32, y * 32),
+                            )
                         self.level[y][x].sprite.drawSprite(
-                            x + camera.pos.x, y, self.screen)
+                            x + camera.pos.x, y, self.screen
+                        )
             self.updateEntities(camera)
         except IndexError:
             return
@@ -81,8 +94,9 @@ class Level:
                 for xOff in range(0, 3):
                     self.level[y + yOff][x + xOff] = Tile(
                         self.sprites.spriteCollection.get(
-                            "cloud{}_{}".format(yOff + 1, xOff + 1)),
-                        None
+                            "cloud{}_{}".format(yOff + 1, xOff + 1)
+                        ),
+                        None,
                     )
         except IndexError:
             return
@@ -91,35 +105,40 @@ class Level:
         try:
             # add Pipe Head
             self.level[y][x] = Tile(
-                self.sprites.spriteCollection.get("pipeL"), pygame.Rect(
-                    x * 32, y * 32, 32, 32))
-            self.level[y][x + 1] = Tile(self.sprites.spriteCollection.get(
-                "pipeR"), pygame.Rect((x + 1) * 32, y * 32, 32, 32))
+                self.sprites.spriteCollection.get("pipeL"),
+                pygame.Rect(x * 32, y * 32, 32, 32),
+            )
+            self.level[y][x + 1] = Tile(
+                self.sprites.spriteCollection.get("pipeR"),
+                pygame.Rect((x + 1) * 32, y * 32, 32, 32),
+            )
             # add pipe Body
             for i in range(1, length + 20):
-                self.level[y + i][x] = Tile(self.sprites.spriteCollection.get(
-                    "pipe2L"), pygame.Rect(x * 32, (y + i) * 32, 32, 32))
-                self.level[y + i][x + 1] = Tile(self.sprites.spriteCollection.get(
-                    "pipe2R"), pygame.Rect((x + 1) * 32, (y + i) * 32, 32, 32))
+                self.level[y + i][x] = Tile(
+                    self.sprites.spriteCollection.get("pipe2L"),
+                    pygame.Rect(x * 32, (y + i) * 32, 32, 32),
+                )
+                self.level[y + i][x + 1] = Tile(
+                    self.sprites.spriteCollection.get("pipe2R"),
+                    pygame.Rect((x + 1) * 32, (y + i) * 32, 32, 32),
+                )
         except IndexError:
             return
 
     def addBushSprite(self, x, y):
         try:
-            self.level[y][x] = Tile(
-                self.sprites.spriteCollection.get("bush_1"), None)
-            self.level[y][x +
-                          1] = Tile(self.sprites.spriteCollection.get("bush_2"), None)
-            self.level[y][x +
-                          2] = Tile(self.sprites.spriteCollection.get("bush_3"), None)
+            self.level[y][x] = Tile(self.sprites.spriteCollection.get("bush_1"), None)
+            self.level[y][x + 1] = Tile(
+                self.sprites.spriteCollection.get("bush_2"), None
+            )
+            self.level[y][x + 2] = Tile(
+                self.sprites.spriteCollection.get("bush_3"), None
+            )
         except IndexError:
             return
 
     def addRandomBox(self, x, y):
-        self.level[y][x] = Tile(
-            None,
-            pygame.Rect(x * 32, y * 32 - 1, 32, 32)
-        )
+        self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))
         self.entityList.append(
             RandomBox(
                 self.screen,
@@ -127,13 +146,12 @@ class Level:
                 x,
                 y,
                 self.sound,
-                self.dashboard)
+                self.dashboard,
+            )
         )
 
     def addCoin(self, x, y):
-        self.entityList.append(
-            Coin(self.screen, self.sprites.spriteCollection, x, y)
-        )
+        self.entityList.append(Coin(self.screen, self.sprites.spriteCollection, x, y))
 
     def addGoomba(self, x, y):
         self.entityList.append(

@@ -34,8 +34,7 @@ class Dashboard(Font):
 
     def drawText(self, text, x, y, size):
         for char in text:
-            charSprite = pygame.transform.scale(
-                self.charSprites[char], (size, size))
+            charSprite = pygame.transform.scale(self.charSprites[char], (size, size))
             self.screen.blit(charSprite, (x, y))
             x += size + 1
 

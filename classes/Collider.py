@@ -9,13 +9,14 @@ class Collider:
         if self.leftLevelBorderReached() or self.rightLevelBorderReached():
             return
         try:
-            rows = [self.level[self.entity.getPosIndex().y],
-                    self.level[self.entity.getPosIndex().y + 1]]
+            rows = [
+                self.level[self.entity.getPosIndex().y],
+                self.level[self.entity.getPosIndex().y + 1],
+            ]
         except Exception:
             return
         for row in rows:
-            tiles = row[self.entity.getPosIndex(
-            ).x:self.entity.getPosIndex().x + 2]
+            tiles = row[self.entity.getPosIndex().x : self.entity.getPosIndex().x + 2]
             for tile in tiles:
                 if tile.rect is not None:
                     if self.entity.rect.colliderect(tile.rect):
@@ -28,8 +29,10 @@ class Collider:
 
     def checkY(self):
         try:
-            rows = [self.level[self.entity.getPosIndex().y],
-                    self.level[self.entity.getPosIndex().y + 1]]
+            rows = [
+                self.level[self.entity.getPosIndex().y],
+                self.level[self.entity.getPosIndex().y + 1],
+            ]
         except Exception:
             try:
                 self.entity.gameOver()
@@ -37,8 +40,7 @@ class Collider:
                 self.entity.alive = None
             return
         for row in rows:
-            tiles = row[self.entity.getPosIndex(
-            ).x:self.entity.getPosIndex().x + 2]
+            tiles = row[self.entity.getPosIndex().x : self.entity.getPosIndex().x + 2]
             for tile in tiles:
                 if tile.rect is not None:
                     if self.entity.rect.colliderect(tile.rect):
@@ -47,9 +49,9 @@ class Collider:
                             self.entity.vel.y = 0
                             # reset jump on bottom
                             if self.entity.traits is not None:
-                                if 'jumpTrait' in self.entity.traits:
+                                if "jumpTrait" in self.entity.traits:
                                     self.entity.traits["jumpTrait"].reset()
-                                if 'bounceTrait' in self.entity.traits:
+                                if "bounceTrait" in self.entity.traits:
                                     self.entity.traits["bounceTrait"].reset()
                         if self.entity.vel.y < 0:
                             self.entity.rect.top = tile.rect.bottom

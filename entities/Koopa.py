@@ -9,8 +9,12 @@ class Koopa(EntityBase):
     def __init__(self, screen, spriteColl, x, y, level):
         super(Koopa, self).__init__(y - 1, x, 1.25)
         self.spriteCollection = spriteColl
-        self.animation = Animation([self.spriteCollection.get("koopa-1").image,
-                                    self.spriteCollection.get("koopa-2").image])
+        self.animation = Animation(
+            [
+                self.spriteCollection.get("koopa-1").image,
+                self.spriteCollection.get("koopa-2").image,
+            ]
+        )
         self.screen = screen
         self.leftrightTrait = LeftRightWalkTrait(self, level)
         self.timer = 0
@@ -31,17 +35,13 @@ class Koopa(EntityBase):
     def drawKoopa(self, camera):
         if self.leftrightTrait.direction == -1:
             self.screen.blit(
-                self.animation.image,
-                (self.rect.x + camera.x,
-                 self.rect.y - 32))
+                self.animation.image, (self.rect.x + camera.x, self.rect.y - 32)
+            )
         else:
             self.screen.blit(
-                pygame.transform.flip(
-                    self.animation.image,
-                    True,
-                    False),
-                (self.rect.x + camera.x,
-                 self.rect.y - 32))
+                pygame.transform.flip(self.animation.image, True, False),
+                (self.rect.x + camera.x, self.rect.y - 32),
+            )
 
     def shellBouncing(self, camera):
         self.leftrightTrait.speed = 4
@@ -55,24 +55,22 @@ class Koopa(EntityBase):
             self.textPos = vec2D(self.rect.x + 3, self.rect.y - 32)
         if self.timer < self.timeAfterDeath:
             self.textPos.y += -0.5
-            self.dashboard.drawText(
-                "100", self.textPos.x + camera.x, self.textPos.y, 8)
+            self.dashboard.drawText("100", self.textPos.x + camera.x, self.textPos.y, 8)
             self.vel.y -= 0.5
             self.rect.y += self.vel.y
             self.screen.blit(
                 self.spriteCollection.get("koopa-hiding").image,
-                (self.rect.x + camera.x,
-                 self.rect.y - 32))
+                (self.rect.x + camera.x, self.rect.y - 32),
+            )
         else:
             self.vel.y += 0.3
             self.rect.y += self.vel.y
             self.textPos.y += -0.5
-            self.dashboard.drawText(
-                "100", self.textPos.x + camera.x, self.textPos.y, 8)
+            self.dashboard.drawText("100", self.textPos.x + camera.x, self.textPos.y, 8)
             self.screen.blit(
                 self.spriteCollection.get("koopa-hiding").image,
-                (self.rect.x + camera.x,
-                 self.rect.y - 32))
+                (self.rect.x + camera.x, self.rect.y - 32),
+            )
             if self.timer > 500:
                 # delete entity
                 self.alive = None
@@ -82,8 +80,8 @@ class Koopa(EntityBase):
         if self.timer < self.timeAfterDeath:
             self.screen.blit(
                 self.spriteCollection.get("koopa-hiding").image,
-                (self.rect.x + camera.x,
-                 self.rect.y - 32))
+                (self.rect.x + camera.x, self.rect.y - 32),
+            )
         else:
             self.alive = True
             self.timer = 0

@@ -2,7 +2,7 @@ from classes.Collider import Collider
 from random import randint
 
 
-class LeftRightWalkTrait():
+class LeftRightWalkTrait:
     def __init__(self, entity, level):
         self.direction = -1 if randint(0, 1) == 0 else 1
         self.entity = entity

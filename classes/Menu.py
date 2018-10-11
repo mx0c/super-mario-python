@@ -18,15 +18,14 @@ class Menu:
             0,
             60,
             2,
-            colorkey=[
-                255,
-                0,
-                220],
+            colorkey=[255, 0, 220],
             ignoreTileSize=True,
             xTileSize=180,
-            yTileSize=88)
+            yTileSize=88,
+        )
         self.menu_dot = self.spritesheet.image_at(
-            0, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True)
+            0, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
+        )
         self.loadSettings("./settings.json")
 
     def update(self):
@@ -63,7 +62,7 @@ class Menu:
 
     def saveSettings(self, url):
         data = {"sound": self.music, "sfx": self.sfx}
-        with open(url, 'w') as outfile:
+        with open(url, "w") as outfile:
             json.dump(data, outfile)
 
     def drawMenu(self):
@@ -76,24 +75,35 @@ class Menu:
         for y in range(0, 13):
             for x in range(0, 20):
                 self.screen.blit(
-                    self.level.sprites.spriteCollection.get("sky").image, (x * 32, y * 32))
+                    self.level.sprites.spriteCollection.get("sky").image,
+                    (x * 32, y * 32),
+                )
         for y in range(13, 15):
             for x in range(0, 20):
-                self.screen.blit(self.level.sprites.spriteCollection.get(
-                    "ground").image, (x * 32, y * 32))
+                self.screen.blit(
+                    self.level.sprites.spriteCollection.get("ground").image,
+                    (x * 32, y * 32),
+                )
         self.screen.blit(self.menu_banner, (150, 80))
-        self.screen.blit(self.level.sprites.spriteCollection.get(
-            "mario_idle").image, (2 * 32, 12 * 32))
-        self.screen.blit(self.level.sprites.spriteCollection.get(
-            "bush_1").image, (14 * 32, 12 * 32))
-        self.screen.blit(self.level.sprites.spriteCollection.get(
-            "bush_2").image, (15 * 32, 12 * 32))
-        self.screen.blit(self.level.sprites.spriteCollection.get(
-            "bush_2").image, (16 * 32, 12 * 32))
-        self.screen.blit(self.level.sprites.spriteCollection.get(
-            "bush_2").image, (17 * 32, 12 * 32))
-        self.screen.blit(self.level.sprites.spriteCollection.get(
-            "bush_3").image, (18 * 32, 12 * 32))
+        self.screen.blit(
+            self.level.sprites.spriteCollection.get("mario_idle").image,
+            (2 * 32, 12 * 32),
+        )
+        self.screen.blit(
+            self.level.sprites.spriteCollection.get("bush_1").image, (14 * 32, 12 * 32)
+        )
+        self.screen.blit(
+            self.level.sprites.spriteCollection.get("bush_2").image, (15 * 32, 12 * 32)
+        )
+        self.screen.blit(
+            self.level.sprites.spriteCollection.get("bush_2").image, (16 * 32, 12 * 32)
+        )
+        self.screen.blit(
+            self.level.sprites.spriteCollection.get("bush_2").image, (17 * 32, 12 * 32)
+        )
+        self.screen.blit(
+            self.level.sprites.spriteCollection.get("bush_3").image, (18 * 32, 12 * 32)
+        )
         # self.screen.blit(self.level.sprites.spriteCollection.get("goomba-1").image,(16*32,12*32))
 
     def drawSettings(self):
@@ -143,8 +153,7 @@ class Menu:
                                 self.sound.music_channel.stop()
                                 self.music = False
                             else:
-                                self.sound.music_channel.play(
-                                    self.sound.soundtrack)
+                                self.sound.music_channel.play(self.sound.soundtrack)
                                 self.music = True
                             self.saveSettings("./settings.json")
                         elif self.state == 1:

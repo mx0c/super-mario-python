@@ -8,8 +8,12 @@ class Goomba(EntityBase):
     def __init__(self, screen, spriteColl, x, y, level):
         super(Goomba, self).__init__(y, x - 1, 1.25)
         self.spriteCollection = spriteColl
-        self.animation = Animation([self.spriteCollection.get("goomba-1").image,
-                                    self.spriteCollection.get("goomba-2").image])
+        self.animation = Animation(
+            [
+                self.spriteCollection.get("goomba-1").image,
+                self.spriteCollection.get("goomba-2").image,
+            ]
+        )
         self.screen = screen
         self.leftrightTrait = LeftRightWalkTrait(self, level)
         self.type = "Mob"
@@ -22,12 +26,9 @@ class Goomba(EntityBase):
             self.leftrightTrait.update()
         else:
             self.onDead(camera)
-    
+
     def drawGoomba(self, camera):
-        self.screen.blit(
-            self.animation.image,
-            (self.rect.x + camera.x,
-             self.rect.y))
+        self.screen.blit(self.animation.image, (self.rect.x + camera.x, self.rect.y))
         self.animation.update()
 
     def onDead(self, camera):
@@ -39,15 +40,16 @@ class Goomba(EntityBase):
         else:
             self.alive = None
         self.timer += 0.1
-    
+
     def drawFlatGoomba(self, camera):
-        self.screen.blit(self.spriteCollection.get(
-                    "goomba-flat").image, (self.rect.x + camera.x, self.rect.y))
-    
+        self.screen.blit(
+            self.spriteCollection.get("goomba-flat").image,
+            (self.rect.x + camera.x, self.rect.y),
+        )
+
     def setPointsTextStartPosition(self, x, y):
         self.textPos = vec2D(x, y)
-    
+
     def movePointsTextUpAndDraw(self, camera):
         self.textPos.y += -0.5
-        self.dashboard.drawText(
-            "100", self.textPos.x + camera.x, self.textPos.y, 8)
+        self.dashboard.drawText("100", self.textPos.x + camera.x, self.textPos.y, 8)

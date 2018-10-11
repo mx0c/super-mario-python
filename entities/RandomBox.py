@@ -4,12 +4,11 @@ from entities.Item import Item
 
 
 class RandomBox(EntityBase):
-    def __init__(self, screen, spriteCollection, x,
-                 y, sound, dashboard, gravity=0):
+    def __init__(self, screen, spriteCollection, x, y, sound, dashboard, gravity=0):
         super(RandomBox, self).__init__(x, y, gravity)
         self.screen = screen
         self.spriteCollection = spriteCollection
-        self.animation = copy(self.spriteCollection.get('randomBox').animation)
+        self.animation = copy(self.spriteCollection.get("randomBox").animation)
         self.type = "Block"
         self.triggered = False
         self.time = 0
@@ -32,9 +31,8 @@ class RandomBox(EntityBase):
                 if self.time < self.maxTime * 2:
                     self.time += 1
                     self.rect.y += self.vel
-        self.screen.blit(self.spriteCollection.get("sky").image,
-                         (self.rect.x + cam.x, self.rect.y + 2))
         self.screen.blit(
-            self.animation.image,
-            (self.rect.x + cam.x,
-             self.rect.y - 1))
+            self.spriteCollection.get("sky").image,
+            (self.rect.x + cam.x, self.rect.y + 2),
+        )
+        self.screen.blit(self.animation.image, (self.rect.x + cam.x, self.rect.y - 1))
