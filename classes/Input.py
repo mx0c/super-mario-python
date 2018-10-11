@@ -22,7 +22,7 @@ class Input():
             self.entity.traits['goTrait'].direction = 1
         else:
             self.entity.traits['goTrait'].direction = 0
-        if(pressedKeys[K_SPACE]):
+        if(pressedKeys[K_SPACE]) or (pressedKeys[K_UP]):
             self.entity.traits['jumpTrait'].jump(True)
         else:
             self.entity.traits['jumpTrait'].jump(False)
