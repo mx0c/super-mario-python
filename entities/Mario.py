@@ -1,8 +1,5 @@
 from classes.Sprites import Sprites
 import pygame
-from pygame.locals import *
-import classes.Maths
-from traits import go, jump
 from traits.go import goTrait
 from traits.jump import jumpTrait
 from classes.Animation import Animation
@@ -11,7 +8,6 @@ from classes.Camera import Camera
 from entities.EntityBase import EntityBase
 from classes.EntityCollider import EntityCollider
 from traits.bounce import bounceTrait
-from classes.Sound import Sound
 from classes.Input import Input
 
 
@@ -62,11 +58,11 @@ class Mario(EntityBase):
         for ent in self.levelObj.entityList:
             collisionState = self.EntityCollider.check(ent)
             if collisionState.isColliding:
-                if(ent.type == "Item"):
+                if ent.type == "Item":
                     self._onCollisionWithItem(ent)
-                elif(ent.type == "Block"):
+                elif ent.type == "Block":
                     self._onCollisionWithBlock(ent)
-                elif(ent.type == "Mob"):
+                elif ent.type == "Mob":
                     self._onCollisionWithMob(ent, collisionState)
 
     def _onCollisionWithItem(self, item):
@@ -76,7 +72,7 @@ class Mario(EntityBase):
         self.sound.play_sfx(self.sound.coin)
 
     def _onCollisionWithBlock(self, block):
-        if(not block.triggered):
+        if not block.triggered:
             self.sound.play_sfx(self.sound.bump)
         block.triggered = True
 
@@ -127,10 +123,10 @@ class Mario(EntityBase):
             self.screen.blit(srf, (0, 0))
             pygame.display.update()
             self.input.checkForInput()
-        while(self.sound.music_channel.get_busy()):
+        while self.sound.music_channel.get_busy():
             pygame.display.update()
             self.input.checkForInput()
         self.restart = True
 
     def getPos(self):
-        return (self.camera.x + self.rect.x, self.rect.y)
+        return self.camera.x + self.rect.x, self.rect.y

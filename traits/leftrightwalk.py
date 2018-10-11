@@ -1,4 +1,3 @@
-import classes.Maths
 from classes.Collider import Collider
 from random import randint
 
@@ -12,7 +11,7 @@ class LeftRightWalkTrait():
         self.entity.vel.x = self.speed * self.direction
 
     def update(self):
-        if(self.entity.vel.x == 0):
+        if self.entity.vel.x == 0:
             self.direction *= -1
         self.entity.vel.x = self.speed * self.direction
         self.moveEntity()

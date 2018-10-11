@@ -1,6 +1,4 @@
 from entities.EntityBase import EntityBase
-from classes.Animation import Animation
-import pygame
 from copy import copy
 
 

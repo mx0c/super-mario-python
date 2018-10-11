@@ -1,11 +1,10 @@
 import pygame
-from classes.Dashboard import Dashboard
 import sys
 from classes.Spritesheet import Spritesheet
 import json
 
 
-class Menu():
+class Menu:
     def __init__(self, screen, dashboard, level, sound):
         self.screen = screen
         self.sound = sound
@@ -34,28 +33,28 @@ class Menu():
         self.dashboard.update()
         self.checkInput()
         self.drawMenuBackground()
-        if(not self.inSettings):
+        if not self.inSettings:
             self.drawMenu()
         else:
             self.drawSettings()
 
     def drawDot(self):
-        if(self.state == 0):
+        if self.state == 0:
             self.screen.blit(self.menu_dot, (145, 273))
-        elif(self.state == 1):
+        elif self.state == 1:
             self.screen.blit(self.menu_dot, (145, 313))
-        elif(self.state == 2):
+        elif self.state == 2:
             self.screen.blit(self.menu_dot, (145, 353))
 
     def loadSettings(self, url):
         with open(url) as jsonData:
             data = json.load(jsonData)
-            if(data["sound"]):
+            if data["sound"]:
                 self.music = True
                 self.sound.music_channel.play(self.sound.soundtrack)
             else:
                 self.music = False
-            if(data["sfx"]):
+            if data["sfx"]:
                 self.sfx = True
                 self.sound.allowSFX = True
             else:
@@ -63,9 +62,7 @@ class Menu():
                 self.sfx = False
 
     def saveSettings(self, url):
-        data = {}
-        data["sound"] = self.music
-        data["sfx"] = self.sfx
+        data = {"sound": self.music, "sfx": self.sfx}
         with open(url, 'w') as outfile:
             json.dump(data, outfile)
 
@@ -102,12 +99,12 @@ class Menu():
     def drawSettings(self):
         self.drawDot()
         self.dashboard.drawText("MUSIC", 180, 280, 24)
-        if(self.music):
+        if self.music:
             self.dashboard.drawText("ON", 340, 280, 24)
         else:
             self.dashboard.drawText("OFF", 340, 280, 24)
         self.dashboard.drawText("SFX", 180, 320, 24)
-        if(self.sfx):
+        if self.sfx:
             self.dashboard.drawText("ON", 340, 320, 24)
         else:
             self.dashboard.drawText("OFF", 340, 320, 24)
@@ -120,29 +117,29 @@ class Menu():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                if(event.key == pygame.K_ESCAPE):
+                if event.key == pygame.K_ESCAPE:
                     sys.exit()
-                elif(event.key == pygame.K_UP):
-                    if(self.state > 0):
+                elif event.key == pygame.K_UP:
+                    if self.state > 0:
                         self.state -= 1
-                elif(event.key == pygame.K_DOWN):
-                    if(self.state < 2):
+                elif event.key == pygame.K_DOWN:
+                    if self.state < 2:
                         self.state += 1
-                elif(event.key == pygame.K_RETURN):
-                    if(not self.inSettings):
-                        if(self.state == 0):
+                elif event.key == pygame.K_RETURN:
+                    if not self.inSettings:
+                        if self.state == 0:
                             self.dashboard.state = "play"
                             self.dashboard.time = 0
                             self.start = True
-                        elif(self.state == 1):
+                        elif self.state == 1:
                             self.inSettings = True
                             self.state = 0
-                        elif(self.state == 2):
+                        elif self.state == 2:
                             pygame.quit()
                             sys.exit()
                     else:
-                        if(self.state == 0):
-                            if(self.music):
+                        if self.state == 0:
+                            if self.music:
                                 self.sound.music_channel.stop()
                                 self.music = False
                             else:
@@ -150,14 +147,14 @@ class Menu():
                                     self.sound.soundtrack)
                                 self.music = True
                             self.saveSettings("./settings.json")
-                        elif(self.state == 1):
-                            if(self.sfx):
+                        elif self.state == 1:
+                            if self.sfx:
                                 self.sound.allowSFX = False
                                 self.sfx = False
                             else:
                                 self.sound.allowSFX = True
                                 self.sfx = True
                             self.saveSettings("./settings.json")
-                        elif(self.state == 2):
+                        elif self.state == 2:
                             self.inSettings = False
         pygame.display.update()

@@ -1,13 +1,10 @@
 from classes.Spritesheet import Spritesheet
-import pygame
-from pygame.color import Color
 from classes.Sprite import Sprite
 from classes.Animation import Animation
 import json
-import pprint
 
 
-class Sprites():
+class Sprites:
     def __init__(self):
         self.spriteCollection = self.loadSprites(["./sprites/Mario.json",
                                                   "./sprites/Goomba.json",
@@ -23,7 +20,7 @@ class Sprites():
                 data = json.load(jsonData)
                 mySpritesheet = Spritesheet(data['spriteSheetURL'])
                 dic = {}
-                if(data['type'] == "background"):
+                if data['type'] == "background":
                     for sprite in data['sprites']:
                         try:
                             colorkey = sprite['colorKey']

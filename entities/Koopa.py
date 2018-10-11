@@ -1,4 +1,3 @@
-from classes.Sprites import Sprites
 from classes.Animation import Animation
 from classes.Maths import vec2D
 import pygame
@@ -20,7 +19,7 @@ class Koopa(EntityBase):
         self.dashboard = level.dashboard
 
     def update(self, camera):
-        if(self.alive == True):
+        if self.alive == True:
             self.updateAlive(camera)
         elif self.alive == "sleeping":
             self.sleepingInShell(camera)
@@ -52,9 +51,9 @@ class Koopa(EntityBase):
         self.leftrightTrait.update()
 
     def die(self, camera):
-        if(self.timer == 0):
+        if self.timer == 0:
             self.textPos = vec2D(self.rect.x + 3, self.rect.y - 32)
-        if(self.timer < self.timeAfterDeath):
+        if self.timer < self.timeAfterDeath:
             self.textPos.y += -0.5
             self.dashboard.drawText(
                 "100", self.textPos.x + camera.x, self.textPos.y, 8)
@@ -74,13 +73,13 @@ class Koopa(EntityBase):
                 self.spriteCollection.get("koopa-hiding").image,
                 (self.rect.x + camera.x,
                  self.rect.y - 32))
-            if(self.timer > 500):
+            if self.timer > 500:
                 # delete entity
                 self.alive = None
         self.timer += 6
 
     def sleepingInShell(self, camera):
-        if(self.timer < self.timeAfterDeath):
+        if self.timer < self.timeAfterDeath:
             self.screen.blit(
                 self.spriteCollection.get("koopa-hiding").image,
                 (self.rect.x + camera.x,

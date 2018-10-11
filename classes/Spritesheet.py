@@ -16,7 +16,7 @@ class Spritesheet(object):
 
     def image_at(self, x, y, scalingfactor, colorkey=None,
                  ignoreTileSize=False, xTileSize=16, yTileSize=16):
-        if(ignoreTileSize):
+        if ignoreTileSize:
             rect = pygame.Rect((x, y, xTileSize, yTileSize))
         else:
             rect = pygame.Rect(

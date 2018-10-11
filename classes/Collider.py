@@ -1,9 +1,4 @@
-import pygame
-import classes.Maths
-from classes.Tile import Tile
-
-
-class Collider():
+class Collider:
     def __init__(self, entity, level):
         self.entity = entity
         self.level = level.level
@@ -11,7 +6,7 @@ class Collider():
         self.result = []
 
     def checkX(self):
-        if(self.leftLevelBorderReached() or self.rightLevelBorderReached()):
+        if self.leftLevelBorderReached() or self.rightLevelBorderReached():
             return
         try:
             rows = [self.level[self.entity.getPosIndex().y],
@@ -22,7 +17,7 @@ class Collider():
             tiles = row[self.entity.getPosIndex(
             ).x:self.entity.getPosIndex().x + 2]
             for tile in tiles:
-                if(tile.rect is not None):
+                if tile.rect is not None:
                     if self.entity.rect.colliderect(tile.rect):
                         if self.entity.vel.x > 0:
                             self.entity.rect.right = tile.rect.left
@@ -45,7 +40,7 @@ class Collider():
             tiles = row[self.entity.getPosIndex(
             ).x:self.entity.getPosIndex().x + 2]
             for tile in tiles:
-                if(tile.rect is not None):
+                if tile.rect is not None:
                     if self.entity.rect.colliderect(tile.rect):
                         if self.entity.vel.y > 0:
                             self.entity.rect.bottom = tile.rect.top
@@ -61,13 +56,13 @@ class Collider():
                             self.entity.vel.y = 0
 
     def rightLevelBorderReached(self):
-        if(self.entity.getPosIndexAsFloat().x > self.levelObj.levelLength - 1):
+        if self.entity.getPosIndexAsFloat().x > self.levelObj.levelLength - 1:
             self.entity.rect.x = (self.levelObj.levelLength - 1) * 32
             self.entity.vel.x = 0
             return True
 
     def leftLevelBorderReached(self):
-        if(self.entity.rect.x < 0):
+        if self.entity.rect.x < 0:
             self.entity.rect.x = 0
             self.entity.vel.x = 0
             return True

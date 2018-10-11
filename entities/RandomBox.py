@@ -1,6 +1,4 @@
 from entities.EntityBase import EntityBase
-from classes.Animation import Animation
-import pygame
 from copy import copy
 from entities.Item import Item
 
@@ -22,16 +20,16 @@ class RandomBox(EntityBase):
         self.item = Item(spriteCollection, screen, self.rect.x, self.rect.y)
 
     def update(self, cam):
-        if(self.alive and self.triggered == False):
+        if self.alive and self.triggered == False:
             self.animation.update()
         else:
             self.animation.image = self.spriteCollection.get("empty").image
             self.item.spawnCoin(cam, self.sound, self.dashboard)
-            if(self.time < self.maxTime):
+            if self.time < self.maxTime:
                 self.time += 1
                 self.rect.y -= self.vel
             else:
-                if(self.time < self.maxTime * 2):
+                if self.time < self.maxTime * 2:
                     self.time += 1
                     self.rect.y += self.vel
         self.screen.blit(self.spriteCollection.get("sky").image,

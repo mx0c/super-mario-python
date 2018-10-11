@@ -1,9 +1,7 @@
-from classes.Sprites import Sprites
 from classes.Animation import Animation
 from classes.Maths import vec2D
 from traits.leftrightwalk import LeftRightWalkTrait
 from entities.EntityBase import EntityBase
-import pygame
 
 
 class Goomba(EntityBase):
@@ -18,7 +16,7 @@ class Goomba(EntityBase):
         self.dashboard = level.dashboard
 
     def update(self, camera):
-        if(self.alive):
+        if self.alive:
             self.applyGravity()
             self.drawGoomba(camera)
             self.leftrightTrait.update()
@@ -33,9 +31,9 @@ class Goomba(EntityBase):
         self.animation.update()
 
     def onDead(self, camera):
-        if(self.timer == 0):
+        if self.timer == 0:
             self.setPointsTextStartPosition(self.rect.x + 3, self.rect.y)
-        if(self.timer < self.timeAfterDeath):
+        if self.timer < self.timeAfterDeath:
             self.movePointsTextUpAndDraw(camera)
             self.drawFlatGoomba(camera)
         else:
