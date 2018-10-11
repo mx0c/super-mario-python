@@ -21,11 +21,13 @@ class Input:
         elif pressedKeys[K_RIGHT] and not pressedKeys[K_LEFT]:
             self.entity.traits["goTrait"].direction = 1
         else:
-            self.entity.traits["goTrait"].direction = 0
-        if pressedKeys[K_SPACE] or pressedKeys[K_UP]:
-            self.entity.traits["jumpTrait"].start()
-        if pressedKeys[K_LSHIFT]:
-            self.entity.traits["goTrait"].boost = True
+            self.entity.traits['goTrait'].direction = 0
+        if(pressedKeys[K_SPACE]) or (pressedKeys[K_UP]):
+            self.entity.traits['jumpTrait'].jump(True)
+        else:
+            self.entity.traits['jumpTrait'].jump(False)
+        if(pressedKeys[K_LSHIFT]):
+            self.entity.traits['goTrait'].boost = True
         else:
             self.entity.traits["goTrait"].boost = False
 
