@@ -23,19 +23,18 @@ class Dashboard(Font):
         self.drawText(str(self.levelName), 395, 37, 15)
 
         self.drawText("TIME", 520, 20, 15)
-        if(self.state != "menu"):
+        if self.state != "menu":
             self.drawText(self.genTimeString(), 535, 37, 15)
 
         # update Time
         self.ticks += 1
-        if(self.ticks == 60):
+        if self.ticks == 60:
             self.ticks = 0
             self.time += 1
 
     def drawText(self, text, x, y, size):
         for char in text:
-            charSprite = pygame.transform.scale(
-                self.charSprites[char], (size, size))
+            charSprite = pygame.transform.scale(self.charSprites[char], (size, size))
             self.screen.blit(charSprite, (x, y))
             x += size + 1
 

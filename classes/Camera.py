@@ -1,7 +1,7 @@
 from classes.Maths import vec2D
 
 
-class Camera():
+class Camera:
     def __init__(self, pos, entity):
         self.pos = vec2D(pos.x, pos.y)
         self.entity = entity
@@ -10,7 +10,7 @@ class Camera():
 
     def move(self):
         xPosFloat = self.entity.getPosIndexAsFloat().x
-        if xPosFloat > 10 and xPosFloat < 50:
+        if 10 < xPosFloat < 50:
             self.pos.x = -xPosFloat + 10
         self.x = self.pos.x * 32
         self.y = self.pos.y * 32

@@ -1,7 +1,7 @@
 import pygame
 
 
-class Tile():
+class Tile:
     def __init__(self, sprite, rect):
         self.sprite = sprite
         self.rect = rect
