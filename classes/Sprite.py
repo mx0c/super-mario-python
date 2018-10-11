@@ -1,10 +1,5 @@
-import classes.Spritesheet as Sprite
-import pygame
-
-
-class Sprite():
-    def __init__(self, image, colliding, animation=None,
-                 redrawBackground=False):
+class Sprite:
+    def __init__(self, image, colliding, animation=None, redrawBackground=False):
         self.image = image
         self.colliding = colliding
         self.animation = animation
@@ -12,7 +7,7 @@ class Sprite():
 
     def drawSprite(self, x, y, screen):
         dimensions = (x * 32, y * 32)
-        if(self.animation is None):
+        if self.animation is None:
             screen.blit(self.image, dimensions)
         else:
             self.animation.update()
