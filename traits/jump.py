@@ -2,10 +2,10 @@ from pygame.time import get_ticks
 
 class jumpTrait:
     def __init__(self, entity):
-        self.vel = -8
+        self.vel = -6
         self.entity = entity
         self.startTime = 0
-        self.maxTime = 300
+        self.maxTime = 280
 
     def jump(self, jumping):
         if (jumping and not self.entity.inAir):
