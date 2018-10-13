@@ -1,5 +1,6 @@
-from entities.EntityBase import EntityBase
 from copy import copy
+
+from entities.EntityBase import EntityBase
 from entities.Item import Item
 
 
@@ -19,7 +20,7 @@ class RandomBox(EntityBase):
         self.item = Item(spriteCollection, screen, self.rect.x, self.rect.y)
 
     def update(self, cam):
-        if self.alive and self.triggered == False:
+        if self.alive and not self.triggered:
             self.animation.update()
         else:
             self.animation.image = self.spriteCollection.get("empty").image

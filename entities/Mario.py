@@ -1,14 +1,15 @@
-from classes.Sprites import Sprites
 import pygame
+
+from classes.Animation import Animation
+from classes.Camera import Camera
+from classes.Collider import Collider
+from classes.EntityCollider import EntityCollider
+from classes.Input import Input
+from classes.Sprites import Sprites
+from entities.EntityBase import EntityBase
+from traits.bounce import bounceTrait
 from traits.go import goTrait
 from traits.jump import jumpTrait
-from classes.Animation import Animation
-from classes.Collider import Collider
-from classes.Camera import Camera
-from entities.EntityBase import EntityBase
-from classes.EntityCollider import EntityCollider
-from traits.bounce import bounceTrait
-from classes.Input import Input
 
 
 class Mario(EntityBase):
@@ -97,7 +98,7 @@ class Mario(EntityBase):
             else:
                 mob.leftrightTrait.direction = 1
             mob.alive = "shellBouncing"
-        elif collisionState.isColliding and mob.alive == True:
+        elif collisionState.isColliding and mob.alive:
             self.gameOver()
 
     def bounce(self):

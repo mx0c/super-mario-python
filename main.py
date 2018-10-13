@@ -1,9 +1,9 @@
 import pygame
-from classes.Level import Level
-from entities.Mario import Mario
 from classes.Dashboard import Dashboard
-from classes.Sound import Sound
+from classes.Level import Level
 from classes.Menu import Menu
+from classes.Sound import Sound
+from entities.Mario import Mario
 
 
 def main():
