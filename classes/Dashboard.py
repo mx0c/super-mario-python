@@ -1,5 +1,6 @@
-from classes.Font import Font
 import pygame
+
+from classes.Font import Font
 
 
 class Dashboard(Font):
@@ -15,16 +16,16 @@ class Dashboard(Font):
 
     def update(self):
         self.drawText("MARIO", 50, 20, 15)
-        self.drawText(self.genPointsString(), 50, 37, 15)
+        self.drawText(self.pointString(), 50, 37, 15)
 
-        self.drawText("@x{}".format(self.genCoinString()), 225, 37, 15)
+        self.drawText("@x{}".format(self.coinString()), 225, 37, 15)
 
         self.drawText("WORLD", 380, 20, 15)
         self.drawText(str(self.levelName), 395, 37, 15)
 
         self.drawText("TIME", 520, 20, 15)
         if self.state != "menu":
-            self.drawText(self.genTimeString(), 535, 37, 15)
+            self.drawText(self.timeString(), 535, 37, 15)
 
         # update Time
         self.ticks += 1
@@ -38,26 +39,11 @@ class Dashboard(Font):
             self.screen.blit(charSprite, (x, y))
             x += size + 1
 
-    def genCoinString(self):
-        coinsString = ""
-        zerosLeft = 2 - len(str(self.coins))
-        for i in range(0, zerosLeft):
-            coinsString += "0"
-        coinsString += str(self.coins)
-        return coinsString
+    def coinString(self):
+        return "{:02d}".format(self.coins)
 
-    def genPointsString(self):
-        pointsString = ""
-        zerosLeft = 6 - len(str(self.points))
-        for i in range(0, zerosLeft):
-            pointsString += "0"
-        pointsString += str(self.points)
-        return pointsString
+    def pointString(self):
+        return "{:06d}".format(self.points)
 
-    def genTimeString(self):
-        timeStr = ""
-        zerosLeft = 3 - len(str(self.time))
-        for i in range(0, zerosLeft):
-            timeStr += "0"
-        timeStr += str(self.time)
-        return timeStr
+    def timeString(self):
+        return "{:03d}".format(self.time)
