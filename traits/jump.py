@@ -8,7 +8,7 @@ class jumpTrait:
         self.maxTime = 300
 
     def jump(self, jumping):
-        if (jumping and not self.entity.inAir):
+        if (jumping and self.entity.onGround):
             self.startTime = get_ticks()
         if (jumping and get_ticks() - self.startTime < self.maxTime):
             self.entity.vel.y = self.vel

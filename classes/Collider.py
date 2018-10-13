@@ -28,6 +28,8 @@ class Collider:
                             self.entity.vel.x = 0
 
     def checkY(self):
+        self.entity.onGround = False
+        
         try:
             rows = [
                 self.level[self.entity.getPosIndex().y],
@@ -45,6 +47,7 @@ class Collider:
                 if tile.rect is not None:
                     if self.entity.rect.colliderect(tile.rect):
                         if self.entity.vel.y > 0:
+                            self.entity.onGround = True
                             self.entity.rect.bottom = tile.rect.top
                             self.entity.vel.y = 0
                             # reset jump on bottom
