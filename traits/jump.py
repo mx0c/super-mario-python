@@ -5,7 +5,7 @@ class jumpTrait:
         self.vel = -6
         self.entity = entity
         self.startTime = 0
-        self.maxTime = 280
+        self.maxTime = 300
 
     def jump(self, jumping):
         if (jumping and not self.entity.inAir):
