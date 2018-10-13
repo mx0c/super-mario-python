@@ -1,11 +1,13 @@
-from classes.Sprites import Sprites
-import pygame
 import json
+
+import pygame
+
+from classes.Sprites import Sprites
+from classes.Tile import Tile
+from entities.Coin import Coin
 from entities.Goomba import Goomba
 from entities.Koopa import Koopa
 from entities.RandomBox import RandomBox
-from classes.Tile import Tile
-from entities.Coin import Coin
 
 
 class Level:
@@ -54,9 +56,12 @@ class Level:
         self.level = list(map(list, zip(*layers)))
 
     def loadObjects(self, data):
-        [self.addBushSprite(x, y) for x, y in data["level"]["objects"]["bush"]]
-        [self.addCloudSprite(x, y) for x, y in data["level"]["objects"]["cloud"]]
-        [self.addPipeSprite(x, y, z) for x, y, z in data["level"]["objects"]["pipe"]]
+        for x, y in data["level"]["objects"]["bush"]:
+            self.addBushSprite(x, y)
+        for x, y in data["level"]["objects"]["cloud"]:
+            self.addCloudSprite(x, y)
+        for x, y, z in data["level"]["objects"]["pipe"]:
+            self.addPipeSprite(x, y, z)
         for x, y in data["level"]["objects"]["sky"]:
             self.level[y][x] = Tile(self.sprites.spriteCollection.get("sky"), None)
         for x, y in data["level"]["objects"]["ground"]:

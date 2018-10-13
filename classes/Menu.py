@@ -1,7 +1,9 @@
-import pygame
-import sys
-from classes.Spritesheet import Spritesheet
 import json
+import sys
+
+import pygame
+
+from classes.Spritesheet import Spritesheet
 
 
 class Menu:
@@ -12,6 +14,8 @@ class Menu:
         self.inSettings = False
         self.state = 0
         self.level = level
+        self.music = True
+        self.sfx = True
         self.dashboard = dashboard
         self.spritesheet = Spritesheet("./img/title_screen.png")
         self.menu_banner = self.spritesheet.image_at(

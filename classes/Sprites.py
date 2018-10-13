@@ -1,7 +1,8 @@
-from classes.Spritesheet import Spritesheet
-from classes.Sprite import Sprite
-from classes.Animation import Animation
 import json
+
+from classes.Animation import Animation
+from classes.Sprite import Sprite
+from classes.Spritesheet import Spritesheet
 
 
 class Sprites:

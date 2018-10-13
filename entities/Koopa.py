@@ -1,8 +1,9 @@
+import pygame
+
 from classes.Animation import Animation
 from classes.Maths import vec2D
-import pygame
-from traits.leftrightwalk import LeftRightWalkTrait
 from entities.EntityBase import EntityBase
+from traits.leftrightwalk import LeftRightWalkTrait
 
 
 class Koopa(EntityBase):

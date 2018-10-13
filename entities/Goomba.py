@@ -1,7 +1,7 @@
 from classes.Animation import Animation
 from classes.Maths import vec2D
-from traits.leftrightwalk import LeftRightWalkTrait
 from entities.EntityBase import EntityBase
+from traits.leftrightwalk import LeftRightWalkTrait
 
 
 class Goomba(EntityBase):

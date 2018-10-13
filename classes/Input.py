@@ -16,20 +16,18 @@ class Input:
 
     def checkForKeyboardInput(self):
         pressedKeys = pygame.key.get_pressed()
+
         if pressedKeys[K_LEFT] and not pressedKeys[K_RIGHT]:
             self.entity.traits["goTrait"].direction = -1
         elif pressedKeys[K_RIGHT] and not pressedKeys[K_LEFT]:
             self.entity.traits["goTrait"].direction = 1
         else:
             self.entity.traits['goTrait'].direction = 0
-        if(pressedKeys[K_SPACE]) or (pressedKeys[K_UP]):
-            self.entity.traits['jumpTrait'].jump(True)
-        else:
-            self.entity.traits['jumpTrait'].jump(False)
-        if(pressedKeys[K_LSHIFT]):
-            self.entity.traits['goTrait'].boost = True
-        else:
-            self.entity.traits["goTrait"].boost = False
+
+        jump = pressedKeys[K_SPACE] or pressedKeys[K_UP]
+        self.entity.traits['jumpTrait'].jump(jump)
+
+        self.entity.traits['goTrait'].boost = pressedKeys[K_LSHIFT]
 
     def checkForMouseInput(self):
         mouseX, mouseY = pygame.mouse.get_pos()
@@ -51,7 +49,8 @@ class Input:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if self.checkIfRestartEvent(event):
+            if event.type == pygame.KEYDOWN and \
+                (event.key == pygame.K_ESCAPE or event.key == pygame.K_F5):
                 self.entity.restart = True
 
     def isLeftMouseButtonPressed(self):
@@ -59,8 +58,3 @@ class Input:
 
     def isRightMouseButtonPressed(self):
         return pygame.mouse.get_pressed()[2]
-
-    def checkIfRestartEvent(self, event):
-        return (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE) or (
-            event.type == pygame.KEYDOWN and event.key == pygame.K_F5
-        )

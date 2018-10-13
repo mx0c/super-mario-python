@@ -1,5 +1,6 @@
-from classes.Maths import vec2D
 import pygame
+
+from classes.Maths import vec2D
 
 
 class EntityBase(object):
