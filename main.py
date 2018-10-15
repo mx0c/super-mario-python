@@ -24,7 +24,7 @@ def main():
     clock = pygame.time.Clock()
 
     while not mario.restart:
-        pygame.display.set_caption("{:.2f} FPS".format(clock.get_fps()))
+        pygame.display.set_caption(str(round(float("{:.2f} FPS".format(clock.get_fps()).split(" ")[0]))) +  " FPS")
         level.drawLevel(mario.camera)
         dashboard.update()
         mario.update()
