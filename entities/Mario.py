@@ -95,9 +95,9 @@ class Mario(EntityBase):
         elif collisionState.isColliding and mob.alive == "sleeping":
             if mob.rect.x < self.rect.x:
                 mob.leftrightTrait.direction = -1
-                mob.rect.move(10,0)
-            else:
                 mob.rect.move(-10,0)
+            else:
+                mob.rect.move(10,0)
                 mob.leftrightTrait.direction = 1
             mob.alive = "shellBouncing"
         elif collisionState.isColliding and mob.alive:

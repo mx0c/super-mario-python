@@ -30,6 +30,9 @@ class Menu:
         self.menu_dot = self.spritesheet.image_at(
             0, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
         )
+        self.menu_dot2 = self.spritesheet.image_at(
+  	        20, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
+        )
         self.loadSettings("./settings.json")
 
     def update(self):
@@ -44,10 +47,16 @@ class Menu:
     def drawDot(self):
         if self.state == 0:
             self.screen.blit(self.menu_dot, (145, 273))
+            self.screen.blit(self.menu_dot2, (145, 313))
+            self.screen.blit(self.menu_dot2, (145, 353))
         elif self.state == 1:
             self.screen.blit(self.menu_dot, (145, 313))
+            self.screen.blit(self.menu_dot2, (145, 273))
+            self.screen.blit(self.menu_dot2, (145, 353))
         elif self.state == 2:
             self.screen.blit(self.menu_dot, (145, 353))
+            self.screen.blit(self.menu_dot2, (145, 273))
+            self.screen.blit(self.menu_dot2, (145, 313))
 
     def loadSettings(self, url):
         with open(url) as jsonData:
