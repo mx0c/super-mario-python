@@ -81,7 +81,7 @@ class Mario(EntityBase):
         block.triggered = True
 
     def _onCollisionWithMob(self, mob, collisionState):
-        if collisionState.isTop and (mob.alive is True or mob.alive == "shellBouncing"):
+        if collisionState.isTop and (mob.alive or mob.alive == "shellBouncing"):
             self.sound.play_sfx(self.sound.stomp)
             self.rect.bottom = mob.rect.top
             self.bounce()
@@ -92,10 +92,12 @@ class Mario(EntityBase):
             mob.timer = 0
             self.bounce()
             mob.alive = False
-        elif collisionState.isTop and mob.alive == "sleeping":
+        elif collisionState.isColliding and mob.alive == "sleeping":
             if mob.rect.x < self.rect.x:
                 mob.leftrightTrait.direction = -1
+                mob.rect.move(10,0)
             else:
+                mob.rect.move(-10,0)
                 mob.leftrightTrait.direction = 1
             mob.alive = "shellBouncing"
         elif collisionState.isColliding and mob.alive:
