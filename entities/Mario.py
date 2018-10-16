@@ -77,6 +77,7 @@ class Mario(EntityBase):
 
     def _onCollisionWithBlock(self, block):
         if not block.triggered:
+            self.dashboard.coins += 1
             self.sound.play_sfx(self.sound.bump)
         block.triggered = True
 
