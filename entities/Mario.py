@@ -96,9 +96,9 @@ class Mario(EntityBase):
         elif collisionState.isColliding and mob.alive == "sleeping":
             if mob.rect.x < self.rect.x:
                 mob.leftrightTrait.direction = -1
-                mob.rect.move(-10,0)
+                mob.rect.x += -5
             else:
-                mob.rect.move(10,0)
+                mob.rect.x += 5
                 mob.leftrightTrait.direction = 1
             mob.alive = "shellBouncing"
         elif collisionState.isColliding and mob.alive:
@@ -140,3 +140,7 @@ class Mario(EntityBase):
 
     def getPos(self):
         return self.camera.x + self.rect.x, self.rect.y
+
+    def setPos(self,x,y):
+        self.rect.x = x
+        self.rect.y = y

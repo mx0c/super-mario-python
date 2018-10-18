@@ -6,9 +6,9 @@ class goTrait:
         self.animation = animation
         self.direction = 0
         self.heading = 1
-        self.accelVel = 0.64
+        self.accelVel = 0.4
         self.decelVel = 0.15
-        self.maxVel = 3.2
+        self.maxVel = 3.0
         self.screen = screen
         self.boost = False
         self.camera = camera
@@ -16,7 +16,7 @@ class goTrait:
 
     def update(self):
         if self.boost:
-            self.maxVel = 5.5
+            self.maxVel = 5.0
             self.animation.deltaTime = 4
         else:
             self.animation.deltaTime = 7
