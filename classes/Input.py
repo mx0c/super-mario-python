@@ -51,7 +51,7 @@ class Input:
                 sys.exit()
             if event.type == pygame.KEYDOWN and \
                 (event.key == pygame.K_ESCAPE or event.key == pygame.K_F5):
-                self.entity.restart = True
+                self.entity.pause = True
 
     def isLeftMouseButtonPressed(self):
         return pygame.mouse.get_pressed()[0]
