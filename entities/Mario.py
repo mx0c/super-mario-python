@@ -43,6 +43,7 @@ class Mario(EntityBase):
         self.EntityCollider = EntityCollider(self)
         self.dashboard = dashboard
         self.restart = False
+        self.pause = False
 
     def update(self):
         self.updateTraits()

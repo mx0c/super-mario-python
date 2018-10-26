@@ -141,6 +141,7 @@ class Menu:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
                     sys.exit()
                 elif event.key == pygame.K_UP:
                     if self.state > 0:
