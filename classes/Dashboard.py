@@ -37,7 +37,10 @@ class Dashboard(Font):
         for char in text:
             charSprite = pygame.transform.scale(self.charSprites[char], (size, size))
             self.screen.blit(charSprite, (x, y))
-            x += size + 1
+            if char == " ":
+                x += size//2
+            else:
+                x += size
 
     def coinString(self):
         return "{:02d}".format(self.coins)

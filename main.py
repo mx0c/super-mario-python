@@ -4,7 +4,6 @@ from classes.Level import Level
 from classes.Menu import Menu
 from classes.Sound import Sound
 from entities.Mario import Mario
-from classes.Pause import Pause
 
 
 def main():
@@ -22,13 +21,12 @@ def main():
         menu.update()
 
     mario = Mario(0, 0, level, screen, dashboard, sound)
-    pause = Pause(screen, mario, dashboard)
     clock = pygame.time.Clock()
 
     while not mario.restart:
         pygame.display.set_caption("{:d} FPS".format(int(clock.get_fps())))
         if mario.pause:
-            pause.update()
+            mario.pauseObj.update()
         else:
             level.drawLevel(mario.camera)
             dashboard.update()

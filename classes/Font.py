@@ -24,8 +24,8 @@ class Font(Spritesheet):
                         row,
                         2,
                         colorkey=pygame.color.Color(0, 0, 0),
-                        xTileSize=8,
-                        yTileSize=8,
+                        xTileSize = 8,
+                        yTileSize = 8
                     )
                 }
             )

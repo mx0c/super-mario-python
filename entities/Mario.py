@@ -10,6 +10,7 @@ from entities.EntityBase import EntityBase
 from traits.bounce import bounceTrait
 from traits.go import goTrait
 from traits.jump import jumpTrait
+from classes.Pause import Pause
 
 
 class Mario(EntityBase):
@@ -44,6 +45,7 @@ class Mario(EntityBase):
         self.dashboard = dashboard
         self.restart = False
         self.pause = False
+        self.pauseObj = Pause(screen, self, dashboard)
 
     def update(self):
         self.updateTraits()
