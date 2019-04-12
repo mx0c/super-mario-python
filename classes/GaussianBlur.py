@@ -1,5 +1,5 @@
 import pygame
-from scipy.ndimage.filters import gaussian_filter
+from scipy.ndimage.filters import *
 
 class GaussianBlur:
     def __init__(self,kernelsize=7):

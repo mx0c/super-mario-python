@@ -21,7 +21,11 @@ This is inspired by Meth-Meth-Method's: https://github.com/meth-meth-method/supe
 * Left/Right Mouseclick: secret   
 
 ## Current state:
-![Alt text](https://i.imgur.com/pGf4624.png)
+![Alt text](img/pictures.PNG "current state")
+
+## Dependencies
+* pygame
+* scipy
 
 ## Contribution
 

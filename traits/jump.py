@@ -1,8 +1,8 @@
 
 class jumpTrait:
     def __init__(self, entity):
-        self.aVel = -12
-        self.dVel = -6
+        self.aVel = -14
+        self.dVel = -10
         self.entity = entity
         self.startTime = 0
 
