@@ -24,7 +24,7 @@ def main():
     clock = pygame.time.Clock()
 
     while not mario.restart:
-        pygame.display.set_caption("{:d} FPS".format(int(clock.get_fps())))
+        pygame.display.set_caption("Super Mario running with {:d} FPS".format(int(clock.get_fps())))
         if mario.pause:
             mario.pauseObj.update()
         else:

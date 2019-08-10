@@ -21,7 +21,6 @@ class Mario(EntityBase):
         self.sound = sound
         self.input = Input(self)
         self.inAir = False
-
         self.animation = Animation(
             [
                 self.spriteCollection["mario_run1"].image,

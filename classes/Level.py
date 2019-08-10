@@ -1,5 +1,4 @@
 import json
-
 import pygame
 
 from classes.Sprites import Sprites
@@ -8,7 +7,6 @@ from entities.Coin import Coin
 from entities.Goomba import Goomba
 from entities.Koopa import Koopa
 from entities.RandomBox import RandomBox
-
 
 class Level:
     def __init__(self, screen, sound, dashboard):
@@ -19,10 +17,9 @@ class Level:
         self.level = None
         self.levelLength = 0
         self.entityList = []
-        self.loadLevel("Level1-1.json")
 
     def loadLevel(self, levelname):
-        with open("./levels/{}".format(levelname)) as jsonData:
+        with open("./levels/{}.json".format(levelname)) as jsonData:
             data = json.load(jsonData)
             self.loadLayers(data)
             self.loadObjects(data)
@@ -30,10 +27,14 @@ class Level:
             self.levelLength = data["length"]
 
     def loadEntities(self, data):
-        [self.addRandomBox(x, y) for x, y in data["level"]["entities"]["randomBox"]]
-        [self.addGoomba(x, y) for x, y in data["level"]["entities"]["Goomba"]]
-        [self.addKoopa(x, y) for x, y in data["level"]["entities"]["Koopa"]]
-        [self.addCoin(x, y) for x, y in data["level"]["entities"]["coin"]]
+        try:
+            [self.addRandomBox(x, y) for x, y in data["level"]["entities"]["randomBox"]]
+            [self.addGoomba(x, y) for x, y in data["level"]["entities"]["Goomba"]]
+            [self.addKoopa(x, y) for x, y in data["level"]["entities"]["Koopa"]]
+            [self.addCoin(x, y) for x, y in data["level"]["entities"]["coin"]]
+        except:
+            #if no entities in Level
+            pass
 
     def loadLayers(self, data):
         layers = []

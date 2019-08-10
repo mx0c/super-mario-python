@@ -5,7 +5,6 @@ from classes.Spritesheet import Spritesheet
 from classes.GaussianBlur import GaussianBlur
 
 class Pause:
-
     def __init__(self, screen, entity, dashboard):
         self.screen = screen
         self.entity = entity

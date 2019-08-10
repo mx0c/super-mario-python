@@ -1,6 +1,5 @@
 import pygame
 
-
 class Spritesheet(object):
     def __init__(self, filename):
         try:
