@@ -190,10 +190,13 @@ class Menu:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    if self.inChoosingLevel:
-                        return
-                    pygame.quit()
-                    sys.exit()
+                    if self.inChoosingLevel or self.inSettings:
+                        self.inChoosingLevel = False
+                        self.inSettings = False
+                        self.__init__(self.screen, self.dashboard, self.level, self.sound)
+                    else:
+                        pygame.quit()
+                        sys.exit()
                 elif event.key == pygame.K_UP:
                     if self.inChoosingLevel:
                         if self.currSelectedLevel > 3:
