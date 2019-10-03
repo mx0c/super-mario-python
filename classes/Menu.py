@@ -67,19 +67,25 @@ class Menu:
             self.screen.blit(self.menu_dot2, (145, 313))
 
     def loadSettings(self, url):
-        with open(url) as jsonData:
-            data = json.load(jsonData)
-            if data["sound"]:
-                self.music = True
-                self.sound.music_channel.play(self.sound.soundtrack)
-            else:
-                self.music = False
-            if data["sfx"]:
-                self.sfx = True
-                self.sound.allowSFX = True
-            else:
-                self.sound.allowSFX = False
-                self.sfx = False
+        try:
+            with open(url) as jsonData:
+                data = json.load(jsonData)
+                if data["sound"]:
+                    self.music = True
+                    self.sound.music_channel.play(self.sound.soundtrack)
+                else:
+                    self.music = False
+                if data["sfx"]:
+                    self.sfx = True
+                    self.sound.allowSFX = True
+                else:
+                    self.sound.allowSFX = False
+                    self.sfx = False
+        except (IOError, OSError):
+            self.music = False
+            self.sound.allowSFX = False
+            self.sfx = False
+            self.saveSettings("./settings.json")
 
     def saveSettings(self, url):
         data = {"sound": self.music, "sfx": self.sfx}
