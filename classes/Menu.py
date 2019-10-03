@@ -175,7 +175,7 @@ class Menu:
         files = []
         res = []
         for r, d, f in os.walk("./levels"):
-            for file in f:
+            for file in sorted(f):
                 files.append(os.path.join(r, file))
         for f in files:
             res.append(os.path.split(f)[1].split(".")[0])
