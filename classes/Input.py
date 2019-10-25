@@ -17,14 +17,14 @@ class Input:
     def checkForKeyboardInput(self):
         pressedKeys = pygame.key.get_pressed()
 
-        if pressedKeys[K_LEFT] and not pressedKeys[K_RIGHT]:
+        if pressedKeys[K_LEFT] or pressedKeys[K_h] and not pressedKeys[K_RIGHT]:
             self.entity.traits["goTrait"].direction = -1
-        elif pressedKeys[K_RIGHT] and not pressedKeys[K_LEFT]:
+        elif pressedKeys[K_RIGHT] or pressedKeys[K_l] and not pressedKeys[K_LEFT]:
             self.entity.traits["goTrait"].direction = 1
         else:
             self.entity.traits['goTrait'].direction = 0
 
-        isJumping = pressedKeys[K_SPACE] or pressedKeys[K_UP]
+        isJumping = pressedKeys[K_SPACE] or pressedKeys[K_UP] or pressedKeys[K_k]
         self.entity.traits['jumpTrait'].jump(isJumping)
 
         self.entity.traits['goTrait'].boost = pressedKeys[K_LSHIFT]

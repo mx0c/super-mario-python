@@ -203,25 +203,25 @@ class Menu:
                     else:
                         pygame.quit()
                         sys.exit()
-                elif event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP or event.key == pygame.K_k:
                     if self.inChoosingLevel:
                         if self.currSelectedLevel > 3:
                             self.currSelectedLevel -= 3
                             self.drawLevelChooser()
                     if self.state > 0:
                         self.state -= 1
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_DOWN or event.key == pygame.K_j:
                     if self.inChoosingLevel:
                         if self.currSelectedLevel+3 <= self.levelCount:
                             self.currSelectedLevel += 3
                             self.drawLevelChooser()
                     if self.state < 2:
                         self.state += 1
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_LEFT or event.key == pygame.K_h:
                     if self.currSelectedLevel > 1:
                         self.currSelectedLevel -= 1
                         self.drawLevelChooser()
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_RIGHT or event.key == pygame.K_l:
                     if self.currSelectedLevel < self.levelCount:
                         self.currSelectedLevel += 1
                         self.drawLevelChooser()
