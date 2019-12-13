@@ -14,9 +14,11 @@ class EntityBase(object):
         self.timer = 0
         self.type = ""
         self.onGround = False
-
+        self.obeygravity = True
+        
     def applyGravity(self):
-        self.vel.y += self.gravity
+        if self.obeygravity:
+            self.vel.y += self.gravity
 
     def updateTraits(self):
         for trait in self.traits.values():
