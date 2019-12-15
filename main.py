@@ -6,12 +6,12 @@ from classes.Sound import Sound
 from entities.Mario import Mario
 
 
+windowSize = (640,480)
 def main():
     pygame.mixer.pre_init(44100, -16, 2, 4096)
     pygame.init()
-    screen = pygame.display.set_mode((640, 480))
+    screen = pygame.display.set_mode(windowSize)
     max_frame_rate = 60
-
     dashboard = Dashboard("./img/font.png", 8, screen)
     sound = Sound()
     level = Level(screen, sound, dashboard)
