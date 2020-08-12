@@ -23,6 +23,10 @@ This is inspired by Meth-Meth-Method's [super mario game](https://github.com/met
 ## Current state:
 ![Alt text](img/pics.png "current state")
 
+## Dependencies	
+* pygame	
+* scipy	
+
 ## Contribution
 
 If you have any Improvements/Ideas/Refactors feel free to contact me or make a Pull Request.
