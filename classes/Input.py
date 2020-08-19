@@ -10,9 +10,10 @@ class Input:
         self.entity = entity
 
     def checkForInput(self):
+        events = pygame.event.get()
         self.checkForKeyboardInput()
-        self.checkForMouseInput()
-        self.checkForQuitAndRestartInputEvents()
+        self.checkForMouseInput(events)
+        self.checkForQuitAndRestartInputEvents(events)
 
     def checkForKeyboardInput(self):
         pressedKeys = pygame.key.get_pressed()
@@ -29,22 +30,21 @@ class Input:
 
         self.entity.traits['goTrait'].boost = pressedKeys[K_LSHIFT]
 
-    def checkForMouseInput(self):
+    def checkForMouseInput(self,events):
         mouseX, mouseY = pygame.mouse.get_pos()
-        if self.isRightMouseButtonPressed():
+        if self.isRightMouseButtonPressed(events):
             self.entity.levelObj.addKoopa(
                 mouseY / 32, mouseX / 32 - self.entity.camera.pos.x
             )
             self.entity.levelObj.addGoomba(
                 mouseY / 32, mouseX / 32 - self.entity.camera.pos.x
             )
-        if self.isLeftMouseButtonPressed():
+        if self.isLeftMouseButtonPressed(events):
             self.entity.levelObj.addCoin(
                 mouseX / 32 - self.entity.camera.pos.x, mouseY / 32
             )
 
-    def checkForQuitAndRestartInputEvents(self):
-        events = pygame.event.get()
+    def checkForQuitAndRestartInputEvents(self,events):
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -54,8 +54,21 @@ class Input:
                 self.entity.pause = True
                 self.entity.pauseObj.createBackgroundBlur()
 
-    def isLeftMouseButtonPressed(self):
-        return pygame.mouse.get_pressed()[0]
+    def isLeftMouseButtonPressed(self, events):
+        return self.checkMouse(events,1)
 
-    def isRightMouseButtonPressed(self):
-        return pygame.mouse.get_pressed()[2]
+
+
+    def isRightMouseButtonPressed(self, events):
+        return self.checkMouse(events,3)
+
+
+    def checkMouse(self, events, button):
+        for e in events:
+                if e.type == pygame.MOUSEBUTTONUP:
+                    if e.button == button:
+                       return True
+        else:
+                       return False
+
+
