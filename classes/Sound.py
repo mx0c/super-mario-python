@@ -1,6 +1,5 @@
 from pygame import mixer
 
-
 class Sound:
     def __init__(self):
         self.music_channel = mixer.Channel(0)
@@ -16,6 +15,7 @@ class Sound:
         self.stomp = mixer.Sound("./sfx/stomp.ogg")
         self.jump = mixer.Sound("./sfx/small_jump.ogg")
         self.death = mixer.Sound("./sfx/death.wav")
+        self.click = mixer.Sound("./sfx/click.mp3")
 
     def play_sfx(self, sfx):
         if self.allowSFX:
