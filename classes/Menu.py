@@ -203,30 +203,37 @@ class Menu:
                     else:
                         pygame.quit()
                         sys.exit()
-                elif event.key == pygame.K_UP or event.key == pygame.K_k:
+                elif event.key == pygame.K_UP or event.key == pygame.K_k or event.key == pygame.K_w:
                     if self.inChoosingLevel:
                         if self.currSelectedLevel > 3:
+                            self.sound.play_sfx(self.sound.click)
                             self.currSelectedLevel -= 3
                             self.drawLevelChooser()
                     if self.state > 0:
+                        self.sound.play_sfx(self.sound.click)
                         self.state -= 1
-                elif event.key == pygame.K_DOWN or event.key == pygame.K_j:
+                elif event.key == pygame.K_DOWN or event.key == pygame.K_j or event.key == pygame.K_s:
                     if self.inChoosingLevel:
                         if self.currSelectedLevel+3 <= self.levelCount:
+                            self.sound.play_sfx(self.sound.click)
                             self.currSelectedLevel += 3
                             self.drawLevelChooser()
                     if self.state < 2:
+                        self.sound.play_sfx(self.sound.click)
                         self.state += 1
-                elif event.key == pygame.K_LEFT or event.key == pygame.K_h:
+                elif event.key == pygame.K_LEFT or event.key == pygame.K_h or event.key == pygame.K_a:
                     if self.currSelectedLevel > 1:
+                        self.sound.play_sfx(self.sound.click)
                         self.currSelectedLevel -= 1
                         self.drawLevelChooser()
-                elif event.key == pygame.K_RIGHT or event.key == pygame.K_l:
+                elif event.key == pygame.K_RIGHT or event.key == pygame.K_l or event.key == pygame.K_d:
                     if self.currSelectedLevel < self.levelCount:
+                        self.sound.play_sfx(self.sound.click)
                         self.currSelectedLevel += 1
                         self.drawLevelChooser()
-                elif event.key == pygame.K_RETURN:
+                elif event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
                     if self.inChoosingLevel:
+                        self.sound.play_sfx(self.sound.click)
                         self.inChoosingLevel = False
                         self.dashboard.state = "start"
                         self.dashboard.time = 0
