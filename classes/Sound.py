@@ -16,6 +16,7 @@ class Sound:
         self.stomp = mixer.Sound("./sfx/stomp.ogg")
         self.jump = mixer.Sound("./sfx/small_jump.ogg")
         self.death = mixer.Sound("./sfx/death.wav")
+        self.win = mixer.Sound("./sfx/win.mp3")
 
     def play_sfx(self, sfx):
         if self.allowSFX:
