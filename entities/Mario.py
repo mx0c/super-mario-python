@@ -1,5 +1,7 @@
 import pygame
+import time
 
+from classes.Sound import Sound
 from classes.Animation import Animation
 from classes.Camera import Camera
 from classes.Collider import Collider
@@ -11,7 +13,6 @@ from traits.bounce import bounceTrait
 from traits.go import goTrait
 from traits.jump import jumpTrait
 from classes.Pause import Pause
-
 
 class Mario(EntityBase):
     def __init__(self, x, y, level, screen, dashboard, sound, gravity=0.75):
@@ -48,6 +49,7 @@ class Mario(EntityBase):
         self.pauseObj = Pause(screen, self, dashboard)
 
     def update(self):
+        self.checkEdge()
         self.updateTraits()
         self.moveMario()
         self.camera.move()
@@ -140,6 +142,14 @@ class Mario(EntityBase):
             pygame.display.update()
             self.input.checkForInput()
         self.restart = True
+
+    def checkEdge(self):
+        if self.touchingEdge():
+            self.sound.play_sfx(self.sound.win)
+            time.sleep(3.784)
+
+    def touchingEdge(self):
+        return self.rect.x == 1888
 
     def getPos(self):
         return self.camera.x + self.rect.x, self.rect.y
