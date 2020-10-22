@@ -8,7 +8,7 @@ class jumpTrait:
         self.deaccelerationHeight = self.jumpHeight - ((self.vertical_speed*self.vertical_speed)/(2*self.entity.gravity))
 
     def jump(self,jumping):
-        print(str(self.entity.rect.y) + ", " + str(self.entity.rect.x))
+        #print(self.entity.rect.y)
         if jumping:
             if not self.entity.inAir and not self.entity.inJump: #only jump when mario is on ground and not in a jump. redundant check
                 self.entity.sound.play_sfx(self.entity.sound.jump)
