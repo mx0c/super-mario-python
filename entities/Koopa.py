@@ -9,7 +9,7 @@ from classes.EntityCollider import EntityCollider
 
 
 class Koopa(EntityBase):
-    def __init__(self, screen, spriteColl, x, y, level):
+    def __init__(self, screen, spriteColl, x, y, level, sound):
         super(Koopa, self).__init__(y - 1, x, 1.25)
         self.spriteCollection = spriteColl
         self.animation = Animation(
@@ -27,6 +27,7 @@ class Koopa(EntityBase):
         self.collision = Collider(self, level)
         self.EntityCollider = EntityCollider(self)
         self.levelObj = level
+        self.sound = sound
 
     def update(self, camera):
         if self.alive == True:
@@ -111,3 +112,4 @@ class Koopa(EntityBase):
     def _onCollisionWithMob(self, mob, collisionState):
         if collisionState.isColliding and mob.alive == "shellBouncing":
             self.alive = False
+            self.sound.play_sfx(self.sound.stomp)

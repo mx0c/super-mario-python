@@ -161,10 +161,10 @@ class Level:
 
     def addGoomba(self, x, y):
         self.entityList.append(
-            Goomba(self.screen, self.sprites.spriteCollection, x, y, self)
+            Goomba(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
 
     def addKoopa(self, x, y):
         self.entityList.append(
-            Koopa(self.screen, self.sprites.spriteCollection, x, y, self)
+            Koopa(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )

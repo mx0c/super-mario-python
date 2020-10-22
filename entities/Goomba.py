@@ -6,7 +6,7 @@ from classes.Collider import Collider
 from classes.EntityCollider import EntityCollider
 
 class Goomba(EntityBase):
-    def __init__(self, screen, spriteColl, x, y, level):
+    def __init__(self, screen, spriteColl, x, y, level, sound):
         super(Goomba, self).__init__(y, x - 1, 1.25)
         self.spriteCollection = spriteColl
         self.animation = Animation(
@@ -22,6 +22,7 @@ class Goomba(EntityBase):
         self.collision = Collider(self, level)
         self.EntityCollider = EntityCollider(self)
         self.levelObj = level
+        self.sound = sound
 
     def update(self, camera):
         if self.alive:
@@ -69,3 +70,4 @@ class Goomba(EntityBase):
     def _onCollisionWithMob(self, mob, collisionState):
         if collisionState.isColliding and mob.alive == "shellBouncing":
             self.alive = False
+            self.sound.play_sfx(self.sound.stomp)
