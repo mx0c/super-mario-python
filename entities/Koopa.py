@@ -55,6 +55,7 @@ class Koopa(EntityBase):
         if self.timer == 0:
             self.textPos = vec2D(self.rect.x + 3, self.rect.y - 32)
         if self.timer < self.timeAfterDeath:
+            self.textPos = vec2D(self.rect.x + 3, self.rect.y - 32)
             self.textPos.y += -0.5
             self.dashboard.drawText("100", self.textPos.x + camera.x, self.textPos.y, 8)
             self.vel.y -= 0.5
