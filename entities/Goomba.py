@@ -2,7 +2,8 @@ from classes.Animation import Animation
 from classes.Maths import vec2D
 from entities.EntityBase import EntityBase
 from traits.leftrightwalk import LeftRightWalkTrait
-
+from classes.Collider import Collider
+from classes.EntityCollider import EntityCollider
 
 class Goomba(EntityBase):
     def __init__(self, screen, spriteColl, x, y, level):
@@ -18,12 +19,16 @@ class Goomba(EntityBase):
         self.leftrightTrait = LeftRightWalkTrait(self, level)
         self.type = "Mob"
         self.dashboard = level.dashboard
+        self.collision = Collider(self, level)
+        self.EntityCollider = EntityCollider(self)
+        self.levelObj = level
 
     def update(self, camera):
         if self.alive:
             self.applyGravity()
             self.drawGoomba(camera)
             self.leftrightTrait.update()
+            self.checkEntityCollision()
         else:
             self.onDead(camera)
 
@@ -53,3 +58,14 @@ class Goomba(EntityBase):
     def movePointsTextUpAndDraw(self, camera):
         self.textPos.y += -0.5
         self.dashboard.drawText("100", self.textPos.x + camera.x, self.textPos.y, 8)
+    
+    def checkEntityCollision(self):
+        for ent in self.levelObj.entityList:
+            collisionState = self.EntityCollider.check(ent)
+            if collisionState.isColliding:
+                if ent.type == "Mob":
+                    self._onCollisionWithMob(ent, collisionState)
+
+    def _onCollisionWithMob(self, mob, collisionState):
+        if collisionState.isColliding and mob.alive == "shellBouncing":
+            self.alive = False

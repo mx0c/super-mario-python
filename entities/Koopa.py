@@ -4,6 +4,8 @@ from classes.Animation import Animation
 from classes.Maths import vec2D
 from entities.EntityBase import EntityBase
 from traits.leftrightwalk import LeftRightWalkTrait
+from classes.Collider import Collider
+from classes.EntityCollider import EntityCollider
 
 
 class Koopa(EntityBase):
@@ -22,12 +24,17 @@ class Koopa(EntityBase):
         self.timeAfterDeath = 35
         self.type = "Mob"
         self.dashboard = level.dashboard
+        self.collision = Collider(self, level)
+        self.EntityCollider = EntityCollider(self)
+        self.levelObj = level
 
     def update(self, camera):
         if self.alive == True:
             self.updateAlive(camera)
+            self.checkEntityCollision()
         elif self.alive == "sleeping":
             self.sleepingInShell(camera)
+            self.checkEntityCollision()
         elif self.alive == "shellBouncing":
             self.shellBouncing(camera)
         elif self.alive == False:
@@ -93,3 +100,14 @@ class Koopa(EntityBase):
         self.drawKoopa(camera)
         self.animation.update()
         self.leftrightTrait.update()
+
+    def checkEntityCollision(self):
+        for ent in self.levelObj.entityList:
+            collisionState = self.EntityCollider.check(ent)
+            if collisionState.isColliding:
+                if ent.type == "Mob":
+                    self._onCollisionWithMob(ent, collisionState)
+
+    def _onCollisionWithMob(self, mob, collisionState):
+        if collisionState.isColliding and mob.alive == "shellBouncing":
+            self.alive = False
