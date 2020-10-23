@@ -112,4 +112,4 @@ class Koopa(EntityBase):
     def _onCollisionWithMob(self, mob, collisionState):
         if collisionState.isColliding and mob.alive == "shellBouncing":
             self.alive = False
-            self.sound.play_sfx(self.sound.stomp)
+            self.sound.play_sfx(self.sound.brick_bump)

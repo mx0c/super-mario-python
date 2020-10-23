@@ -100,9 +100,11 @@ class Mario(EntityBase):
             if mob.rect.x < self.rect.x:
                 mob.leftrightTrait.direction = -1
                 mob.rect.x += -5
+                self.sound.play_sfx(self.sound.kick)
             else:
                 mob.rect.x += 5
                 mob.leftrightTrait.direction = 1
+                self.sound.play_sfx(self.sound.kick)
             mob.alive = "shellBouncing"
         elif collisionState.isColliding and mob.alive:
             self.gameOver()
