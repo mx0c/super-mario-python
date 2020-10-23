@@ -72,7 +72,7 @@ class Menu:
                 data = json.load(jsonData)
                 if data["sound"]:
                     self.music = True
-                    self.sound.music_channel.play(self.sound.soundtrack)
+                    self.sound.music_channel.play(self.sound.soundtrack, loops=-1)
                 else:
                     self.music = False
                 if data["sfx"]:
@@ -249,7 +249,7 @@ class Menu:
                                 self.sound.music_channel.stop()
                                 self.music = False
                             else:
-                                self.sound.music_channel.play(self.sound.soundtrack)
+                                self.sound.music_channel.play(self.sound.soundtrack, loops=-1)
                                 self.music = True
                             self.saveSettings("./settings.json")
                         elif self.state == 1:
