@@ -7,6 +7,7 @@ from entities.Coin import Coin
 from entities.Goomba import Goomba
 from entities.Koopa import Koopa
 from entities.RandomBox import RandomBox
+from entities.CoinBrick import CoinBrick
 
 class Level:
     def __init__(self, screen, sound, dashboard):
@@ -32,6 +33,7 @@ class Level:
             [self.addGoomba(x, y) for x, y in data["level"]["entities"]["Goomba"]]
             [self.addKoopa(x, y) for x, y in data["level"]["entities"]["Koopa"]]
             [self.addCoin(x, y) for x, y in data["level"]["entities"]["coin"]]
+            [self.addCoinBrick(x, y) for x, y in data["level"]["entities"]["coinBrick"]]
         except:
             #if no entities in Level
             pass
@@ -158,6 +160,19 @@ class Level:
 
     def addCoin(self, x, y):
         self.entityList.append(Coin(self.screen, self.sprites.spriteCollection, x, y))
+
+    def addCoinBrick(self, x, y):
+        self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))
+        self.entityList.append(
+            CoinBrick(
+                self.screen,
+                self.sprites.spriteCollection,
+                x,
+                y,
+                self.sound,
+                self.dashboard
+            )
+        )
 
     def addGoomba(self, x, y):
         self.entityList.append(
