@@ -38,5 +38,5 @@ def main():
 
 if __name__ == "__main__":
     exitmessage = 'restart'
-    while exitmessage == 'restart'
-        exitcmessage = main()
+    while exitmessage == 'restart':
+        exitmessage = main()
