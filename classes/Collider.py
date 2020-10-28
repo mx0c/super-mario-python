@@ -1,12 +1,15 @@
 class Collider:
     def __init__(self, entity, level):
         self.entity = entity
+        self.currentLevel = level
         self.level = level.level
         self.levelObj = level
         self.result = []
 
     def checkX(self):
         if self.leftLevelBorderReached() or self.rightLevelBorderReached():
+            print("change level")
+            self.currentLevel.loadLevel("Level1-1")
             return
         try:
             rows = [
