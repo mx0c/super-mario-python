@@ -69,6 +69,11 @@ class Sprites:
                             colorkey = sprite["colorKey"]
                         except KeyError:
                             colorkey = None
+                        try:
+                            xSize = sprite['xsize']
+                            ySize = sprite['ysize']
+                        except KeyError:
+                            xSize, ySize = data['size']
                         dic[sprite["name"]] = Sprite(
                             mySpritesheet.image_at(
                                 sprite["x"],
@@ -76,8 +81,8 @@ class Sprites:
                                 sprite["scalefactor"],
                                 colorkey,
                                 True,
-                                xTileSize=data["size"][0],
-                                yTileSize=data["size"][1],
+                                xTileSize=xSize,
+                                yTileSize=ySize,
                             ),
                             sprite["collision"],
                         )
