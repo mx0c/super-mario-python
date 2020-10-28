@@ -36,7 +36,7 @@ class Level:
             [self.addCoin(x, y) for x, y in data["level"]["entities"]["coin"]]
             [self.addCoinBrick(x, y) for x, y in data["level"]["entities"]["coinBrick"]]
         except:
-            #if no entities in Level
+            # if no entities in Level
             pass
 
     def loadLayers(self, data):
