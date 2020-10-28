@@ -1,11 +1,11 @@
 import pygame
 
 from classes.Animation import Animation
-from classes.Maths import vec2D
-from entities.EntityBase import EntityBase
-from traits.leftrightwalk import LeftRightWalkTrait
 from classes.Collider import Collider
 from classes.EntityCollider import EntityCollider
+from classes.Maths import Vec2D
+from entities.EntityBase import EntityBase
+from traits.leftrightwalk import LeftRightWalkTrait
 
 
 class Koopa(EntityBase):
@@ -30,7 +30,7 @@ class Koopa(EntityBase):
         self.sound = sound
 
     def update(self, camera):
-        if self.alive == True:
+        if self.alive:
             self.updateAlive(camera)
             self.checkEntityCollision()
         elif self.alive == "sleeping":
@@ -38,7 +38,7 @@ class Koopa(EntityBase):
             self.checkEntityCollision()
         elif self.alive == "shellBouncing":
             self.shellBouncing(camera)
-        elif self.alive == False:
+        elif not self.alive:
             self.die(camera)
 
     def drawKoopa(self, camera):
@@ -61,10 +61,10 @@ class Koopa(EntityBase):
 
     def die(self, camera):
         if self.timer == 0:
-            self.textPos = vec2D(self.rect.x + 3, self.rect.y - 32)
+            self.textPos = Vec2D(self.rect.x + 3, self.rect.y - 32)
         if self.timer < self.timeAfterDeath:
             self.textPos.y += -0.5
-            self.textPos = vec2D(self.rect.x + 3, self.rect.y - 32)
+            self.textPos = Vec2D(self.rect.x + 3, self.rect.y - 32)
             self.dashboard.drawText("100", self.textPos.x + camera.x, self.textPos.y, 8)
             self.vel.y -= 0.5
             self.rect.y += self.vel.y

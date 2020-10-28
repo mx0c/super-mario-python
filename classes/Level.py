@@ -4,10 +4,11 @@ import pygame
 from classes.Sprites import Sprites
 from classes.Tile import Tile
 from entities.Coin import Coin
+from entities.CoinBrick import CoinBrick
 from entities.Goomba import Goomba
 from entities.Koopa import Koopa
 from entities.RandomBox import RandomBox
-from entities.CoinBrick import CoinBrick
+
 
 class Level:
     def __init__(self, screen, sound, dashboard):
@@ -111,7 +112,7 @@ class Level:
 
     def addPipeSprite(self, x, y, length=2):
         try:
-            # add Pipe Head
+            # add pipe head
             self.level[y][x] = Tile(
                 self.sprites.spriteCollection.get("pipeL"),
                 pygame.Rect(x * 32, y * 32, 32, 32),
@@ -120,7 +121,7 @@ class Level:
                 self.sprites.spriteCollection.get("pipeR"),
                 pygame.Rect((x + 1) * 32, y * 32, 32, 32),
             )
-            # add pipe Body
+            # add pipe body
             for i in range(1, length + 20):
                 self.level[y + i][x] = Tile(
                     self.sprites.spriteCollection.get("pipe2L"),

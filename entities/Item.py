@@ -1,14 +1,14 @@
 from copy import copy
 
 from classes.Dashboard import Dashboard
-from classes.Maths import vec2D
+from classes.Maths import Vec2D
 
 
 class Item(Dashboard):
     def __init__(self, collection, screen, x, y):
         super(Item, self).__init__("./img/font.png", 8, screen)
-        self.ItemPos = vec2D(x, y)
-        self.itemVel = vec2D(0, 0)
+        self.ItemPos = Vec2D(x, y)
+        self.itemVel = Vec2D(0, 0)
         self.screen = screen
         self.coin_animation = copy(collection.get("coin-item").animation)
         self.sound_played = False
