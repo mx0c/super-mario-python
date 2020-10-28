@@ -1,13 +1,12 @@
 import pygame
 
+
 class Spritesheet(object):
     def __init__(self, filename):
         try:
             self.sheet = pygame.image.load(filename)
-            if self.sheet.get_alpha():
-                self.sheet = self.sheet.convert_alpha()
-            else:
-                self.sheet = self.sheet.convert()
+            self.sheet = pygame.image.load(filename)
+            if not self.sheet.get_alpha():
                 self.sheet.set_colorkey((0, 0, 0))
         except pygame.error:
             print("Unable to load spritesheet image:", filename)
