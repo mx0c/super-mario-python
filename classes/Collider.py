@@ -7,9 +7,11 @@ class Collider:
         self.result = []
 
     def checkX(self):
-        if self.leftLevelBorderReached() or self.rightLevelBorderReached():
-            print("change level")
+        if self.rightLevelBorderReached():
+            print("load Level1-1")
             self.currentLevel.loadLevel("Level1-1")
+            return
+        if self.leftLevelBorderReached():
             return
         try:
             rows = [
