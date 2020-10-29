@@ -49,7 +49,8 @@ class goTrait:
                     self.animation.inAir()
                 else:
                     self.animation.idle()
-        self.drawEntity()
+        if (self.entity.invincibilityFrames//2) % 2 == 0:
+            self.drawEntity()
 
     def updateAnimation(self, animation):
         self.animation = animation
