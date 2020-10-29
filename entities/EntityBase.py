@@ -1,11 +1,11 @@
 import pygame
 
-from classes.Maths import vec2D
+from classes.Maths import Vec2D
 
 
 class EntityBase(object):
     def __init__(self, x, y, gravity):
-        self.vel = vec2D()
+        self.vel = Vec2D()
         self.rect = pygame.Rect(x * 32, y * 32, 32, 32)
         self.gravity = gravity
         self.traits = None
@@ -14,10 +14,10 @@ class EntityBase(object):
         self.timer = 0
         self.type = ""
         self.onGround = False
-        self.obeygravity = True
+        self.obeyGravity = True
         
     def applyGravity(self):
-        if self.obeygravity:
+        if self.obeyGravity:
             self.vel.y += self.gravity
 
     def updateTraits(self):
@@ -28,7 +28,7 @@ class EntityBase(object):
                 pass
 
     def getPosIndex(self):
-        return vec2D(int(self.rect.x / 32), int(self.rect.y / 32))
+        return Vec2D(int(self.rect.x / 32), int(self.rect.y / 32))
 
     def getPosIndexAsFloat(self):
-        return vec2D(self.rect.x / 32.0, self.rect.y / 32.0)
+        return Vec2D(self.rect.x / 32.0, self.rect.y / 32.0)

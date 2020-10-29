@@ -1,9 +1,10 @@
 from classes.Animation import Animation
-from classes.Maths import vec2D
-from entities.EntityBase import EntityBase
-from traits.leftrightwalk import LeftRightWalkTrait
 from classes.Collider import Collider
 from classes.EntityCollider import EntityCollider
+from classes.Maths import Vec2D
+from entities.EntityBase import EntityBase
+from traits.leftrightwalk import LeftRightWalkTrait
+
 
 class Goomba(EntityBase):
     def __init__(self, screen, spriteColl, x, y, level, sound):
@@ -23,6 +24,7 @@ class Goomba(EntityBase):
         self.EntityCollider = EntityCollider(self)
         self.levelObj = level
         self.sound = sound
+        self.textPos = Vec2D(0, 0)
 
     def update(self, camera):
         if self.alive:
@@ -54,7 +56,7 @@ class Goomba(EntityBase):
         )
 
     def setPointsTextStartPosition(self, x, y):
-        self.textPos = vec2D(x, y)
+        self.textPos = Vec2D(x, y)
 
     def movePointsTextUpAndDraw(self, camera):
         self.textPos.y += -0.5

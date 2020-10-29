@@ -9,8 +9,8 @@ from classes.Sprites import Sprites
 from entities.EntityBase import EntityBase
 from entities.Mushroom import RedMushroom
 from traits.bounce import bounceTrait
-from traits.go import goTrait
-from traits.jump import jumpTrait
+from traits.go import GoTrait
+from traits.jump import JumpTrait
 from classes.Pause import Pause
 
 spriteCollection = Sprites().spriteCollection
@@ -45,8 +45,8 @@ class Mario(EntityBase):
         self.powerUpState = 0
         self.invincibilityFrames = 0
         self.traits = {
-            "jumpTrait": jumpTrait(self),
-            "goTrait": goTrait(smallAnimation, screen, self.camera, self),
+            "jumpTrait": JumpTrait(self),
+            "goTrait": GoTrait(smallAnimation, screen, self.camera, self),
             "bounceTrait": bounceTrait(self),
         }
 
@@ -170,7 +170,7 @@ class Mario(EntityBase):
     def getPos(self):
         return self.camera.x + self.rect.x, self.rect.y
 
-    def setPos(self,x,y):
+    def setPos(self, x, y):
         self.rect.x = x
         self.rect.y = y
         

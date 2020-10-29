@@ -1,7 +1,7 @@
 from pygame.transform import flip
 
 
-class goTrait:
+class GoTrait:
     def __init__(self, animation, screen, camera, ent):
         self.animation = animation
         self.direction = 0

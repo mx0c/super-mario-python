@@ -53,8 +53,8 @@ class Collider:
                             self.entity.vel.y = 0
                             # reset jump on bottom
                             if self.entity.traits is not None:
-                                if "jumpTrait" in self.entity.traits:
-                                    self.entity.traits["jumpTrait"].reset()
+                                if "JumpTrait" in self.entity.traits:
+                                    self.entity.traits["JumpTrait"].reset()
                                 if "bounceTrait" in self.entity.traits:
                                     self.entity.traits["bounceTrait"].reset()
                         if self.entity.vel.y < 0:

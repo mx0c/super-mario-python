@@ -19,18 +19,18 @@ class Input:
         pressedKeys = pygame.key.get_pressed()
 
         if pressedKeys[K_LEFT] or pressedKeys[K_h] and not pressedKeys[K_RIGHT]:
-            self.entity.traits["goTrait"].direction = -1
+            self.entity.traits["GoTrait"].direction = -1
         elif pressedKeys[K_RIGHT] or pressedKeys[K_l] and not pressedKeys[K_LEFT]:
-            self.entity.traits["goTrait"].direction = 1
+            self.entity.traits["GoTrait"].direction = 1
         else:
-            self.entity.traits['goTrait'].direction = 0
+            self.entity.traits['GoTrait'].direction = 0
 
         isJumping = pressedKeys[K_SPACE] or pressedKeys[K_UP] or pressedKeys[K_k]
-        self.entity.traits['jumpTrait'].jump(isJumping)
+        self.entity.traits['JumpTrait'].jump(isJumping)
 
-        self.entity.traits['goTrait'].boost = pressedKeys[K_LSHIFT]
+        self.entity.traits['GoTrait'].boost = pressedKeys[K_LSHIFT]
 
-    def checkForMouseInput(self,events):
+    def checkForMouseInput(self, events):
         mouseX, mouseY = pygame.mouse.get_pos()
         if self.isRightMouseButtonPressed(events):
             self.entity.levelObj.addKoopa(
@@ -47,7 +47,7 @@ class Input:
                 mouseX / 32 - self.entity.camera.pos.x, mouseY / 32
             )
 
-    def checkForQuitAndRestartInputEvents(self,events):
+    def checkForQuitAndRestartInputEvents(self, events):
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -58,20 +58,13 @@ class Input:
                 self.entity.pauseObj.createBackgroundBlur()
 
     def isLeftMouseButtonPressed(self, events):
-        return self.checkMouse(events,1)
-
-
+        return self.checkMouse(events, 1)
 
     def isRightMouseButtonPressed(self, events):
-        return self.checkMouse(events,3)
-
+        return self.checkMouse(events, 3)
 
     def checkMouse(self, events, button):
         for e in events:
-                if e.type == pygame.MOUSEBUTTONUP:
-                    if e.button == button:
-                       return True
-        else:
-                       return False
-
-
+            if e.type == pygame.MOUSEBUTTONUP and e.button == button:
+                return True
+        return False

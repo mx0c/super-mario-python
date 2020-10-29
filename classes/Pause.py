@@ -16,11 +16,11 @@ class Pause:
             0, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
         )
         self.gray_dot = self.spritesheet.image_at(
-  	        20, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
+            20, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
         )
 
     def update(self):
-        self.screen.blit(self.pause_srfc,(0,0))
+        self.screen.blit(self.pause_srfc, (0, 0))
         self.dashboard.drawText("PAUSED", 120, 160, 68)
         self.dashboard.drawText("CONTINUE", 150, 280, 32)
         self.dashboard.drawText("BACK TO MENU", 150, 320, 32)

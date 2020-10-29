@@ -1,9 +1,9 @@
-from classes.Maths import vec2D
+from classes.Maths import Vec2D
 
 
 class Camera:
     def __init__(self, pos, entity):
-        self.pos = vec2D(pos.x, pos.y)
+        self.pos = Vec2D(pos.x, pos.y)
         self.entity = entity
         self.x = self.pos.x * 32
         self.y = self.pos.y * 32
