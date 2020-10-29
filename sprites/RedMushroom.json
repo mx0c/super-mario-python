@@ -1,0 +1,15 @@
+{
+    "spriteSheetURL": "./img/characters.gif",
+    "type":"character",
+    "size":[16,16],
+    "sprites":[
+        {
+            "name":"mushroom",
+            "x":389,
+            "y":268,
+            "scalefactor":2,
+            "colorKey":-1,
+            "collision":false
+        }
+    ]
+}

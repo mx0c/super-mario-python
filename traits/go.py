@@ -51,6 +51,10 @@ class goTrait:
                     self.animation.idle()
         self.drawEntity()
 
+    def updateAnimation(self, animation):
+        self.animation = animation
+        self.update()
+
     def drawEntity(self):
         if self.heading == 1:
             self.screen.blit(self.animation.image, self.entity.getPos())

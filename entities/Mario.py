@@ -7,34 +7,46 @@ from classes.EntityCollider import EntityCollider
 from classes.Input import Input
 from classes.Sprites import Sprites
 from entities.EntityBase import EntityBase
+from entities.Mushroom import RedMushroom
 from traits.bounce import bounceTrait
 from traits.go import goTrait
 from traits.jump import jumpTrait
 from classes.Pause import Pause
 
+spriteCollection = Sprites().spriteCollection
+smallAnimation = Animation(
+    [
+        spriteCollection["mario_run1"].image,
+        spriteCollection["mario_run2"].image,
+        spriteCollection["mario_run3"].image,
+    ],
+    spriteCollection["mario_idle"].image,
+    spriteCollection["mario_jump"].image,
+)
+bigAnimation = Animation(
+    [
+        spriteCollection["mario_big_run1"].image,
+        spriteCollection["mario_big_run2"].image,
+        spriteCollection["mario_big_run3"].image,
+    ],
+    spriteCollection["mario_big_idle"].image,
+    spriteCollection["mario_big_jump"].image,
+)
+
 
 class Mario(EntityBase):
     def __init__(self, x, y, level, screen, dashboard, sound, gravity=0.75):
         super(Mario, self).__init__(x, y, gravity)
-        self.spriteCollection = Sprites().spriteCollection
         self.camera = Camera(self.rect, self)
         self.sound = sound
         self.input = Input(self)
         self.inAir = False
         self.inJump = False
-        self.animation = Animation(
-            [
-                self.spriteCollection["mario_run1"].image,
-                self.spriteCollection["mario_run2"].image,
-                self.spriteCollection["mario_run3"].image,
-            ],
-            self.spriteCollection["mario_idle"].image,
-            self.spriteCollection["mario_jump"].image,
-        )
-
+        self.powerUpState = 0
+        self.invinciblityFrames = 0
         self.traits = {
             "jumpTrait": jumpTrait(self),
-            "goTrait": goTrait(self.animation, screen, self.camera, self),
+            "goTrait": goTrait(smallAnimation, screen, self.camera, self),
             "bounceTrait": bounceTrait(self),
         }
 
@@ -85,7 +97,10 @@ class Mario(EntityBase):
         block.triggered = True
 
     def _onCollisionWithMob(self, mob, collisionState):
-        if collisionState.isTop and (mob.alive or mob.alive == "shellBouncing"):
+        if isinstance(mob, RedMushroom):
+            self.powerup(1)
+            self.killEntity(mob)
+        elif collisionState.isTop and (mob.alive or mob.alive == "shellBouncing"):
             self.sound.play_sfx(self.sound.stomp)
             self.rect.bottom = mob.rect.top
             self.bounce()
@@ -106,8 +121,14 @@ class Mario(EntityBase):
                 mob.leftrightTrait.direction = 1
                 self.sound.play_sfx(self.sound.kick)
             mob.alive = "shellBouncing"
-        elif collisionState.isColliding and mob.alive:
-            self.gameOver()
+        elif collisionState.isColliding and mob.alive and not self.invinciblityFrames:
+            if self.powerUpState == 0:
+                self.gameOver()
+            elif self.powerUpState == 1:
+                self.powerUpState = 0
+                self.traits['goTrait'].updateAnimation(smallAnimation)
+                x, y = self.rect.x, self.rect.y
+                self.rect = pygame.Rect(x, y + 32, 32, 32)
 
     def bounce(self):
         self.traits["bounceTrait"].jump = True
@@ -149,3 +170,10 @@ class Mario(EntityBase):
     def setPos(self,x,y):
         self.rect.x = x
         self.rect.y = y
+        
+    def powerup(self, powerupID):
+        if self.powerUpState == 0:
+            if powerupID == 1:
+                self.powerUpState = 1
+                self.traits['goTrait'].updateAnimation(bigAnimation)
+                self.rect = pygame.Rect(self.rect.x, self.rect.y-32, 32, 64)

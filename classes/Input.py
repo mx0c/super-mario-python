@@ -39,6 +39,9 @@ class Input:
             self.entity.levelObj.addGoomba(
                 mouseY / 32, mouseX / 32 - self.entity.camera.pos.x
             )
+            self.entity.levelObj.addRedMushroom(
+                mouseY / 32, mouseX / 32 - self.entity.camera.pos.x
+            )
         if self.isLeftMouseButtonPressed(events):
             self.entity.levelObj.addCoin(
                 mouseX / 32 - self.entity.camera.pos.x, mouseY / 32

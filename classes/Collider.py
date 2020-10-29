@@ -34,6 +34,7 @@ class Collider:
             rows = [
                 self.level[self.entity.getPosIndex().y],
                 self.level[self.entity.getPosIndex().y + 1],
+                self.level[self.entity.getPosIndex().y + 2],
             ]
         except Exception:
             try:

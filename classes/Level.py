@@ -5,6 +5,7 @@ from classes.Sprites import Sprites
 from classes.Tile import Tile
 from entities.Coin import Coin
 from entities.Goomba import Goomba
+from entities.Mushroom import RedMushroom
 from entities.Koopa import Koopa
 from entities.RandomBox import RandomBox
 from entities.CoinBrick import CoinBrick
@@ -182,4 +183,9 @@ class Level:
     def addKoopa(self, x, y):
         self.entityList.append(
             Koopa(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
+        )
+
+    def addRedMushroom(self, x, y):
+        self.entityList.append(
+            RedMushroom(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
