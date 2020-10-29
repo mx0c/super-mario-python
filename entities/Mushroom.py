@@ -1,5 +1,5 @@
 from classes.Animation import Animation
-from classes.Maths import vec2D
+from classes.Maths import Vec2D
 from entities.EntityBase import EntityBase
 from traits.leftrightwalk import LeftRightWalkTrait
 from classes.Collider import Collider
@@ -47,7 +47,7 @@ class RedMushroom(EntityBase):
         self.timer += 0.1
 
     def setPointsTextStartPosition(self, x, y):
-        self.textPos = vec2D(x, y)
+        self.textPos = Vec2D(x, y)
 
     def movePointsTextUpAndDraw(self, camera):
         self.textPos.y += -0.5
