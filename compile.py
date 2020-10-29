@@ -1,6 +1,7 @@
 from distutils.core import setup
 
-import py2exe, glob
+import py2exe
+import glob
 
 setup(
     # this is the file that is run when you start the game from the command line.

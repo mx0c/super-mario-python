@@ -35,7 +35,7 @@ class Menu:
             0, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
         )
         self.menu_dot2 = self.spritesheet.image_at(
-  	        20, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
+            20, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
         )
         self.loadSettings("./settings.json")
 
@@ -98,7 +98,7 @@ class Menu:
         self.dashboard.drawText("SETTINGS", 180, 320, 24)
         self.dashboard.drawText("EXIT", 180, 360, 24)
 
-    def drawMenuBackground(self,withBanner=True):
+    def drawMenuBackground(self, withBanner=True):
         for y in range(0, 13):
             for x in range(0, 20):
                 self.screen.blit(
@@ -111,7 +111,7 @@ class Menu:
                     self.level.sprites.spriteCollection.get("ground").image,
                     (x * 32, y * 32),
                 )
-        if(withBanner):
+        if withBanner:
             self.screen.blit(self.menu_banner, (150, 80))
         self.screen.blit(
             self.level.sprites.spriteCollection.get("mario_idle").image,
@@ -132,7 +132,7 @@ class Menu:
         self.screen.blit(
             self.level.sprites.spriteCollection.get("bush_3").image, (18 * 32, 12 * 32)
         )
-        self.screen.blit(self.level.sprites.spriteCollection.get("goomba-1").image,(18.5*32,12*32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("goomba-1").image, (18.5*32, 12*32))
 
     def drawSettings(self):
         self.drawDot()
@@ -154,11 +154,11 @@ class Menu:
         self.levelNames = self.loadLevelNames()
         self.drawLevelChooser()
 
-    def drawBorder(self,x,y,width,height,color,thickness):
-        pygame.draw.rect(self.screen,color,(x,y,width,thickness))
-        pygame.draw.rect(self.screen,color,(x,y+width,width,thickness))
-        pygame.draw.rect(self.screen,color,(x,y,thickness,width))
-        pygame.draw.rect(self.screen,color,(x+width,y,thickness,width+thickness))
+    def drawBorder(self, x, y, width, height, color, thickness):
+        pygame.draw.rect(self.screen, color, (x, y, width, thickness))
+        pygame.draw.rect(self.screen, color, (x, y+width, width, thickness))
+        pygame.draw.rect(self.screen, color, (x, y, thickness, width))
+        pygame.draw.rect(self.screen, color, (x+width, y, thickness, width+thickness))
 
     def drawLevelChooser(self):
         j = 0
@@ -166,16 +166,16 @@ class Menu:
         textOffset = 90
         for i, levelName in enumerate(self.loadLevelNames()):
             if self.currSelectedLevel == i+1:
-                color = (255,255,255)
+                color = (255, 255, 255)
             else:
-                color = (150,150,150)
+                color = (150, 150, 150)
             if i < 3:
-                self.dashboard.drawText(levelName,175*i+textOffset,100,12)
-                self.drawBorder(175*i+offset,55,125,75,color,5)
+                self.dashboard.drawText(levelName, 175*i+textOffset, 100, 12)
+                self.drawBorder(175*i+offset, 55, 125, 75, color, 5)
             else:
-                self.dashboard.drawText(levelName,175*j+textOffset,250,12)
-                self.drawBorder(175*j+offset,210,125,75,color,5)
-                j+=1
+                self.dashboard.drawText(levelName, 175*j+textOffset, 250, 12)
+                self.drawBorder(175*j+offset, 210, 125, 75, color, 5)
+                j += 1
 
     def loadLevelNames(self):
         files = []

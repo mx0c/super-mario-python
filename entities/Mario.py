@@ -8,8 +8,8 @@ from classes.Input import Input
 from classes.Sprites import Sprites
 from entities.EntityBase import EntityBase
 from traits.bounce import bounceTrait
-from traits.go import goTrait
-from traits.jump import jumpTrait
+from traits.go import GoTrait
+from traits.jump import JumpTrait
 from classes.Pause import Pause
 
 
@@ -33,8 +33,8 @@ class Mario(EntityBase):
         )
 
         self.traits = {
-            "jumpTrait": jumpTrait(self),
-            "goTrait": goTrait(self.animation, screen, self.camera, self),
+            "JumpTrait": JumpTrait(self),
+            "GoTrait": GoTrait(self.animation, screen, self.camera, self),
             "bounceTrait": bounceTrait(self),
         }
 
@@ -146,6 +146,6 @@ class Mario(EntityBase):
     def getPos(self):
         return self.camera.x + self.rect.x, self.rect.y
 
-    def setPos(self,x,y):
+    def setPos(self, x, y):
         self.rect.x = x
         self.rect.y = y
