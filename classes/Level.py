@@ -6,7 +6,9 @@ from classes.Tile import Tile
 from entities.Coin import Coin
 from entities.CoinBrick import CoinBrick
 from entities.Goomba import Goomba
+from entities.Mushroom import RedMushroom
 from entities.Koopa import Koopa
+from entities.CoinBox import CoinBox
 from entities.RandomBox import RandomBox
 
 
@@ -30,11 +32,12 @@ class Level:
 
     def loadEntities(self, data):
         try:
-            [self.addRandomBox(x, y) for x, y in data["level"]["entities"]["randomBox"]]
+            [self.addCoinBox(x, y) for x, y in data["level"]["entities"]["CoinBox"]]
             [self.addGoomba(x, y) for x, y in data["level"]["entities"]["Goomba"]]
             [self.addKoopa(x, y) for x, y in data["level"]["entities"]["Koopa"]]
             [self.addCoin(x, y) for x, y in data["level"]["entities"]["coin"]]
             [self.addCoinBrick(x, y) for x, y in data["level"]["entities"]["coinBrick"]]
+            [self.addRandomBox(x, y, item) for x, y, item in data["level"]["entities"]["RandomBox"]]
         except:
             # if no entities in Level
             pass
@@ -146,7 +149,20 @@ class Level:
         except IndexError:
             return
 
-    def addRandomBox(self, x, y):
+    def addCoinBox(self, x, y):
+        self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))
+        self.entityList.append(
+            CoinBox(
+                self.screen,
+                self.sprites.spriteCollection,
+                x,
+                y,
+                self.sound,
+                self.dashboard,
+            )
+        )
+
+    def addRandomBox(self, x, y, item):
         self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))
         self.entityList.append(
             RandomBox(
@@ -154,8 +170,10 @@ class Level:
                 self.sprites.spriteCollection,
                 x,
                 y,
+                item,
                 self.sound,
                 self.dashboard,
+                self
             )
         )
 
@@ -183,4 +201,9 @@ class Level:
     def addKoopa(self, x, y):
         self.entityList.append(
             Koopa(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
+        )
+
+    def addRedMushroom(self, x, y):
+        self.entityList.append(
+            RedMushroom(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )

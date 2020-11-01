@@ -1,11 +1,12 @@
 from copy import copy
 
 from entities.EntityBase import EntityBase
+from entities.Item import Item
 
 
-class RandomBox(EntityBase):
-    def __init__(self, screen, spriteCollection, x, y, item, sound, dashboard, level, gravity=0):
-        super(RandomBox, self).__init__(x, y, gravity)
+class CoinBox(EntityBase):
+    def __init__(self, screen, spriteCollection, x, y, sound, dashboard, gravity=0):
+        super(CoinBox, self).__init__(x, y, gravity)
         self.screen = screen
         self.spriteCollection = spriteCollection
         self.animation = copy(self.spriteCollection.get("CoinBox").animation)
@@ -16,18 +17,14 @@ class RandomBox(EntityBase):
         self.sound = sound
         self.dashboard = dashboard
         self.vel = 1
-        self.item = item
-        self.level = level
+        self.item = Item(spriteCollection, screen, self.rect.x, self.rect.y)
 
     def update(self, cam):
         if self.alive and not self.triggered:
             self.animation.update()
         else:
             self.animation.image = self.spriteCollection.get("empty").image
-            if self.item == 'RedMushroom':
-                self.level.addRedMushroom(self.rect.y // 32 - 1, self.rect.x // 32)
-                self.sound.play_sfx(self.sound.powerup_appear)
-            self.item = None
+            self.item.spawnCoin(cam, self.sound, self.dashboard)
             if self.time < self.maxTime:
                 self.time += 1
                 self.rect.y -= self.vel
