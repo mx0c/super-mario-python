@@ -102,6 +102,7 @@ class Mario(EntityBase):
         if isinstance(mob, RedMushroom):
             self.powerup(1)
             self.killEntity(mob)
+            self.sound.play_sfx(self.sound.powerup)
         elif collisionState.isTop and (mob.alive or mob.alive == "shellBouncing"):
             self.sound.play_sfx(self.sound.stomp)
             self.rect.bottom = mob.rect.top

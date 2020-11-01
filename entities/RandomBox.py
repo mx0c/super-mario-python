@@ -26,6 +26,7 @@ class RandomBox(EntityBase):
             self.animation.image = self.spriteCollection.get("empty").image
             if self.item == 'RedMushroom':
                 self.level.addRedMushroom(self.rect.y // 32 - 1, self.rect.x // 32)
+                self.sound.play_sfx(self.sound.powerup_appear)
             self.item = None
             if self.time < self.maxTime:
                 self.time += 1
