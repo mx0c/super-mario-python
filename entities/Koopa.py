@@ -38,8 +38,6 @@ class Koopa(EntityBase):
             self.checkEntityCollision()
         elif self.alive == "shellBouncing":
             self.shellBouncing(camera)
-        elif self.alive is False:
-            self.die(camera)
 
     def drawKoopa(self, camera):
         if self.leftrightTrait.direction == -1:
@@ -58,33 +56,6 @@ class Koopa(EntityBase):
         self.animation.image = self.spriteCollection.get("koopa-hiding").image
         self.drawKoopa(camera)
         self.leftrightTrait.update()
-
-    def die(self, camera):
-        if self.timer == 0:
-            self.textPos = Vec2D(self.rect.x + 3, self.rect.y - 32)
-        if self.timer < self.timeAfterDeath:
-            self.textPos.y += -0.5
-            self.textPos = Vec2D(self.rect.x + 3, self.rect.y - 32)
-            self.dashboard.drawText("100", self.textPos.x + camera.x, self.textPos.y, 8)
-            self.vel.y -= 0.5
-            self.rect.y += self.vel.y
-            self.screen.blit(
-                self.spriteCollection.get("koopa-hiding").image,
-                (self.rect.x + camera.x, self.rect.y - 32),
-            )
-        else:
-            self.vel.y += 0.3
-            self.rect.y += self.vel.y
-            self.textPos.y += -0.5
-            self.dashboard.drawText("100", self.textPos.x + camera.x, self.textPos.y, 8)
-            self.screen.blit(
-                self.spriteCollection.get("koopa-hiding").image,
-                (self.rect.x + camera.x, self.rect.y - 32),
-            )
-            if self.timer > 500:
-                # delete entity
-                self.alive = None
-        self.timer += 6
 
     def sleepingInShell(self, camera):
         if self.timer < self.timeAfterDeath:

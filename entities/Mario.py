@@ -99,7 +99,7 @@ class Mario(EntityBase):
         block.triggered = True
 
     def _onCollisionWithMob(self, mob, collisionState):
-        if isinstance(mob, RedMushroom):
+        if isinstance(mob, RedMushroom) and mob.alive:
             self.powerup(1)
             self.killEntity(mob)
             self.sound.play_sfx(self.sound.powerup)
@@ -133,6 +133,7 @@ class Mario(EntityBase):
                 x, y = self.rect.x, self.rect.y
                 self.rect = pygame.Rect(x, y + 32, 32, 32)
                 self.invincibilityFrames = 60
+                self.sound.play_sfx(self.sound.pipe)
 
     def bounce(self):
         self.traits["bounceTrait"].jump = True

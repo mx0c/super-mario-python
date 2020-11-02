@@ -54,13 +54,4 @@ class RedMushroom(EntityBase):
         self.dashboard.drawText("100", self.textPos.x + camera.x, self.textPos.y, 8)
 
     def checkEntityCollision(self):
-        for ent in self.levelObj.entityList:
-            collisionState = self.EntityCollider.check(ent)
-            if collisionState.isColliding:
-                if ent.type == "Mob":
-                    self._onCollisionWithMob(ent, collisionState)
-
-    def _onCollisionWithMob(self, mob, collisionState):
-        if collisionState.isColliding and mob.alive == "shellBouncing":
-            self.alive = False
-            self.sound.play_sfx(self.sound.brick_bump)
+        pass
