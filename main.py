@@ -6,7 +6,7 @@ from classes.Sound import Sound
 from entities.Mario import Mario
 
 
-windowSize = (640, 480)
+windowSize = 640, 480
 
 
 def main():
@@ -26,7 +26,7 @@ def main():
     clock = pygame.time.Clock()
 
     while not mario.restart:
-        pygame.display.set_caption("Super Mario running with {:d} FPS".format(int(clock.get_fps())))
+        pygame.display.set_caption(f"Super Mario running with {int(clock.get_fps()):d} FPS")
         if mario.pause:
             mario.pauseObj.update()
         else:
