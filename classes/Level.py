@@ -23,7 +23,7 @@ class Level:
         self.entityList = []
 
     def loadLevel(self, levelname):
-        with open("./levels/{}.json".format(levelname)) as jsonData:
+        with open(f"./levels/{levelname}.json") as jsonData:
             data = json.load(jsonData)
             self.loadLayers(data)
             self.loadObjects(data)
@@ -105,11 +105,7 @@ class Level:
             for yOff in range(0, 2):
                 for xOff in range(0, 3):
                     self.level[y + yOff][x + xOff] = Tile(
-                        self.sprites.spriteCollection.get(
-                            "cloud{}_{}".format(yOff + 1, xOff + 1)
-                        ),
-                        None,
-                    )
+                        self.sprites.spriteCollection.get( f"cloud{yOff + 1}_{xOff + 1}"), None,)
         except IndexError:
             return
 
