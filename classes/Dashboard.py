@@ -18,7 +18,7 @@ class Dashboard(Font):
         self.drawText("MARIO", 50, 20, 15)
         self.drawText(self.pointString(), 50, 37, 15)
 
-        self.drawText(f"@x{self.coinString()}", 225, 37, 15)
+        self.drawText("@x{}".format(self.coinString()), 225, 37, 15)
 
         self.drawText("WORLD", 380, 20, 15)
         self.drawText(str(self.levelName), 395, 37, 15)
@@ -43,10 +43,10 @@ class Dashboard(Font):
                 x += size
 
     def coinString(self):
-        return f"{self.coins:02d}"
+        return "{:02d}".format(self.coins)
 
     def pointString(self):
-        return f"{self.points:06d}"
+        return "{:06d}".format(self.points)
 
     def timeString(self):
-        return f"{self.time:03d}"
+        return "{:03d}".format(self.time)

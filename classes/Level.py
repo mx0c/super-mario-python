@@ -23,7 +23,7 @@ class Level:
         self.entityList = []
 
     def loadLevel(self, levelname):
-        with open(f"./levels/{levelname}.json") as jsonData:
+        with open("./levels/{}.json".format(levelname)) as jsonData:
             data = json.load(jsonData)
             self.loadLayers(data)
             self.loadObjects(data)
@@ -47,17 +47,17 @@ class Level:
         for x in range(*data["level"]["layers"]["sky"]["x"]):
             layers.append(
                 (
-                    [
-                        Tile(self.sprites.spriteCollection.get("sky"), None)
-                        for y in range(*data["level"]["layers"]["sky"]["y"])
-                    ]
-                    + [
-                        Tile(
-                            self.sprites.spriteCollection.get("ground"),
-                            pygame.Rect(x * 32, (y - 1) * 32, 32, 32),
-                        )
-                        for y in range(*data["level"]["layers"]["ground"]["y"])
-                    ]
+                        [
+                            Tile(self.sprites.spriteCollection.get("sky"), None)
+                            for y in range(*data["level"]["layers"]["sky"]["y"])
+                        ]
+                        + [
+                            Tile(
+                                self.sprites.spriteCollection.get("ground"),
+                                pygame.Rect(x * 32, (y - 1) * 32, 32, 32),
+                            )
+                            for y in range(*data["level"]["layers"]["ground"]["y"])
+                        ]
                 )
             )
         self.level = list(map(list, zip(*layers)))
@@ -105,7 +105,7 @@ class Level:
             for yOff in range(0, 2):
                 for xOff in range(0, 3):
                     self.level[y + yOff][x + xOff] = Tile(
-                        self.sprites.spriteCollection.get( f"cloud{yOff + 1}_{xOff + 1}"), None,)
+                        self.sprites.spriteCollection.get("cloud{}_{}".format(yOff + 1, xOff + 1)), None, )
         except IndexError:
             return
 
