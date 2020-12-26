@@ -28,7 +28,7 @@ class EntityBase(object):
                 pass
 
     def getPosIndex(self):
-        return Vec2D(int(self.rect.x / 32), int(self.rect.y / 32))
+        return Vec2D(self.rect.x // 32, self.rect.y // 32)
 
     def getPosIndexAsFloat(self):
         return Vec2D(self.rect.x / 32.0, self.rect.y / 32.0)

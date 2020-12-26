@@ -6,7 +6,7 @@ from classes.Sound import Sound
 from entities.Mario import Mario
 
 
-windowSize = (640, 480)
+windowSize = 640, 480
 
 
 def main():
