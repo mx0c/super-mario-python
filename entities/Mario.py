@@ -143,6 +143,7 @@ class Mario(EntityBase):
             ent.alive = False
         else:
             ent.timer = 0
+            ent.leftrightTrait.speed = 1
             ent.alive = "sleeping"
         self.dashboard.points += 100
 
