@@ -30,13 +30,13 @@ class Koopa(EntityBase):
         self.sound = sound
 
     def update(self, camera):
-        if self.alive is True:
+        if self.alive and self.active:
             self.updateAlive(camera)
             self.checkEntityCollision()
-        elif self.alive == "sleeping":
+        elif self.alive and not self.active and not self.bouncing:
             self.sleepingInShell(camera)
             self.checkEntityCollision()
-        elif self.alive == "shellBouncing":
+        elif self.bouncing:
             self.shellBouncing(camera)
 
     def drawKoopa(self, camera):
@@ -65,6 +65,8 @@ class Koopa(EntityBase):
             )
         else:
             self.alive = True
+            self.active = True
+            self.bouncing = False
             self.timer = 0
         self.timer += 0.1
 
@@ -83,6 +85,6 @@ class Koopa(EntityBase):
                         self._onCollisionWithMob(ent, collisionState)
 
     def _onCollisionWithMob(self, mob, collisionState):
-        if collisionState.isColliding and mob.alive == "shellBouncing":
+        if collisionState.isColliding and mob.bouncing:
             self.alive = False
             self.sound.play_sfx(self.sound.brick_bump)

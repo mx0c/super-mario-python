@@ -10,6 +10,8 @@ class EntityBase(object):
         self.gravity = gravity
         self.traits = None
         self.alive = True
+        self.active = True
+        self.bouncing = False
         self.timeAfterDeath = 5
         self.timer = 0
         self.type = ""

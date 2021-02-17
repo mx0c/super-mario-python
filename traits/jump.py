@@ -1,16 +1,16 @@
 class JumpTrait:
     def __init__(self, entity):
-        self.vertical_speed = -12
+        self.verticalSpeed = -12
         self.jumpHeight = 120
         self.entity = entity
         self.initalHeight = 384
-        self.deaccelerationHeight = self.jumpHeight - ((self.vertical_speed*self.vertical_speed)/(2*self.entity.gravity))
+        self.deaccelerationHeight = self.jumpHeight - ((self.verticalSpeed*self.verticalSpeed)/(2*self.entity.gravity))
 
     def jump(self, jumping):
         if jumping:
             if not self.entity.inAir and not self.entity.inJump:  # redundant check
                 self.entity.sound.play_sfx(self.entity.sound.jump)
-                self.entity.vel.y = self.vertical_speed
+                self.entity.vel.y = self.verticalSpeed
                 self.entity.inAir = True
                 self.initalHeight = self.entity.rect.y
                 self.entity.inJump = True

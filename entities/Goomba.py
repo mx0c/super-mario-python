@@ -70,6 +70,6 @@ class Goomba(EntityBase):
                     self._onCollisionWithMob(ent, collisionState)
 
     def _onCollisionWithMob(self, mob, collisionState):
-        if collisionState.isColliding and mob.alive == "shellBouncing":
+        if collisionState.isColliding and mob.bouncing:
             self.alive = False
             self.sound.play_sfx(self.sound.brick_bump)

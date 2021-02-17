@@ -35,7 +35,7 @@ bigAnimation = Animation(
 
 
 class Mario(EntityBase):
-    def __init__(self, x, y, level, screen, dashboard, sound, gravity=0.75):
+    def __init__(self, x, y, level, screen, dashboard, sound, gravity=0.8):
         super(Mario, self).__init__(x, y, gravity)
         self.camera = Camera(self.rect, self)
         self.sound = sound
@@ -103,18 +103,19 @@ class Mario(EntityBase):
             self.powerup(1)
             self.killEntity(mob)
             self.sound.play_sfx(self.sound.powerup)
-        elif collisionState.isTop and (mob.alive or mob.alive == "shellBouncing"):
+        elif collisionState.isTop and (mob.alive or mob.bouncing):
             self.sound.play_sfx(self.sound.stomp)
             self.rect.bottom = mob.rect.top
             self.bounce()
             self.killEntity(mob)
-        elif collisionState.isTop and mob.alive == "sleeping":
+        elif collisionState.isTop and mob.alive and not mob.active:
             self.sound.play_sfx(self.sound.stomp)
             self.rect.bottom = mob.rect.top
             mob.timer = 0
             self.bounce()
             mob.alive = False
-        elif collisionState.isColliding and mob.alive == "sleeping":
+        elif collisionState.isColliding and mob.alive and not mob.active and not mob.bouncing:
+            mob.bouncing = True
             if mob.rect.x < self.rect.x:
                 mob.leftrightTrait.direction = -1
                 mob.rect.x += -5
@@ -123,7 +124,6 @@ class Mario(EntityBase):
                 mob.rect.x += 5
                 mob.leftrightTrait.direction = 1
                 self.sound.play_sfx(self.sound.kick)
-            mob.alive = "shellBouncing"
         elif collisionState.isColliding and mob.alive and not self.invincibilityFrames:
             if self.powerUpState == 0:
                 self.gameOver()
@@ -144,7 +144,9 @@ class Mario(EntityBase):
         else:
             ent.timer = 0
             ent.leftrightTrait.speed = 1
-            ent.alive = "sleeping"
+            ent.alive = True
+            ent.active = False
+            ent.bouncing = False
         self.dashboard.points += 100
 
     def gameOver(self):
