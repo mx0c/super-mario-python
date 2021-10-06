@@ -8,7 +8,7 @@ class JumpTrait:
 
     def jump(self, jumping):
         if jumping:
-            if not self.entity.inAir and not self.entity.inJump:  # redundant check
+            if self.entity.onGround:
                 self.entity.sound.play_sfx(self.entity.sound.jump)
                 self.entity.vel.y = self.verticalSpeed
                 self.entity.inAir = True
