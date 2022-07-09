@@ -35,6 +35,8 @@ def main():
             mario.update()
         pygame.display.update()
         clock.tick(max_frame_rate)
+        if dashboard.time == 0:
+            mario.gameOver()
     return 'restart'
 
 
