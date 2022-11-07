@@ -11,7 +11,16 @@ def loadBlocks():
 
     # gets the names of background sprites
     blocks = [data["sprites"][i]["name"] for i in range(len(data["sprites"]))]
-    return blocks
+
+    translatedBlocks = []
+    for block in blocks:
+        translatedBlock = block.translate(
+            str.maketrans({"R": "", "L": "", "_": "", "1": "", "2": "", "3": ""})
+        )
+        if translatedBlock not in translatedBlocks:
+            translatedBlocks.append(translatedBlock)
+
+    return translatedBlocks
 
 
 def drawLines():
@@ -22,24 +31,69 @@ def drawLines():
         pygame.draw.line(screen, white, (0, cellSize * i), (HEIGHT, cellSize * i), 1)
 
 
-def drawSprite():
-    mouseX, mouseY = pygame.mouse.get_pos()
-    gridLocationX, gridLocationY = mouseX // cellSize, mouseY // cellSize
-    placedBlocks[translatedBlocks[currentBlock]] = placedBlocks.get(
-        translatedBlocks[currentBlock], []
-    )
-    if translatedBlocks[currentBlock] == "pipe":
-        placedBlocks[translatedBlocks[currentBlock]].append(
-            [gridLocationX, gridLocationY, 0]
-        )
-    else:
-        placedBlocks[translatedBlocks[currentBlock]].append(
-            [gridLocationX, gridLocationY]
-        )
+def drawCloudSprite():
+    for yOff in range(0, 2):
+        for xOff in range(0, 3):
+            screen.blit(
+                Sprites()
+                .spriteCollection.get("cloud{}_{}".format(yOff + 1, xOff + 1))
+                .image,
+                ((gridLocationX + xOff) * cellSize, (gridLocationY + yOff) * cellSize),
+            )
+
+
+def drawPipeSprite():
+    placedBlocks[currentBlock][-1].append(0)
+
     screen.blit(
-        Sprites().spriteCollection.get(currentBlock).image,
+        Sprites().spriteCollection.get("pipeL").image,
         (gridLocationX * cellSize, gridLocationY * cellSize),
     )
+    screen.blit(
+        Sprites().spriteCollection.get("pipeR").image,
+        ((gridLocationX + 1) * cellSize, gridLocationY * cellSize),
+    )
+
+    for i in range(1, (HEIGHT // cellSize) - gridLocationY):
+        screen.blit(
+            Sprites().spriteCollection.get("pipe2L").image,
+            (gridLocationX * cellSize, (gridLocationY + i) * cellSize),
+        )
+    for i in range(1, (HEIGHT // cellSize) - gridLocationY):
+        screen.blit(
+            Sprites().spriteCollection.get("pipe2R").image,
+            ((gridLocationX + 1) * cellSize, (gridLocationY + i) * cellSize),
+        )
+
+
+def drawBushSprite():
+    for xOff in range(3):
+        screen.blit(
+            Sprites().spriteCollection.get("bush_{}".format(xOff + 1)).image,
+            ((gridLocationX + xOff) * cellSize, gridLocationY * cellSize),
+        )
+
+
+def drawSprite():
+    global gridLocationX, gridLocationY
+
+    mouseX, mouseY = pygame.mouse.get_pos()
+    gridLocationX, gridLocationY = mouseX // cellSize, mouseY // cellSize
+
+    placedBlocks[currentBlock] = placedBlocks.get(currentBlock, [])
+    placedBlocks[currentBlock].append([gridLocationX, gridLocationY])
+
+    if currentBlock == "cloud":
+        drawCloudSprite()
+    elif currentBlock == "pipe":
+        drawPipeSprite()
+    elif currentBlock == "bush":
+        drawBushSprite()
+    else:
+        screen.blit(
+            Sprites().spriteCollection.get(currentBlock).image,
+            (gridLocationX * cellSize, gridLocationY * cellSize),
+        )
 
 
 def createJsonFile():
@@ -67,7 +121,7 @@ def createJsonFile():
 
     except:
         blocksNotPlaced = []
-        for block in set(translatedBlocks.values()):
+        for block in blocks:
             if block not in placedBlocks:
                 blocksNotPlaced.append(block)
         print(
@@ -77,10 +131,11 @@ def createJsonFile():
 
 def changeBlock():
     global currentBlock
+    currentBlockIndex = blocks.index(currentBlock)
 
     # Cycle through the blocks if reached the end then start again from the start
-    if blocks.index(currentBlock) < len(blocks) - 1:
-        currentBlock = blocks[blocks.index(currentBlock) + 1]
+    if currentBlockIndex < len(blocks) - 1:
+        currentBlock = blocks[currentBlockIndex + 1]
     else:
         currentBlock = blocks[0]
     print("Current Block: {}".format(currentBlock))
@@ -100,17 +155,6 @@ def keyPressed():
         createJsonFile()
 
 
-def translateBlocks():
-    translatedBlocks = {}
-    for block in blocks:
-        translatedBlock = block.translate(
-            str.maketrans({"R": "", "L": "", "_": "", "1": "", "2": "", "3": ""})
-        )
-        translatedBlocks[block] = translatedBlock
-
-    return translatedBlocks
-
-
 # GLOBAL VARIABLES
 HEIGHT, WIDTH = 640, 480
 cellSize = 32
@@ -124,9 +168,7 @@ blocks = loadBlocks()
 currentBlock = blocks[0]
 placedBlocks = {}
 
-# Blocks
-for block in block:
-    if block.toList()
+gridLocationX, gridLocationY = 0, 0
 
 print("Current Block: {}".format(currentBlock))
 
