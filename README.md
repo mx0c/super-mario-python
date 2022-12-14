@@ -21,7 +21,7 @@ This is inspired by Meth-Meth-Method's [super mario game](https://github.com/met
 * Left/Right Mouseclick: secret   
 
 ## Current state:
-![Alt text](img/pics.png "current state")
+![Alt text](img/old/pics.png "current state")
 
 ## Dependencies	
 * pygame	

@@ -14,7 +14,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode(windowSize)
     max_frame_rate = 60
-    dashboard = Dashboard("./img/font.png", 8, screen)
+    dashboard = Dashboard("img/old/font.png", 8, screen)
     sound = Sound()
     level = Level(screen, sound, dashboard)
     menu = Menu(screen, dashboard, level, sound)
