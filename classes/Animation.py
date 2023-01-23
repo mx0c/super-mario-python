@@ -1,4 +1,5 @@
 class Animation:
+    """Represent Animations"""
     def __init__(self, images, idleSprite=None, airSprite=None, deltaTime=7):
         self.images = images
         self.timer = 0
