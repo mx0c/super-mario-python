@@ -132,7 +132,8 @@ class Menu:
         self.screen.blit(
             self.level.sprites.spriteCollection.get("bush_3").image, (18 * 32, 12 * 32)
         )
-        self.screen.blit(self.level.sprites.spriteCollection.get("goomba-1").image, (18.5*32, 12*32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("goomba-1").image,
+                         (18.5 * 32, 12 * 32))
 
     def drawSettings(self):
         self.drawDot()
@@ -156,25 +157,25 @@ class Menu:
 
     def drawBorder(self, x, y, width, height, color, thickness):
         pygame.draw.rect(self.screen, color, (x, y, width, thickness))
-        pygame.draw.rect(self.screen, color, (x, y+width, width, thickness))
+        pygame.draw.rect(self.screen, color, (x, y + width, width, thickness))
         pygame.draw.rect(self.screen, color, (x, y, thickness, width))
-        pygame.draw.rect(self.screen, color, (x+width, y, thickness, width+thickness))
+        pygame.draw.rect(self.screen, color, (x + width, y, thickness, width + thickness))
 
     def drawLevelChooser(self):
         j = 0
         offset = 75
         textOffset = 90
         for i, levelName in enumerate(self.loadLevelNames()):
-            if self.currSelectedLevel == i+1:
+            if self.currSelectedLevel == i + 1:
                 color = (255, 255, 255)
             else:
                 color = (150, 150, 150)
             if i < 3:
-                self.dashboard.drawText(levelName, 175*i+textOffset, 100, 12)
-                self.drawBorder(175*i+offset, 55, 125, 75, color, 5)
+                self.dashboard.drawText(levelName, 175 * i + textOffset, 100, 12)
+                self.drawBorder(175 * i + offset, 55, 125, 75, color, 5)
             else:
-                self.dashboard.drawText(levelName, 175*j+textOffset, 250, 12)
-                self.drawBorder(175*j+offset, 210, 125, 75, color, 5)
+                self.dashboard.drawText(levelName, 175 * j + textOffset, 250, 12)
+                self.drawBorder(175 * j + offset, 210, 125, 75, color, 5)
                 j += 1
 
     def loadLevelNames(self):
@@ -188,78 +189,117 @@ class Menu:
         self.levelCount = len(res)
         return res
 
+    def _eventQuit(self):
+        pygame.quit()
+        sys.exit()
+
+    def _keyEscape(self):
+        if self.inChoosingLevel or self.inSettings:
+            self.inChoosingLevel = False
+            self.inSettings = False
+            self.__init__(self.screen, self.dashboard, self.level, self.sound)
+        else:
+            self._eventQuit()
+
+    def _keyUp(self):
+        if self.inChoosingLevel:
+            if self.currSelectedLevel > 3:
+                self.currSelectedLevel -= 3
+                self.drawLevelChooser()
+        if self.state > 0:
+            self.state -= 1
+
+    def _keyDown(self):
+        if self.inChoosingLevel:
+            if self.currSelectedLevel + 3 <= self.levelCount:
+                self.currSelectedLevel += 3
+                self.drawLevelChooser()
+        if self.state < 2:
+            self.state += 1
+
+    def _keyLeft(self):
+        if self.currSelectedLevel > 1:
+            self.currSelectedLevel -= 1
+            self.drawLevelChooser()
+
+    def _keyRight(self):
+        if self.currSelectedLevel < self.levelCount:
+            self.currSelectedLevel += 1
+            self.drawLevelChooser()
+
+    def _whetherChoosingLeveL(self):
+        self.inChoosingLevel = False
+        self.dashboard.state = "start"
+        self.dashboard.time = 0
+        self.level.loadLevel(self.levelNames[self.currSelectedLevel - 1])
+        self.dashboard.levelName = \
+            self.levelNames[self.currSelectedLevel - 1].split("Level")[1]
+        self.start = True
+
+    def _settingsAdd(self):
+        if self.state == 0:
+            self.chooseLevel()
+        elif self.state == 1:
+            self.inSettings = True
+            self.state = 0
+        elif self.state == 2:
+            self._eventQuit()
+
+    def _changeState0(self):
+        if self.music:
+            self.sound.music_channel.stop()
+            self.music = False
+        else:
+            self.sound.music_channel.play(self.sound.soundtrack, loops=-1)
+            self.music = True
+        self.saveSettings("./settings.json")
+
+    def _changeState1(self):
+        if self.sfx:
+            self.sound.allowSFX = False
+            self.sfx = False
+        else:
+            self.sound.allowSFX = True
+            self.sfx = True
+        self.saveSettings("./settings.json")
+
+    def _settingsFix(self):
+        if self.state == 0:
+            self._changeState0()
+        elif self.state == 1:
+            self._changeState1()
+        elif self.state == 2:
+            self.inSettings = False
+
+    def _keyReturn(self):
+        if self.inChoosingLevel:
+            self._whetherChoosingLeveL()
+            return
+        if not self.inSettings:
+            self._settingsAdd()
+        else:
+            self._settingsFix()
+
+    def _keydownCaseMatch(self, event):
+        dd = {
+            pygame.K_ESCAPE: self._keyEscape,
+            pygame.K_UP: self._keyUp,
+            pygame.K_k: self._keyUp,
+            pygame.K_DOWN: self._keyDown,
+            pygame.K_j: self._keyDown,
+            pygame.K_LEFT: self._keyLeft,
+            pygame.K_h: self._keyLeft,
+            pygame.K_RIGHT: self._keyRight,
+            pygame.K_l: self._keyRight,
+            pygame.K_RETURN: self._keyReturn,
+        }
+        dd[event.key]()
+
     def checkInput(self):
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                self._eventQuit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    if self.inChoosingLevel or self.inSettings:
-                        self.inChoosingLevel = False
-                        self.inSettings = False
-                        self.__init__(self.screen, self.dashboard, self.level, self.sound)
-                    else:
-                        pygame.quit()
-                        sys.exit()
-                elif event.key == pygame.K_UP or event.key == pygame.K_k:
-                    if self.inChoosingLevel:
-                        if self.currSelectedLevel > 3:
-                            self.currSelectedLevel -= 3
-                            self.drawLevelChooser()
-                    if self.state > 0:
-                        self.state -= 1
-                elif event.key == pygame.K_DOWN or event.key == pygame.K_j:
-                    if self.inChoosingLevel:
-                        if self.currSelectedLevel+3 <= self.levelCount:
-                            self.currSelectedLevel += 3
-                            self.drawLevelChooser()
-                    if self.state < 2:
-                        self.state += 1
-                elif event.key == pygame.K_LEFT or event.key == pygame.K_h:
-                    if self.currSelectedLevel > 1:
-                        self.currSelectedLevel -= 1
-                        self.drawLevelChooser()
-                elif event.key == pygame.K_RIGHT or event.key == pygame.K_l:
-                    if self.currSelectedLevel < self.levelCount:
-                        self.currSelectedLevel += 1
-                        self.drawLevelChooser()
-                elif event.key == pygame.K_RETURN:
-                    if self.inChoosingLevel:
-                        self.inChoosingLevel = False
-                        self.dashboard.state = "start"
-                        self.dashboard.time = 0
-                        self.level.loadLevel(self.levelNames[self.currSelectedLevel-1])
-                        self.dashboard.levelName = self.levelNames[self.currSelectedLevel-1].split("Level")[1]
-                        self.start = True
-                        return
-                    if not self.inSettings:
-                        if self.state == 0:
-                            self.chooseLevel()
-                        elif self.state == 1:
-                            self.inSettings = True
-                            self.state = 0
-                        elif self.state == 2:
-                            pygame.quit()
-                            sys.exit()
-                    else:
-                        if self.state == 0:
-                            if self.music:
-                                self.sound.music_channel.stop()
-                                self.music = False
-                            else:
-                                self.sound.music_channel.play(self.sound.soundtrack, loops=-1)
-                                self.music = True
-                            self.saveSettings("./settings.json")
-                        elif self.state == 1:
-                            if self.sfx:
-                                self.sound.allowSFX = False
-                                self.sfx = False
-                            else:
-                                self.sound.allowSFX = True
-                                self.sfx = True
-                            self.saveSettings("./settings.json")
-                        elif self.state == 2:
-                            self.inSettings = False
+                self._keydownCaseMatch(event)
         pygame.display.update()
