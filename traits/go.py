@@ -49,7 +49,7 @@ class GoTrait:
                     self.animation.inAir()
                 else:
                     self.animation.idle()
-        if (self.entity.invincibilityFrames//2) % 2 == 0:
+        if (self.entity.invincibilityFrames // 2) % 2 == 0:
             self.drawEntity()
 
     def updateAnimation(self, animation):
@@ -60,6 +60,4 @@ class GoTrait:
         if self.heading == 1:
             self.screen.blit(self.animation.image, self.entity.getPos())
         elif self.heading == -1:
-            self.screen.blit(
-                flip(self.animation.image, True, False), self.entity.getPos()
-            )
+            self.screen.blit(flip(self.animation.image, True, False), self.entity.getPos())

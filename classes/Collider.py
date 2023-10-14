@@ -30,7 +30,7 @@ class Collider:
 
     def checkY(self):
         self.entity.onGround = False
-        
+
         try:
             rows = [
                 self.level[self.entity.getPosIndex().y],

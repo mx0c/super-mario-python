@@ -13,9 +13,9 @@ class EntityCollider:
             or rect1.collidepoint(rect2.bottomright)
             or rect1.collidepoint(rect2.midbottom)
         ):
-            if rect2.collidepoint(
-                (rect1.midleft[0] / 2, rect1.midleft[1] / 2)
-            ) or rect2.collidepoint((rect1.midright[0] / 2, rect1.midright[1] / 2)):
+            if rect2.collidepoint((rect1.midleft[0] / 2, rect1.midleft[1] / 2)) or rect2.collidepoint(
+                (rect1.midright[0] / 2, rect1.midright[1] / 2)
+            ):
                 return CollisionState(True, False)
             else:
                 if self.entity.vel.y > 0:

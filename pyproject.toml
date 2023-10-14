@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "super-mario-python"
+version = "0.1.0"
+description = "Super Mario Bros. in Python"
+authors = ["_"]
+
+[tool.poetry.dependencies]
+python = "3.11.5"
+pygame = "^2.5.2"
+scipy = "^1.11.3"
+py2exe = "^0.13.0.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.2.1"
+
+[build-system]
+requires = ["poetry>=1.6.1"]
+build-backend = "poetry.masonry.api"

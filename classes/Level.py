@@ -1,14 +1,15 @@
 import json
+
 import pygame
 
 from classes.Sprites import Sprites
 from classes.Tile import Tile
 from entities.Coin import Coin
+from entities.CoinBox import CoinBox
 from entities.CoinBrick import CoinBrick
 from entities.Goomba import Goomba
-from entities.Mushroom import RedMushroom
 from entities.Koopa import Koopa
-from entities.CoinBox import CoinBox
+from entities.Mushroom import RedMushroom
 from entities.RandomBox import RandomBox
 
 
@@ -38,7 +39,7 @@ class Level:
             [self.addCoin(x, y) for x, y in data["level"]["entities"]["coin"]]
             [self.addCoinBrick(x, y) for x, y in data["level"]["entities"]["coinBrick"]]
             [self.addRandomBox(x, y, item) for x, y, item in data["level"]["entities"]["RandomBox"]]
-        except:
+        except Exception:
             # if no entities in Level
             pass
 
@@ -47,17 +48,17 @@ class Level:
         for x in range(*data["level"]["layers"]["sky"]["x"]):
             layers.append(
                 (
-                        [
-                            Tile(self.sprites.spriteCollection.get("sky"), None)
-                            for y in range(*data["level"]["layers"]["sky"]["y"])
-                        ]
-                        + [
-                            Tile(
-                                self.sprites.spriteCollection.get("ground"),
-                                pygame.Rect(x * 32, (y - 1) * 32, 32, 32),
-                            )
-                            for y in range(*data["level"]["layers"]["ground"]["y"])
-                        ]
+                    [
+                        Tile(self.sprites.spriteCollection.get("sky"), None)
+                        for y in range(*data["level"]["layers"]["sky"]["y"])
+                    ]
+                    + [
+                        Tile(
+                            self.sprites.spriteCollection.get("ground"),
+                            pygame.Rect(x * 32, (y - 1) * 32, 32, 32),
+                        )
+                        for y in range(*data["level"]["layers"]["ground"]["y"])
+                    ]
                 )
             )
         self.level = list(map(list, zip(*layers)))
@@ -93,9 +94,7 @@ class Level:
                                 self.sprites.spriteCollection.get("sky").image,
                                 ((x + camera.pos.x) * 32, y * 32),
                             )
-                        self.level[y][x].sprite.drawSprite(
-                            x + camera.pos.x, y, self.screen
-                        )
+                        self.level[y][x].sprite.drawSprite(x + camera.pos.x, y, self.screen)
             self.updateEntities(camera)
         except IndexError:
             return
@@ -105,7 +104,9 @@ class Level:
             for yOff in range(0, 2):
                 for xOff in range(0, 3):
                     self.level[y + yOff][x + xOff] = Tile(
-                        self.sprites.spriteCollection.get("cloud{}_{}".format(yOff + 1, xOff + 1)), None, )
+                        self.sprites.spriteCollection.get("cloud{}_{}".format(yOff + 1, xOff + 1)),
+                        None,
+                    )
         except IndexError:
             return
 
@@ -136,12 +137,8 @@ class Level:
     def addBushSprite(self, x, y):
         try:
             self.level[y][x] = Tile(self.sprites.spriteCollection.get("bush_1"), None)
-            self.level[y][x + 1] = Tile(
-                self.sprites.spriteCollection.get("bush_2"), None
-            )
-            self.level[y][x + 2] = Tile(
-                self.sprites.spriteCollection.get("bush_3"), None
-            )
+            self.level[y][x + 1] = Tile(self.sprites.spriteCollection.get("bush_2"), None)
+            self.level[y][x + 2] = Tile(self.sprites.spriteCollection.get("bush_3"), None)
         except IndexError:
             return
 
@@ -161,16 +158,7 @@ class Level:
     def addRandomBox(self, x, y, item):
         self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))
         self.entityList.append(
-            RandomBox(
-                self.screen,
-                self.sprites.spriteCollection,
-                x,
-                y,
-                item,
-                self.sound,
-                self.dashboard,
-                self
-            )
+            RandomBox(self.screen, self.sprites.spriteCollection, x, y, item, self.sound, self.dashboard, self)
         )
 
     def addCoin(self, x, y):
@@ -178,28 +166,13 @@ class Level:
 
     def addCoinBrick(self, x, y):
         self.level[y][x] = Tile(None, pygame.Rect(x * 32, y * 32 - 1, 32, 32))
-        self.entityList.append(
-            CoinBrick(
-                self.screen,
-                self.sprites.spriteCollection,
-                x,
-                y,
-                self.sound,
-                self.dashboard
-            )
-        )
+        self.entityList.append(CoinBrick(self.screen, self.sprites.spriteCollection, x, y, self.sound, self.dashboard))
 
     def addGoomba(self, x, y):
-        self.entityList.append(
-            Goomba(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
-        )
+        self.entityList.append(Goomba(self.screen, self.sprites.spriteCollection, x, y, self, self.sound))
 
     def addKoopa(self, x, y):
-        self.entityList.append(
-            Koopa(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
-        )
+        self.entityList.append(Koopa(self.screen, self.sprites.spriteCollection, x, y, self, self.sound))
 
     def addRedMushroom(self, x, y):
-        self.entityList.append(
-            RedMushroom(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
-        )
+        self.entityList.append(RedMushroom(self.screen, self.sprites.spriteCollection, x, y, self, self.sound))

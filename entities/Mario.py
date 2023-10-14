@@ -5,13 +5,13 @@ from classes.Camera import Camera
 from classes.Collider import Collider
 from classes.EntityCollider import EntityCollider
 from classes.Input import Input
+from classes.Pause import Pause
 from classes.Sprites import Sprites
 from entities.EntityBase import EntityBase
 from entities.Mushroom import RedMushroom
 from traits.bounce import bounceTrait
 from traits.go import GoTrait
 from traits.jump import JumpTrait
-from classes.Pause import Pause
 
 spriteCollection = Sprites().spriteCollection
 smallAnimation = Animation(
@@ -129,7 +129,7 @@ class Mario(EntityBase):
                 self.gameOver()
             elif self.powerUpState == 1:
                 self.powerUpState = 0
-                self.traits['goTrait'].updateAnimation(smallAnimation)
+                self.traits["goTrait"].updateAnimation(smallAnimation)
                 x, y = self.rect.x, self.rect.y
                 self.rect = pygame.Rect(x, y + 32, 32, 32)
                 self.invincibilityFrames = 60
@@ -178,11 +178,11 @@ class Mario(EntityBase):
     def setPos(self, x, y):
         self.rect.x = x
         self.rect.y = y
-        
+
     def powerup(self, powerupID):
         if self.powerUpState == 0:
             if powerupID == 1:
                 self.powerUpState = 1
-                self.traits['goTrait'].updateAnimation(bigAnimation)
-                self.rect = pygame.Rect(self.rect.x, self.rect.y-32, 32, 64)
+                self.traits["goTrait"].updateAnimation(bigAnimation)
+                self.rect = pygame.Rect(self.rect.x, self.rect.y - 32, 32, 64)
                 self.invincibilityFrames = 20

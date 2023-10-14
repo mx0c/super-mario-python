@@ -1,34 +1,33 @@
 {
-    "spriteSheetURL": "./img/Items.png",
-    "type":"animation",
-    "sprites":[
+  "spriteSheetURL": "./img/Items.png",
+  "sprites": [
+    {
+      "colorKey": -1,
+      "deltaTime": 10,
+      "images": [
         {
-            "name":"coin-item",
-            "images":[
-                {
-                    "x":0, 
-                    "y":7,
-                    "scale":2
-                },
-                {
-                    "x":1, 
-                    "y":7,
-                    "scale":2
-                },
-                {
-                    "x":2, 
-                    "y":7,
-                    "scale":2
-                },
-                {
-                    "x":3, 
-                    "y":7,
-                    "scale":2
-                }
-            ],
-            "deltaTime":10,
-            "colorKey": -1
+          "scale": 2,
+          "x": 0,
+          "y": 7
+        },
+        {
+          "scale": 2,
+          "x": 1,
+          "y": 7
+        },
+        {
+          "scale": 2,
+          "x": 2,
+          "y": 7
+        },
+        {
+          "scale": 2,
+          "x": 3,
+          "y": 7
         }
-    ]
+      ],
+      "name": "coin-item"
+    }
+  ],
+  "type": "animation"
 }
-

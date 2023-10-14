@@ -1,40 +1,42 @@
 {
-    "spriteSheetURL": "./img/koopas.png",
-    "type":"character",
-    "size":[17,32],
-    "sprites":[
-        {
-            "name":"koopa-1",
-            "x":1, 
-            "y":0,
-            "scalefactor":2,
-            "colorKey":-1,
-            "collision":false
-        },
-        {
-            "name":"koopa-2",
-            "x":17, 
-            "y":0,
-            "scalefactor":2,
-            "colorKey":-1,
-            "collision":false
-        },
-        {
-            "name":"koopa-hiding",
-            "x":45, 
-            "y":80,
-            "scalefactor":2,
-            "colorKey":-1,
-            "collision":false
-        },
-        {
-            "name":"koopa-hiding-with-legs",
-            "x":163, 
-            "y":206,
-            "scalefactor":2,
-            "colorKey":-1,
-            "collision":false
-        }
-    ]
+  "size": [
+    17,
+    32
+  ],
+  "spriteSheetURL": "./img/koopas.png",
+  "sprites": [
+    {
+      "collision": false,
+      "colorKey": -1,
+      "name": "koopa-1",
+      "scalefactor": 2,
+      "x": 1,
+      "y": 0
+    },
+    {
+      "collision": false,
+      "colorKey": -1,
+      "name": "koopa-2",
+      "scalefactor": 2,
+      "x": 17,
+      "y": 0
+    },
+    {
+      "collision": false,
+      "colorKey": -1,
+      "name": "koopa-hiding",
+      "scalefactor": 2,
+      "x": 45,
+      "y": 80
+    },
+    {
+      "collision": false,
+      "colorKey": -1,
+      "name": "koopa-hiding-with-legs",
+      "scalefactor": 2,
+      "x": 163,
+      "y": 206
+    }
+  ],
+  "type": "character"
 }
-
