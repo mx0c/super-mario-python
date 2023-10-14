@@ -1,6 +1,7 @@
 import json
-import sys
 import os
+import sys
+
 import pygame
 
 from classes.Spritesheet import Spritesheet
@@ -31,12 +32,8 @@ class Menu:
             xTileSize=180,
             yTileSize=88,
         )
-        self.menu_dot = self.spritesheet.image_at(
-            0, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
-        )
-        self.menu_dot2 = self.spritesheet.image_at(
-            20, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
-        )
+        self.menu_dot = self.spritesheet.image_at(0, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True)
+        self.menu_dot2 = self.spritesheet.image_at(20, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True)
         self.loadSettings("./settings.json")
 
     def update(self):
@@ -117,22 +114,12 @@ class Menu:
             self.level.sprites.spriteCollection.get("mario_idle").image,
             (2 * 32, 12 * 32),
         )
-        self.screen.blit(
-            self.level.sprites.spriteCollection.get("bush_1").image, (14 * 32, 12 * 32)
-        )
-        self.screen.blit(
-            self.level.sprites.spriteCollection.get("bush_2").image, (15 * 32, 12 * 32)
-        )
-        self.screen.blit(
-            self.level.sprites.spriteCollection.get("bush_2").image, (16 * 32, 12 * 32)
-        )
-        self.screen.blit(
-            self.level.sprites.spriteCollection.get("bush_2").image, (17 * 32, 12 * 32)
-        )
-        self.screen.blit(
-            self.level.sprites.spriteCollection.get("bush_3").image, (18 * 32, 12 * 32)
-        )
-        self.screen.blit(self.level.sprites.spriteCollection.get("goomba-1").image, (18.5*32, 12*32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("bush_1").image, (14 * 32, 12 * 32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("bush_2").image, (15 * 32, 12 * 32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("bush_2").image, (16 * 32, 12 * 32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("bush_2").image, (17 * 32, 12 * 32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("bush_3").image, (18 * 32, 12 * 32))
+        self.screen.blit(self.level.sprites.spriteCollection.get("goomba-1").image, (18.5 * 32, 12 * 32))
 
     def drawSettings(self):
         self.drawDot()
@@ -156,25 +143,25 @@ class Menu:
 
     def drawBorder(self, x, y, width, height, color, thickness):
         pygame.draw.rect(self.screen, color, (x, y, width, thickness))
-        pygame.draw.rect(self.screen, color, (x, y+width, width, thickness))
+        pygame.draw.rect(self.screen, color, (x, y + width, width, thickness))
         pygame.draw.rect(self.screen, color, (x, y, thickness, width))
-        pygame.draw.rect(self.screen, color, (x+width, y, thickness, width+thickness))
+        pygame.draw.rect(self.screen, color, (x + width, y, thickness, width + thickness))
 
     def drawLevelChooser(self):
         j = 0
         offset = 75
         textOffset = 90
         for i, levelName in enumerate(self.loadLevelNames()):
-            if self.currSelectedLevel == i+1:
+            if self.currSelectedLevel == i + 1:
                 color = (255, 255, 255)
             else:
                 color = (150, 150, 150)
             if i < 3:
-                self.dashboard.drawText(levelName, 175*i+textOffset, 100, 12)
-                self.drawBorder(175*i+offset, 55, 125, 75, color, 5)
+                self.dashboard.drawText(levelName, 175 * i + textOffset, 100, 12)
+                self.drawBorder(175 * i + offset, 55, 125, 75, color, 5)
             else:
-                self.dashboard.drawText(levelName, 175*j+textOffset, 250, 12)
-                self.drawBorder(175*j+offset, 210, 125, 75, color, 5)
+                self.dashboard.drawText(levelName, 175 * j + textOffset, 250, 12)
+                self.drawBorder(175 * j + offset, 210, 125, 75, color, 5)
                 j += 1
 
     def loadLevelNames(self):
@@ -212,7 +199,7 @@ class Menu:
                         self.state -= 1
                 elif event.key == pygame.K_DOWN or event.key == pygame.K_j:
                     if self.inChoosingLevel:
-                        if self.currSelectedLevel+3 <= self.levelCount:
+                        if self.currSelectedLevel + 3 <= self.levelCount:
                             self.currSelectedLevel += 3
                             self.drawLevelChooser()
                     if self.state < 2:
@@ -230,8 +217,8 @@ class Menu:
                         self.inChoosingLevel = False
                         self.dashboard.state = "start"
                         self.dashboard.time = 0
-                        self.level.loadLevel(self.levelNames[self.currSelectedLevel-1])
-                        self.dashboard.levelName = self.levelNames[self.currSelectedLevel-1].split("Level")[1]
+                        self.level.loadLevel(self.levelNames[self.currSelectedLevel - 1])
+                        self.dashboard.levelName = self.levelNames[self.currSelectedLevel - 1].split("Level")[1]
                         self.start = True
                         return
                     if not self.inSettings:

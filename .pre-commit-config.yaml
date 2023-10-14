@@ -1,0 +1,57 @@
+repos:
+    # General linters
+  - repo: 'https://github.com/pre-commit/pre-commit-hooks'
+    rev: v4.4.0
+    hooks:
+      - id: check-ast
+      - id: check-merge-conflict
+      - id: check-json
+      - id: pretty-format-json
+        args:
+          - '--autofix'
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: no-commit-to-branch
+        args:
+          - '--branch'
+          - master
+      - id: debug-statements
+
+    # Python linters
+  - repo: 'https://github.com/psf/black'
+    rev: 23.9.1
+    hooks:
+      - id: black
+        args:
+          - '--line-length'
+          - '120'
+          - '--target-version'
+          - 'py311'
+  - repo: 'https://github.com/myint/autoflake'
+    rev: v2.2.0
+    hooks:
+      - id: autoflake
+        args:
+          - '--in-place'
+          - '--remove-all-unused-imports'
+          - '--remove-unused-variable'
+          - '--ignore-init-module-imports'
+  - repo: 'https://github.com/pycqa/isort'
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args:
+          - '--ca'
+          - '--profile'
+          - 'black'
+  - repo: 'https://github.com/pycqa/flake8'
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.5.1'
+    hooks:
+      - id: mypy
+        args:
+          - '--config-file'
+          - 'mypy.ini'

@@ -1,5 +1,6 @@
-from classes.Spritesheet import Spritesheet
 import pygame
+
+from classes.Spritesheet import Spritesheet
 
 
 class Font(Spritesheet):
@@ -18,16 +19,7 @@ class Font(Spritesheet):
                 charAt = 0
                 row += 1
             font.update(
-                {
-                    char: self.image_at(
-                        charAt,
-                        row,
-                        2,
-                        colorkey=pygame.color.Color(0, 0, 0),
-                        xTileSize=8,
-                        yTileSize=8
-                    )
-                }
+                {char: self.image_at(charAt, row, 2, colorkey=pygame.color.Color(0, 0, 0), xTileSize=8, yTileSize=8)}
             )
             charAt += 1
         return font
