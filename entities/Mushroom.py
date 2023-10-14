@@ -1,9 +1,9 @@
 from classes.Animation import Animation
+from classes.Collider import Collider
+from classes.EntityCollider import EntityCollider
 from classes.Maths import Vec2D
 from entities.EntityBase import EntityBase
 from traits.leftrightwalk import LeftRightWalkTrait
-from classes.Collider import Collider
-from classes.EntityCollider import EntityCollider
 
 
 class RedMushroom(EntityBase):

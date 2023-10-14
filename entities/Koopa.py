@@ -3,7 +3,6 @@ import pygame
 from classes.Animation import Animation
 from classes.Collider import Collider
 from classes.EntityCollider import EntityCollider
-from classes.Maths import Vec2D
 from entities.EntityBase import EntityBase
 from traits.leftrightwalk import LeftRightWalkTrait
 
@@ -41,9 +40,7 @@ class Koopa(EntityBase):
 
     def drawKoopa(self, camera):
         if self.leftrightTrait.direction == -1:
-            self.screen.blit(
-                self.animation.image, (self.rect.x + camera.x, self.rect.y - 32)
-            )
+            self.screen.blit(self.animation.image, (self.rect.x + camera.x, self.rect.y - 32))
         else:
             self.screen.blit(
                 pygame.transform.flip(self.animation.image, True, False),

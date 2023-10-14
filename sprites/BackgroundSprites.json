@@ -1,156 +1,202 @@
 {
-    "spriteSheetURL": "./img/tiles.png",
-    "type":"background",
-    "sprites":[
-        {
-            "name":"sky",
-            "x":3,
-            "y":23,
-            "redrawBg":false,
-            "scalefactor":2,
-            "collision":false
-        },
-        {
-            "name":"bricks",
-            "x":1,
-            "y":0,
-            "redrawBg":false,
-            "scalefactor":2,
-            "collision":true
-        },
-        {
-            "name":"ground",
-            "x":0,
-            "y":0,
-            "redrawBg":false,
-            "scalefactor":2,
-            "collision":true
-        },
-        {
-            "name":"empty",
-            "x":27,
-            "y":0,
-            "redrawBg":false,
-            "scalefactor":2,
-            "collision":true
-        },
-        {
-            "name":"pipeL",
-            "x":0,
-            "y":10,
-            "redrawBg":false,
-            "scalefactor":2,
-            "collision":true
-        },
-        {
-            "name":"pipeR",
-            "x":1,
-            "y":10,
-            "scalefactor":2,
-            "collision":true,
-            "redrawBg":false,
-            "colorKey": [0,0,0]
-        },
-        {
-            "name":"pipe2L",
-            "x":0,
-            "y":11,
-            "redrawBg":true,
-            "scalefactor":2,
-            "collision":true,
-            "colorKey": [0,0,0]
-        },
-        {
-            "name":"pipe2R",
-            "x":1,
-            "y":11,
-            "redrawBg":true,
-            "scalefactor":2,
-            "collision":true,
-            "colorKey": [0,0,0]
-        },
-        {
-            "name":"cloud1_1",
-            "x":0,
-            "y":20,
-            "redrawBg":true,
-            "scalefactor":2,
-            "collision":false,
-            "colorKey": [0,0,0]
-        },
-        {
-            "name":"cloud1_2",
-            "x":1,
-            "y":20,
-            "redrawBg":true,
-            "scalefactor":2,
-            "collision":false,
-            "colorKey": [0,0,0]
-        },
-        {
-            "name":"cloud1_3",
-            "x":2,
-            "y":20,
-            "redrawBg":true,
-            "scalefactor":2,
-            "collision":false,
-            "colorKey": [0,0,0]
-        },
-        {
-            "name":"cloud2_1",
-            "x":0,
-            "y":21,
-            "redrawBg":true,
-            "scalefactor":2,
-            "collision":false,
-            "colorKey": [0,0,0]
-        },
-        {
-            "name":"cloud2_2",
-            "x":1,
-            "y":21,
-            "redrawBg":true,
-            "scalefactor":2,
-            "collision":false,
-            "colorKey": [0,0,0]
-        },
-        {
-            "name":"cloud2_3",
-            "x":2,
-            "y":21,
-            "redrawBg":true,
-            "scalefactor":2,
-            "collision":false,
-            "colorKey": [0,0,0]
-        },
-        {
-            "name":"bush_1",
-            "x":11,
-            "y":11,
-            "redrawBg":true,
-            "scalefactor":2,
-            "collision":false,
-            "colorKey": [0,0,0]
-        },
-        {
-            "name":"bush_2",
-            "x":12,
-            "y":11,
-            "redrawBg":true,
-            "scalefactor":2,
-            "collision":false,
-            "colorKey": [0,0,0]
-        },
-        {
-            "name":"bush_3",
-            "x":13,
-            "y":11,
-            "redrawBg":true,
-            "scalefactor":2,
-            "collision":false,
-            "colorKey": [0,0,0]
-        }
-    ] 
+  "spriteSheetURL": "./img/tiles.png",
+  "sprites": [
+    {
+      "collision": false,
+      "name": "sky",
+      "redrawBg": false,
+      "scalefactor": 2,
+      "x": 3,
+      "y": 23
+    },
+    {
+      "collision": true,
+      "name": "bricks",
+      "redrawBg": false,
+      "scalefactor": 2,
+      "x": 1,
+      "y": 0
+    },
+    {
+      "collision": true,
+      "name": "ground",
+      "redrawBg": false,
+      "scalefactor": 2,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "collision": true,
+      "name": "empty",
+      "redrawBg": false,
+      "scalefactor": 2,
+      "x": 27,
+      "y": 0
+    },
+    {
+      "collision": true,
+      "name": "pipeL",
+      "redrawBg": false,
+      "scalefactor": 2,
+      "x": 0,
+      "y": 10
+    },
+    {
+      "collision": true,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "pipeR",
+      "redrawBg": false,
+      "scalefactor": 2,
+      "x": 1,
+      "y": 10
+    },
+    {
+      "collision": true,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "pipe2L",
+      "redrawBg": true,
+      "scalefactor": 2,
+      "x": 0,
+      "y": 11
+    },
+    {
+      "collision": true,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "pipe2R",
+      "redrawBg": true,
+      "scalefactor": 2,
+      "x": 1,
+      "y": 11
+    },
+    {
+      "collision": false,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "cloud1_1",
+      "redrawBg": true,
+      "scalefactor": 2,
+      "x": 0,
+      "y": 20
+    },
+    {
+      "collision": false,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "cloud1_2",
+      "redrawBg": true,
+      "scalefactor": 2,
+      "x": 1,
+      "y": 20
+    },
+    {
+      "collision": false,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "cloud1_3",
+      "redrawBg": true,
+      "scalefactor": 2,
+      "x": 2,
+      "y": 20
+    },
+    {
+      "collision": false,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "cloud2_1",
+      "redrawBg": true,
+      "scalefactor": 2,
+      "x": 0,
+      "y": 21
+    },
+    {
+      "collision": false,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "cloud2_2",
+      "redrawBg": true,
+      "scalefactor": 2,
+      "x": 1,
+      "y": 21
+    },
+    {
+      "collision": false,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "cloud2_3",
+      "redrawBg": true,
+      "scalefactor": 2,
+      "x": 2,
+      "y": 21
+    },
+    {
+      "collision": false,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "bush_1",
+      "redrawBg": true,
+      "scalefactor": 2,
+      "x": 11,
+      "y": 11
+    },
+    {
+      "collision": false,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "bush_2",
+      "redrawBg": true,
+      "scalefactor": 2,
+      "x": 12,
+      "y": 11
+    },
+    {
+      "collision": false,
+      "colorKey": [
+        0,
+        0,
+        0
+      ],
+      "name": "bush_3",
+      "redrawBg": true,
+      "scalefactor": 2,
+      "x": 13,
+      "y": 11
+    }
+  ],
+  "type": "background"
 }
-
-

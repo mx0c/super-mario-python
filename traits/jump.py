@@ -4,7 +4,9 @@ class JumpTrait:
         self.jumpHeight = 120
         self.entity = entity
         self.initalHeight = 384
-        self.deaccelerationHeight = self.jumpHeight - ((self.verticalSpeed*self.verticalSpeed)/(2*self.entity.gravity))
+        self.deaccelerationHeight = self.jumpHeight - (
+            (self.verticalSpeed * self.verticalSpeed) / (2 * self.entity.gravity)
+        )
 
     def jump(self, jumping):
         if jumping:
@@ -17,7 +19,7 @@ class JumpTrait:
                 self.entity.obeyGravity = False  # always reach maximum height
 
         if self.entity.inJump:
-            if (self.initalHeight-self.entity.rect.y) >= self.deaccelerationHeight or self.entity.vel.y == 0:
+            if (self.initalHeight - self.entity.rect.y) >= self.deaccelerationHeight or self.entity.vel.y == 0:
                 self.entity.inJump = False
                 self.entity.obeyGravity = True
 

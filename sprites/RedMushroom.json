@@ -1,15 +1,18 @@
 {
-    "spriteSheetURL": "./img/Items.png",
-    "type":"character",
-    "size":[16,16],
-    "sprites":[
-        {
-            "name":"mushroom",
-            "x":0,
-            "y":16,
-            "scalefactor":2,
-            "colorKey":-1,
-            "collision":false
-        }
-    ]
+  "size": [
+    16,
+    16
+  ],
+  "spriteSheetURL": "./img/Items.png",
+  "sprites": [
+    {
+      "collision": false,
+      "colorKey": -1,
+      "name": "mushroom",
+      "scalefactor": 2,
+      "x": 0,
+      "y": 16
+    }
+  ],
+  "type": "character"
 }

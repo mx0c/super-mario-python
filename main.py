@@ -1,10 +1,10 @@
 import pygame
+
 from classes.Dashboard import Dashboard
 from classes.Level import Level
 from classes.Menu import Menu
 from classes.Sound import Sound
 from entities.Mario import Mario
-
 
 windowSize = 640, 480
 
@@ -35,10 +35,10 @@ def main():
             mario.update()
         pygame.display.update()
         clock.tick(max_frame_rate)
-    return 'restart'
+    return "restart"
 
 
 if __name__ == "__main__":
-    exitmessage = 'restart'
-    while exitmessage == 'restart':
+    exitmessage = "restart"
+    while exitmessage == "restart":
         exitmessage = main()

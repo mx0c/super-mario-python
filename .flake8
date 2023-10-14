@@ -1,0 +1,10 @@
+[flake8]
+max-line-length = 120
+extend-ignore =
+    # Black takes care of these
+    E203
+    E231
+    E501
+
+per-file-ignores =
+    __init__.py:F401

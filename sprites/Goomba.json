@@ -1,31 +1,34 @@
 {
-    "spriteSheetURL": "./img/characters.gif",
-    "type":"character",
-    "size":[16,16],
-    "sprites":[
-        {
-            "name":"goomba-1",
-            "x":296, 
-            "y":187,
-            "scalefactor":2,
-            "colorKey":-1,
-            "collision":false
-        },
-        {
-            "name":"goomba-2",
-            "x":315, 
-            "y":187,
-            "scalefactor":2,
-            "colorKey":-1,
-            "collision":false
-        },
-        {
-            "name":"goomba-flat",
-            "x":277, 
-            "y":187,
-            "scalefactor":2,
-            "colorKey":-1,
-            "collision":false
-        }
-    ]
+  "size": [
+    16,
+    16
+  ],
+  "spriteSheetURL": "./img/characters.gif",
+  "sprites": [
+    {
+      "collision": false,
+      "colorKey": -1,
+      "name": "goomba-1",
+      "scalefactor": 2,
+      "x": 296,
+      "y": 187
+    },
+    {
+      "collision": false,
+      "colorKey": -1,
+      "name": "goomba-2",
+      "scalefactor": 2,
+      "x": 315,
+      "y": 187
+    },
+    {
+      "collision": false,
+      "colorKey": -1,
+      "name": "goomba-flat",
+      "scalefactor": 2,
+      "x": 277,
+      "y": 187
+    }
+  ],
+  "type": "character"
 }
