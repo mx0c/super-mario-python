@@ -5,7 +5,7 @@ from classes.Menu import Menu
 from classes.Sound import Sound
 from entities.Mario import Mario
 
-
+## This is the main file to run the program...
 windowSize = 640, 480
 
 
@@ -36,6 +36,7 @@ def main():
         pygame.display.update()
         clock.tick(max_frame_rate)
     return 'restart'
+
 
 
 if __name__ == "__main__":
