@@ -33,3 +33,6 @@ class Item(Dashboard):
             self.itemVel.y = -0.75
             self.ItemPos.y += self.itemVel.y
             self.drawText("100", self.ItemPos.x + 3 + cam.x, self.ItemPos.y, 8)
+
+
+# just want to add comment
