@@ -90,6 +90,12 @@ while running:
         villain_move_direction = 1
     villain_x += villain_speed * villain_move_direction
 
+    # Update the villain's movement to chase the player vertically
+    if player_y < villain_y:
+        villain_y -= villain_speed  # Move up if the player is above
+    elif player_y > villain_y:
+        villain_y += villain_speed  # Move down if the player is below
+
 
     # Drawing
     screen.fill(BACKGROUND_COLOR)
