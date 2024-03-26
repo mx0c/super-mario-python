@@ -84,9 +84,12 @@ while running:
             break
 
     # Move the villain
+    if player_x < villain_x:
+        villain_move_direction = -1
+    else:
+        villain_move_direction = 1
     villain_x += villain_speed * villain_move_direction
-    if villain_x <= villain_boundary_left or villain_x >= villain_boundary_right - villain_size:
-        villain_move_direction *= -1  # Change direction
+
 
     # Drawing
     screen.fill(BACKGROUND_COLOR)
