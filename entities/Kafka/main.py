@@ -43,7 +43,7 @@ jumping = False
 # Villain settings
 villain_size = 50
 villain_color = DARK_RED
-villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size  # Initial position
+villain_x, villain_y = SCREEN_WIDTH // 2, 500  # Initial position
 villain_speed = 2
 villain_move_direction = 1  # 1 for right, -1 for left
 villain_boundary_left = SCREEN_WIDTH // 2 - 150
