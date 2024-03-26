@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 
 # Initialize Pygame
 pygame.init()
@@ -14,9 +15,16 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BACKGROUND_COLOR = (135, 206, 250)  # Sky blue
 
-# Platform settings
-platforms = [(0, SCREEN_HEIGHT - 100, 1200, 500),  # X, Y, Width, Height
-             (600, SCREEN_HEIGHT - 250, 200, 50)]
+# Main platform
+platforms = [(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50)]
+
+platforms = [
+    (0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 100),  # Main ground platform
+    (50, SCREEN_HEIGHT - 250, 200, 50),        # First platform
+    (400, SCREEN_HEIGHT - 400, 200, 50),        # Second platform
+    (500, SCREEN_HEIGHT - 200, 200, 50)         # Third platform
+]
+
 platform_color = GREEN
 
 # FPS settings
@@ -26,12 +34,12 @@ FPS = 60
 # Player settings
 player_size = 50
 player_color = RED
-player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - player_size - 100
+player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150
 player_speed = 5
 player_velocity_y = 0
 gravity = 0.5
-jump_height = -10
-ground = SCREEN_HEIGHT - player_size - 100
+jump_height = -15
+ground = SCREEN_HEIGHT - player_size - 50
 jumping = False
 
 # Game loop
