@@ -11,9 +11,13 @@ pygame.display.set_caption('Simple Mario')
 
 # Colors
 RED = (255, 0, 0)
-BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 BACKGROUND_COLOR = (135, 206, 250)  # Sky blue
+
+# Platform settings
+platforms = [(0, SCREEN_HEIGHT - 100, 1200, 500),  # X, Y, Width, Height
+             (600, SCREEN_HEIGHT - 250, 200, 50)]
+platform_color = GREEN
 
 # FPS settings
 clock = pygame.time.Clock()
@@ -48,16 +52,30 @@ while running:
     if keys[pygame.K_RIGHT]:
         player_x += player_speed
 
-    # Gravity
+    # Gravity and jumping
     player_y += player_velocity_y
-    if player_y >= ground:
+    player_velocity_y += gravity
+    if player_y > ground:
         player_y = ground
         jumping = False
-    player_velocity_y += gravity
+
+    # Collision detection with platforms
+    player_rect = pygame.Rect(player_x, player_y, player_size, player_size)
+    for platform in platforms:
+        platform_rect = pygame.Rect(platform)
+        if player_rect.colliderect(platform_rect) and player_velocity_y >= 0:
+            player_y = platform[1] - player_size
+            jumping = False
+            player_velocity_y = 0
+            break
 
     # Drawing
     screen.fill(BACKGROUND_COLOR)
     pygame.draw.rect(screen, player_color, (player_x, player_y, player_size, player_size))
+
+    # Draw platforms
+    for platform in platforms:
+        pygame.draw.rect(screen, platform_color, platform)
 
     # Update display
     pygame.display.update()
