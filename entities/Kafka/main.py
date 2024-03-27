@@ -17,6 +17,16 @@ DARK_RED = (139, 0, 0)  # Villain color
 BACKGROUND_COLOR = (135, 206, 250)  # Sky blue
 platform_color = GREEN  # Platform color
 
+# Initialize lives
+lives = 3
+
+# Initialize Pygame's font module
+pygame.font.init()
+
+# Create a font object
+font_size = 24
+game_font = pygame.font.SysFont('Arial', font_size)
+
 
 # Level configurations
 level_data = [
@@ -171,7 +181,23 @@ while running:
     door = platforms[-1]
     pygame.draw.rect(screen, RED, pygame.Rect(door))  # Draw the door in RED for visibility
 
-  
+    # Render the lives text
+    lives_text = game_font.render(f'Lives: {lives}', True, RED)
+    # Position the lives text in the top left corner
+    screen.blit(lives_text, (10, 10))
+
+     # Collision detection with the villain
+    villain_rect = pygame.Rect(villain_x, villain_y, villain_size, villain_size)
+    if player_rect.colliderect(villain_rect):
+        lives -= 1  # Decrement lives
+        if lives <= 0:
+            print("Out of lives! Game Over.")
+            running = False
+        else:
+            print("Collision with villain! You lost a life.")
+            # Reset player and villain positions after losing a life
+            player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150
+            villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size
 
     # Collision detection with the villain
     villain_rect = pygame.Rect(villain_x, villain_y, villain_size, villain_size)
@@ -186,6 +212,7 @@ while running:
         player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150
         # You may want to reset the villain's position as well
         villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size
+
 
 
     # Update display
