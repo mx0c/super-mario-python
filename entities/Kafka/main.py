@@ -1,4 +1,5 @@
 import pygame
+import math
 import sys
 import random
 
@@ -155,6 +156,27 @@ while running:
             player_y = platform_rect.top - player_size
             player_velocity_y = 0  # Resetting vertical velocity to 0
             jumping = False  # Indicate that the player is no longer jumping
+
+        # Collision detection with the circle
+    distance_to_circle = math.hypot(player_x - circle_x, player_y - circle_y)
+    if distance_to_circle < circle_radius + player_size // 2:
+        print("Circle reached! Moving to the next level...")
+        current_level += 1
+        if current_level >= len(level_data):
+            print("You've completed all levels! Congratulations!")
+            running = False
+            break  # Exit the game loop
+        else:
+            # Load the new level data
+            platforms = level_data[current_level]
+            # Recalculate the tallest platform and circle position for the new level
+            tallest_platform = min(platforms[:-1], key=lambda x: x[1])  # Assume door is the last item again
+            circle_x = tallest_platform[0] + tallest_platform[2] // 2
+            circle_y = tallest_platform[1] - circle_radius * 2
+            # Reset player position
+            player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150
+            # Optionally reset the villain's position
+            villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size
 
     # Villain movement (chase player horizontally and vertically)
     villain_move_direction = 1 if player_x > villain_x else -1
