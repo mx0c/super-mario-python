@@ -10,20 +10,19 @@ CHARACTER_WIDTH = 64
 CHARACTER_HEIGHT = 64
 VILLAIN_WIDTH = 64
 VILLAIN_HEIGHT = 64
-
 characters_folder = 'characters/player/'
 villains_folder = 'characters/player/villain/'
 lives_folder = 'characters/player/lives/'
 prizes_folder = 'characters/player/prize/'
+doors_folder = 'characters/player/doors/'
 
-# Load and scale character images
+
 player_images = {
     1: pygame.transform.scale(pygame.image.load(characters_folder + 'K.png'), (21, 70)),
     2: pygame.transform.scale(pygame.image.load(characters_folder + 'Beau.gif'), (80, 80)),  
     3: pygame.transform.scale(pygame.image.load(characters_folder + 'Gregor.png'), (45, 64)),
 }
 
-# Load and scale multiple villain images
 villain_images = {
     1: pygame.transform.scale(pygame.image.load(villains_folder + 'v1.png'), (110, 85)),
     2: pygame.transform.scale(pygame.image.load(villains_folder + 'v2.png'), (VILLAIN_WIDTH, VILLAIN_HEIGHT)),
@@ -41,6 +40,13 @@ prize_images = {
     2: pygame.transform.scale(pygame.image.load(prizes_folder + 'p2.png'), (60, 60)),
     3: pygame.transform.scale(pygame.image.load(prizes_folder + 'p3.png'), (50, 70)),
 }
+
+door_images = {
+    1: pygame.transform.scale(pygame.image.load(doors_folder + 'd1.png'), (150, 150)),
+    2: pygame.transform.scale(pygame.image.load(doors_folder + 'd2.png'), (80, 130)),
+    3: pygame.transform.scale(pygame.image.load(doors_folder + 'd3.png'), (75, 75)),
+}
+
 
 # Screen settings
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
@@ -115,8 +121,15 @@ def add_door_to_level(level):
     
     # Replace the placeholder with the actual door
     level[-1] = (door_x, door_y, door_size[0], door_size[1])
+    return door_x, door_y 
 
 
+door_positions = []  # This will store the door positions for each level
+
+# Assuming add_door_to_level now returns door_x and door_y
+for level in level_data:
+    door_x, door_y = add_door_to_level(level)  # This captures the returned values
+    door_positions.append((door_x, door_y))  # Store them in the list
 
 
 # Process each level to include a door
@@ -185,6 +198,7 @@ current_prize_image = prize_images[current_level + 1]
 # Game loop
 running = True
 while running:
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -284,12 +298,23 @@ while running:
         # Drawing the player with the current image
     screen.blit(current_player_image, (player_x, player_y))
     screen.blit(current_villain_image, (villain_x, villain_y))
+    move_left_amount = 50 
+    # Inside the game loop, when you're ready to draw the door
+    door_x, door_y = door_positions[current_level]  # Access the current level's door position
+    door_x -= move_left_amount  
+    current_door_image = door_images[current_level + 1]  # Adjust if your indexing starts from 1
+    # Now, door_x and door_y are defined and can be used to position the door image correctly
+    door_rect = current_door_image.get_rect(topleft=(door_x, door_y))
+    screen.blit(current_door_image, door_rect)
+
 
 
 
     # The door is the last item in the list
     door = platforms[-1]
-    pygame.draw.rect(screen, RED, pygame.Rect(door))  # Draw the door in RED for visibility
+    current_door_image = door_images[current_level + 1]  # Get the current level's door image
+    door_rect = current_door_image.get_rect(topleft=(door_x, door_y))  # Position the door image
+    screen.blit(current_door_image, door_rect)  # Draw the door image
 
 
     for i in range(lives):
@@ -317,7 +342,7 @@ while running:
         running = False
 
   # Detect collision with the door
-    if player_rect.colliderect(pygame.Rect(door)):
+    if player_rect.colliderect(door_rect):
         print("Door reached! Returning to the starting point...")
         # Instead of changing levels, reset the player position to the start of the current level
         player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150
