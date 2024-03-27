@@ -6,6 +6,20 @@ import random
 # Initialize Pygame
 pygame.init()
 
+CHARACTER_WIDTH = 64
+CHARACTER_HEIGHT = 64
+
+
+characters_folder = 'characters/player/'
+
+# Load and scale character images
+player_images = {
+    1: pygame.transform.scale(pygame.image.load(characters_folder + 'K.png'), (30, 65)),
+    2: pygame.transform.scale(pygame.image.load(characters_folder + 'Beau.gif'), (80, 80)),  
+    3: pygame.transform.scale(pygame.image.load(characters_folder + 'Gregor.png'), (55, CHARACTER_HEIGHT)),
+}
+
+
 # Screen settings
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -107,6 +121,7 @@ jump_height = -15
 ground = SCREEN_HEIGHT - player_size - 50
 jumping = False
 
+
 # Villain settings
 villain_size = 50
 villain_color = DARK_RED
@@ -134,10 +149,12 @@ def draw_heart(surface, x, y, size, color):
     # Bottom triangle
     pygame.draw.polygon(surface, color, [(x, y + quarter_size), end_point, (x + half_size, y + size)])
 
+
 # Lives settings
 life_size = 20  # Size of the heart
 life_spacing = 5  # Space between each heart
 
+current_player_image = player_images[current_level + 1] 
 
 # Game loop
 # Game loop
@@ -217,9 +234,17 @@ while running:
     elif player_y > villain_y:
         villain_y += villain_speed  # Chase downward
 
+    # Update the current player image if the level changes
+    current_player_image = player_images[current_level + 1]  # Adjust for 0-based indexing
+
+    # Adjust player image position
+    player_image_rect = current_player_image.get_rect()
+    player_image_rect.center = (player_x + player_size // 2, player_y + player_size // 2)
+
+
     # Drawing
     screen.fill(BACKGROUND_COLOR)
-    pygame.draw.rect(screen, player_color, (player_x, player_y, player_size, player_size))
+    #pygame.draw.rect(screen, player_color, (player_x, player_y, player_size, player_size))
     pygame.draw.rect(screen, villain_color, (villain_x, villain_y, villain_size, villain_size))
 
         # Drawing platforms and the door
@@ -228,6 +253,10 @@ while running:
         
     # Draw the circle on top of the tallest platform
     pygame.draw.circle(screen, RED, (circle_x, circle_y), circle_radius)
+
+        # Drawing the player with the current image
+    screen.blit(current_player_image, (player_x, player_y))
+
 
     # The door is the last item in the list
     door = platforms[-1]
