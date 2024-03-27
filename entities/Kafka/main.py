@@ -121,6 +121,23 @@ circle_radius = 25  # Example radius size for the circle
 circle_x = tallest_platform[0] + tallest_platform[2] // 2  # Center of the platform
 circle_y = tallest_platform[1] - circle_radius * 2  # Above the platform, adjust as needed
 
+# Function to draw a heart for representing lives
+def draw_heart(surface, x, y, size, color):
+    half_size = size // 2
+    quarter_size = size // 4
+    end_point = x + size, y + half_size
+
+    # Left half circle
+    pygame.draw.circle(surface, color, (x + quarter_size, y + quarter_size), quarter_size)
+    # Right half circle
+    pygame.draw.circle(surface, color, (x + 3*quarter_size, y + quarter_size), quarter_size)
+    # Bottom triangle
+    pygame.draw.polygon(surface, color, [(x, y + quarter_size), end_point, (x + half_size, y + size)])
+
+# Lives settings
+life_size = 20  # Size of the heart
+life_spacing = 5  # Space between each heart
+
 
 # Game loop
 # Game loop
@@ -216,10 +233,10 @@ while running:
     door = platforms[-1]
     pygame.draw.rect(screen, RED, pygame.Rect(door))  # Draw the door in RED for visibility
 
-    # Render the lives text
-    lives_text = game_font.render(f'Lives: {lives}', True, RED)
-    # Position the lives text in the top left corner
-    screen.blit(lives_text, (10, 10))
+
+    for i in range(lives):
+        draw_heart(screen, 10 + i * (life_size + life_spacing), 10, life_size, RED)
+
 
      # Collision detection with the villain
     villain_rect = pygame.Rect(villain_x, villain_y, villain_size, villain_size)
