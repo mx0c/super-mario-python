@@ -116,8 +116,14 @@ level_data = [
 def play_music_for_level(level_number):
     pygame.mixer.music.stop()  # Stop any music that might be playing
     pygame.mixer.music.load(music_files[level_number])  # Load the new song
-    pygame.mixer.music.play(-1)  # Play the music, -1 means loop indefinitely
-
+    
+    # Determine the start time based on the level
+    if level_number == 3:  # Adjust if your level numbering starts from 0 or 1
+        start_time = 350.0  # Start 5 minutes in for the last level
+    else:
+        start_time = 120.0  # Start 2 minutes in for the first two levels
+    
+    pygame.mixer.music.play(-1, start_time)  # Play the music
 
 # Function to add a door to the level based on the tallest platform
 def add_door_to_level(level):
