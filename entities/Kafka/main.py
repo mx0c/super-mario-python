@@ -49,25 +49,31 @@ level_data = [
 
 # Function to add a door to the level based on the tallest platform
 def add_door_to_level(level):
-    # Assuming the last item is a "door" placeholder
+    # Exclude the last item assuming it's a "door" placeholder
     platforms = level[:-1]
     
-    # Find the tallest platform (smallest y value)
-    tallest_platform = min(platforms, key=lambda x: x[1])
+    # Sort platforms based on their y-value, from lowest to highest on the screen
+    sorted_platforms = sorted(platforms, key=lambda x: x[1])
+    
+    # Select the second tallest platform (second smallest y-value)
+    # If there's only one platform, this still selects the first due to how indexing works
+    second_tallest_platform = sorted_platforms[1] if len(sorted_platforms) > 1 else sorted_platforms[0]
     
     # Define the door's size
     door_size = (50, 100)
     
-    # Place the door on top of the tallest platform
-    door_x = tallest_platform[0] + tallest_platform[2] - door_size[0]  # Adjust this as necessary
-    door_y = tallest_platform[1] - door_size[1]
+    # Place the door on top of the second tallest platform
+    door_x = second_tallest_platform[0] + second_tallest_platform[2] - door_size[0]
+    door_y = second_tallest_platform[1] - door_size[1]
     
     # Replace the placeholder with the actual door
     level[-1] = (door_x, door_y, door_size[0], door_size[1])
 
+
 # Process each level to include a door
 for level in level_data:
     add_door_to_level(level)
+    
 
 current_level = 0  # Start with the first level
 platforms = level_data[current_level]  # Load the platform data for the current level
@@ -93,6 +99,15 @@ villain_size = 50
 villain_color = DARK_RED
 villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size  # Initial position
 villain_speed = 2
+
+# Before the game loop, find the tallest platform for the current level
+tallest_platform = min(platforms[:-1], key=lambda x: x[1])  # Exclude the door, assuming it's the last item
+
+# Calculate the circle's position to be on top of the tallest platform
+circle_radius = 25  # Example radius size for the circle
+circle_x = tallest_platform[0] + tallest_platform[2] // 2  # Center of the platform
+circle_y = tallest_platform[1] - circle_radius * 2  # Above the platform, adjust as needed
+
 
 # Game loop
 running = True
@@ -145,19 +160,18 @@ while running:
     pygame.draw.rect(screen, player_color, (player_x, player_y, player_size, player_size))
     pygame.draw.rect(screen, villain_color, (villain_x, villain_y, villain_size, villain_size))
 
-    # Drawing platforms and the door
+        # Drawing platforms and the door
     for platform in platforms[:-1]:  # Draw all but the last item as platforms
         pygame.draw.rect(screen, platform_color, pygame.Rect(platform))
+        
+    # Draw the circle on top of the tallest platform
+    pygame.draw.circle(screen, RED, (circle_x, circle_y), circle_radius)
 
     # The door is the last item in the list
     door = platforms[-1]
     pygame.draw.rect(screen, RED, pygame.Rect(door))  # Draw the door in RED for visibility
 
-    # Detect collision with the door
-    if player_rect.colliderect(pygame.Rect(door)):
-        print("Door reached! Progress to the next level or trigger an event...")
-        # Implement level progression or event triggering here
-
+  
 
     # Collision detection with the villain
     villain_rect = pygame.Rect(villain_x, villain_y, villain_size, villain_size)
@@ -165,21 +179,14 @@ while running:
         print("Collision with villain! Game Over.")
         running = False
 
-    # Inside the collision detection with the door
+  # Detect collision with the door
     if player_rect.colliderect(pygame.Rect(door)):
-        current_level += 1
-        if current_level >= len(level_data):
-            print("Congratulations! You've completed the game!")
-            running = False
-        else:
-            platforms = level_data[current_level]
-            player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150  # Reset player position for the new level
-            # You may also want to reset or update the villain's position here
+        print("Door reached! Returning to the starting point...")
+        # Instead of changing levels, reset the player position to the start of the current level
+        player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150
+        # You may want to reset the villain's position as well
+        villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size
 
-            player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150  # Reset player position
-            # Reset villain to a new position for the next level
-            villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size
-            # Optionally, adjust villain speed or other parameters for increased difficulty
 
     # Update display
     pygame.display.update()
