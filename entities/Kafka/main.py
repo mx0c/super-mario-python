@@ -70,17 +70,17 @@ door_images = {
 # Colors
 RED = (255, 0, 0)
 GREEN = (165, 42, 42)
-DARK_RED = (139, 0, 0)  # Villain color
-BACKGROUND_COLOR = (135, 206, 250)  # Sky blue
-platform_color = GREEN  # Platform color
+DARK_RED = (139, 0, 0) 
+BACKGROUND_COLOR = (135, 206, 250) 
+platform_color = GREEN  
 
-# Initialize lives
+
 lives = 3
 
-# Initialize Pygame's font module
+
 pygame.font.init()
 
-# Create a font object
+
 font_size = 24
 game_font = pygame.font.SysFont('Arial', font_size)
 
@@ -93,7 +93,7 @@ level_data = [
         (50, SCREEN_HEIGHT - 250, 200, 50),
         (400, SCREEN_HEIGHT - 400, 200, 50),
         (500, SCREEN_HEIGHT - 200, 200, 50),
-        (650, SCREEN_HEIGHT - 300, 50, 150),  # Vertical platform added
+        (650, SCREEN_HEIGHT - 300, 50, 150), 
     ],
     # Level 2 updated with a vertical platform
     [
@@ -101,7 +101,7 @@ level_data = [
         (100, SCREEN_HEIGHT - 150, 200, 50),
         (350, SCREEN_HEIGHT - 300, 200, 50),
         (600, SCREEN_HEIGHT - 450, 200, 50),
-        (700, SCREEN_HEIGHT - 300, 50, 150),  # Vertical platform added
+        (700, SCREEN_HEIGHT - 300, 50, 150), 
     ],
     # Level 3 updated with a vertical platform
     [
@@ -109,52 +109,60 @@ level_data = [
         (150, SCREEN_HEIGHT - 250, 200, 50),
         (500, SCREEN_HEIGHT - 350, 200, 50),
         (250, SCREEN_HEIGHT - 450, 200, 50),
-        (550, SCREEN_HEIGHT - 300, 50, 150),  # Vertical platform added
+        (550, SCREEN_HEIGHT - 300, 50, 150),
     ]
 ]
 
+def show_start_screen():
+    screen.fill(BACKGROUND_COLOR)  
+    start_font = pygame.font.SysFont('Arial', 48)  
+    start_message = start_font.render("Press Space to Start", True, (255, 255, 255))  
+    message_rect = start_message.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)) 
+    screen.blit(start_message, message_rect) 
+    pygame.display.update()  
+    waiting_for_key = True
+    while waiting_for_key:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    waiting_for_key = False 
+
+show_start_screen()
+
 def play_music_for_level(level_number):
-    pygame.mixer.music.stop()  # Stop any music that might be playing
-    pygame.mixer.music.load(music_files[level_number])  # Load the new song
+    pygame.mixer.music.stop()  
+    pygame.mixer.music.load(music_files[level_number])  
     
     # Determine the start time based on the level
-    if level_number == 3:  # Adjust if your level numbering starts from 0 or 1
-        start_time = 350.0  # Start 5 minutes in for the last level
+    if level_number == 3: 
+        start_time = 350.0
     else:
-        start_time = 120.0  # Start 2 minutes in for the first two levels
+        start_time = 120.0  
+    pygame.mixer.music.play(-1, start_time)  
     
-    pygame.mixer.music.play(-1, start_time)  # Play the music
 
 # Function to add a door to the level based on the tallest platform
 def add_door_to_level(level):
-    # Exclude the last item assuming it's a "door" placeholder
+
     platforms = level[:-1]
-    
-    # Sort platforms based on their y-value, from lowest to highest on the screen
     sorted_platforms = sorted(platforms, key=lambda x: x[1])
-    
-    # Select the second tallest platform (second smallest y-value)
-    # If there's only one platform, this still selects the first due to how indexing works
     second_tallest_platform = sorted_platforms[1] if len(sorted_platforms) > 1 else sorted_platforms[0]
-    
-    # Define the door's size
     door_size = (50, 100)
-    
-    # Place the door on top of the second tallest platform
     door_x = second_tallest_platform[0] + second_tallest_platform[2] - door_size[0]
     door_y = second_tallest_platform[1] - door_size[1]
-    
-    # Replace the placeholder with the actual door
     level[-1] = (door_x, door_y, door_size[0], door_size[1])
     return door_x, door_y 
 
 
-door_positions = []  # This will store the door positions for each level
+door_positions = []  
 
 # Assuming add_door_to_level now returns door_x and door_y
 for level in level_data:
-    door_x, door_y = add_door_to_level(level)  # This captures the returned values
-    door_positions.append((door_x, door_y))  # Store them in the list
+    door_x, door_y = add_door_to_level(level)
+    door_positions.append((door_x, door_y))
 
 
 # Process each level to include a door
@@ -186,16 +194,16 @@ jumping = False
 # Villain settings
 villain_size = 50
 villain_color = DARK_RED
-villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size  # Initial position
+villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size  
 villain_speed = 2
 
 # Before the game loop, find the tallest platform for the current level
-tallest_platform = min(platforms[:-1], key=lambda x: x[1])  # Exclude the door, assuming it's the last item
+tallest_platform = min(platforms[:-1], key=lambda x: x[1]) 
 
 # Calculate the circle's position to be on top of the tallest platform
-circle_radius = 25  # Example radius size for the circle
-circle_x = tallest_platform[0] + tallest_platform[2] // 2  # Center of the platform
-circle_y = tallest_platform[1] - circle_radius * 2  # Above the platform, adjust as needed
+circle_radius = 25  
+circle_x = tallest_platform[0] + tallest_platform[2] // 2 
+circle_y = tallest_platform[1] - circle_radius * 2  
 
 # Function to draw a heart for representing lives
 def draw_heart(surface, x, y, size, color):
@@ -203,17 +211,15 @@ def draw_heart(surface, x, y, size, color):
     quarter_size = size // 4
     end_point = x + size, y + half_size
 
-    # Left half circle
+
     pygame.draw.circle(surface, color, (x + quarter_size, y + quarter_size), quarter_size)
-    # Right half circle
     pygame.draw.circle(surface, color, (x + 3*quarter_size, y + quarter_size), quarter_size)
-    # Bottom triangle
     pygame.draw.polygon(surface, color, [(x, y + quarter_size), end_point, (x + half_size, y + size)])
 
 
 # Lives settings
-life_size = 20  # Size of the heart
-life_spacing = 5  # Space between each heart
+life_size = 20  
+life_spacing = 5 
 
 current_player_image = player_images[current_level + 1] 
 current_villain_image = villain_images[current_level + 1]
@@ -223,7 +229,6 @@ current_prize_image = prize_images[current_level + 1]
 game_over = False
 game_over_message = ""
 
-# Game loop
 # Game loop
 running = True
 while running:
@@ -244,10 +249,10 @@ while running:
         player_x += player_speed
 
     # Infinite looping logic
-    if player_x < 0 - player_size:  # Exit screen left
-        player_x = SCREEN_WIDTH  # Enter from the right
-    elif player_x > SCREEN_WIDTH:  # Exit screen right
-        player_x = 0 - player_size  # Enter from the left
+    if player_x < 0 - player_size:
+        player_x = SCREEN_WIDTH  
+    elif player_x > SCREEN_WIDTH:  
+        player_x = 0 - player_size  
 
     player_y += player_velocity_y
     if player_y > ground:
