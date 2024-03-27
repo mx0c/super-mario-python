@@ -81,6 +81,8 @@ def add_door_to_level(level):
     level[-1] = (door_x, door_y, door_size[0], door_size[1])
 
 
+
+
 # Process each level to include a door
 for level in level_data:
     add_door_to_level(level)
@@ -121,6 +123,7 @@ circle_y = tallest_platform[1] - circle_radius * 2  # Above the platform, adjust
 
 
 # Game loop
+# Game loop
 running = True
 while running:
     for event in pygame.event.get():
@@ -138,6 +141,12 @@ while running:
     if keys[pygame.K_RIGHT]:
         player_x += player_speed
 
+    # Infinite looping logic
+    if player_x < 0 - player_size:  # Exit screen left
+        player_x = SCREEN_WIDTH  # Enter from the right
+    elif player_x > SCREEN_WIDTH:  # Exit screen right
+        player_x = 0 - player_size  # Enter from the left
+
     player_y += player_velocity_y
     if player_y > ground:
         player_y = ground
@@ -145,6 +154,10 @@ while running:
         jumping = False
     else:
         player_velocity_y += gravity
+
+    # Rest of your game loop code where you handle collisions, draw objects, etc.
+
+       
 
     # Collision detection with platforms
     player_rect = pygame.Rect(player_x, player_y, player_size, player_size)
