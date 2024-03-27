@@ -3,8 +3,12 @@ import math
 import sys
 import random
 
-# Initialize Pygame
+
 pygame.init()
+
+SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Simple Mario')
 
 CHARACTER_WIDTH = 64
 CHARACTER_HEIGHT = 64
@@ -15,7 +19,13 @@ villains_folder = 'characters/player/villain/'
 lives_folder = 'characters/player/lives/'
 prizes_folder = 'characters/player/prize/'
 doors_folder = 'characters/player/doors/'
+background_folder = 'characters/backgrounds/'
 
+background_images = {
+    1: pygame.transform.scale(pygame.image.load(background_folder + 'b1.png'), (SCREEN_WIDTH, SCREEN_HEIGHT)),
+    2: pygame.transform.scale(pygame.image.load(background_folder + 'b2.jpg'), (SCREEN_WIDTH, SCREEN_HEIGHT)),
+    3: pygame.transform.scale(pygame.image.load(background_folder + 'b3.jpg'), (SCREEN_WIDTH, SCREEN_HEIGHT)),
+}
 
 player_images = {
     1: pygame.transform.scale(pygame.image.load(characters_folder + 'K.png'), (21, 70)),
@@ -46,12 +56,6 @@ door_images = {
     2: pygame.transform.scale(pygame.image.load(doors_folder + 'd2.png'), (80, 110)),
     3: pygame.transform.scale(pygame.image.load(doors_folder + 'd3.png'), (75, 75)),
 }
-
-
-# Screen settings
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Simple Mario')
 
 # Colors
 RED = (255, 0, 0)
@@ -231,22 +235,18 @@ while running:
     else:
         player_velocity_y += gravity
 
-    # Rest of your game loop code where you handle collisions, draw objects, etc.
-
        
 
     # Collision detection with platforms
     player_rect = pygame.Rect(player_x, player_y, player_size, player_size)
-    for platform in platforms[:-1]:  # Assuming the last item is always the door
-        # Define platform_rect here, inside the loop
+    for platform in platforms[:-1]:  
         platform_rect = pygame.Rect(platform)
-        pygame.draw.rect(screen, platform_color, platform_rect)  # Drawing the platform
+        pygame.draw.rect(screen, platform_color, platform_rect)  
         if player_rect.colliderect(platform_rect) and player_velocity_y >= 0:
             player_y = platform_rect.top - player_size
-            player_velocity_y = 0  # Resetting vertical velocity to 0
-            jumping = False  # Indicate that the player is no longer jumping
+            player_velocity_y = 0  
+            jumping = False  
 
-        # Collision detection with the circle
     distance_to_circle = math.hypot(player_x - circle_x, player_y - circle_y)
     if distance_to_circle < circle_radius + player_size // 2:
         print("Circle reached! Moving to the next level...")
@@ -279,39 +279,32 @@ while running:
     elif player_y > villain_y:
         villain_y += villain_speed  # Chase downward
 
-    # Update the current player image if the level changes
-    current_player_image = player_images[current_level + 1]  # Adjust for 0-based indexing
+    current_player_image = player_images[current_level + 1] 
 
-    # Adjust player image position
     player_image_rect = current_player_image.get_rect()
     player_image_rect.center = (player_x + player_size // 2, player_y + player_size // 2)
 
 
     # Drawing
-    screen.fill(BACKGROUND_COLOR)
-    #pygame.draw.rect(screen, player_color, (player_x, player_y, player_size, player_size))
-    #pygame.draw.rect(screen, villain_color, (villain_x, villain_y, villain_size, villain_size))
-
-        # Drawing platforms and the door
-    for platform in platforms[:-1]:  # Draw all but the last item as platforms
+    current_background = background_images[current_level + 1]  # Adjust if necessary
+    screen.blit(current_background, (0, 0))
+    for platform in platforms[:-1]: 
         pygame.draw.rect(screen, platform_color, pygame.Rect(platform))
         
     # Draw the circle on top of the tallest platform
     screen.blit(current_prize_image, (circle_x - current_prize_image.get_width() / 2, circle_y - current_prize_image.get_height() / 2))
-        # Drawing the player with the current image
     screen.blit(current_player_image, (player_x, player_y))
     screen.blit(current_villain_image, (villain_x, villain_y))
     move_left_amount = 50 
-    # Inside the game loop, when you're ready to draw the door
-    door_x, door_y = door_positions[current_level]  # Access the current level's door position
+    # Draw the door
+    door_x, door_y = door_positions[current_level]  
     door_x -= move_left_amount  
-    current_door_image = door_images[current_level + 1]  # Adjust if your indexing starts from 1
-    # Now, door_x and door_y are defined and can be used to position the door image correctly
-    if current_level == 0:  # Remember, Python lists are 0-indexed, so level 2 is index 1
+    current_door_image = door_images[current_level + 1]  
+    if current_level == 0:  
         door_y -= 5 
-    if current_level == 1:  # Remember, Python lists are 0-indexed, so level 2 is index 1
+    if current_level == 1:  
         door_y += 25 
-    if current_level == 2:  # Remember, Python lists are 0-indexed, so level 2 is index 1
+    if current_level == 2:  
         door_y += 30 
     door_rect = current_door_image.get_rect(topleft=(door_x, door_y))
     screen.blit(current_door_image, door_rect)
@@ -321,9 +314,9 @@ while running:
 
     # The door is the last item in the list
     door = platforms[-1]
-    current_door_image = door_images[current_level + 1]  # Get the current level's door image
-    door_rect = current_door_image.get_rect(topleft=(door_x, door_y))  # Position the door image
-    screen.blit(current_door_image, door_rect)  # Draw the door image
+    current_door_image = door_images[current_level + 1]  
+    door_rect = current_door_image.get_rect(topleft=(door_x, door_y))  
+    screen.blit(current_door_image, door_rect) 
 
 
     for i in range(lives):
@@ -334,7 +327,7 @@ while running:
      # Collision detection with the villain
     villain_rect = pygame.Rect(villain_x, villain_y, villain_size, villain_size)
     if player_rect.colliderect(villain_rect):
-        lives -= 1  # Decrement lives
+        lives -= 1 
         if lives <= 0:
             print("Out of lives! Game Over.")
             running = False
@@ -353,16 +346,13 @@ while running:
   # Detect collision with the door
     if player_rect.colliderect(door_rect):
         print("Door reached! Returning to the starting point...")
-        # Instead of changing levels, reset the player position to the start of the current level
         player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150
-        # You may want to reset the villain's position as well
         villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size
 
     if lives <= 0:
         game_over = True
-        running = False  # Stop the game loop
-        
-        # Set a different message based on the level
+        running = False  
+    
         if current_level == 0:
             game_over_message = "Guilty Until Proven Innocent"
         elif current_level == 1:
@@ -371,37 +361,21 @@ while running:
             game_over_message = "I Cannot Make Anyone Understand"
 
 
-    # Update display
     pygame.display.update()
-
-    # Cap the FPS
     clock.tick(FPS)
 
 if game_over:
 
     RED = (255, 0, 0)
-
-    # Clear the screen
     screen.fill(BACKGROUND_COLOR)
-
-    # Create a font object
-    game_over_font = pygame.font.SysFont('Arial', 48)  # You can adjust the size
-
-    # Render the game over message
+    game_over_font = pygame.font.SysFont('Arial', 48) 
     game_over_surface = game_over_font.render(game_over_message, True, RED)
-
-    # Calculate the position for the text to be centered
     game_over_x = (SCREEN_WIDTH - game_over_surface.get_width()) // 2
     game_over_y = (SCREEN_HEIGHT - game_over_surface.get_height()) // 2
-
-    # Blit the text surface onto the screen at the calculated position
     screen.blit(game_over_surface, (game_over_x, game_over_y))
 
-    # Update the display to show the message
     pygame.display.update()
-
-    # Keep the message displayed for a few seconds
-    pygame.time.delay(3000) # 3000 milliseconds = 3 seconds
+    pygame.time.delay(3000) 
 
 
 pygame.quit()
