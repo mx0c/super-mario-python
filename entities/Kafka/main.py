@@ -8,9 +8,13 @@ pygame.init()
 
 CHARACTER_WIDTH = 64
 CHARACTER_HEIGHT = 64
+VILLAIN_WIDTH = 64
+VILLAIN_HEIGHT = 64
 
 
 characters_folder = 'characters/player/'
+villains_folder = 'characters/player/villain/'
+
 
 # Load and scale character images
 player_images = {
@@ -19,6 +23,13 @@ player_images = {
     3: pygame.transform.scale(pygame.image.load(characters_folder + 'Gregor.png'), (55, CHARACTER_HEIGHT)),
 }
 
+
+# Load and scale multiple villain images
+villain_images = {
+    1: pygame.transform.scale(pygame.image.load(villains_folder + 'v1.png'), (110, 85)),
+    2: pygame.transform.scale(pygame.image.load(villains_folder + 'v2.png'), (VILLAIN_WIDTH, VILLAIN_HEIGHT)),
+    3: pygame.transform.scale(pygame.image.load(villains_folder + 'v3.png'), (110, 85)),
+}
 
 # Screen settings
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
@@ -155,6 +166,7 @@ life_size = 20  # Size of the heart
 life_spacing = 5  # Space between each heart
 
 current_player_image = player_images[current_level + 1] 
+current_villain_image = villain_images[current_level + 1]
 
 # Game loop
 # Game loop
@@ -212,18 +224,18 @@ while running:
         if current_level >= len(level_data):
             print("You've completed all levels! Congratulations!")
             running = False
-            break  # Exit the game loop
         else:
-            # Load the new level data
+            # Update this section
             platforms = level_data[current_level]
-            # Recalculate the tallest platform and circle position for the new level
-            tallest_platform = min(platforms[:-1], key=lambda x: x[1])  # Assume door is the last item again
+            tallest_platform = min(platforms[:-1], key=lambda x: x[1])
             circle_x = tallest_platform[0] + tallest_platform[2] // 2
             circle_y = tallest_platform[1] - circle_radius * 2
-            # Reset player position
             player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150
-            # Optionally reset the villain's position
             villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size
+            
+            # Add the following line to update the villain image for the new level
+            current_villain_image = villain_images.get(current_level + 1)
+
 
     # Villain movement (chase player horizontally and vertically)
     villain_move_direction = 1 if player_x > villain_x else -1
@@ -245,7 +257,7 @@ while running:
     # Drawing
     screen.fill(BACKGROUND_COLOR)
     #pygame.draw.rect(screen, player_color, (player_x, player_y, player_size, player_size))
-    pygame.draw.rect(screen, villain_color, (villain_x, villain_y, villain_size, villain_size))
+    #pygame.draw.rect(screen, villain_color, (villain_x, villain_y, villain_size, villain_size))
 
         # Drawing platforms and the door
     for platform in platforms[:-1]:  # Draw all but the last item as platforms
@@ -256,6 +268,8 @@ while running:
 
         # Drawing the player with the current image
     screen.blit(current_player_image, (player_x, player_y))
+    screen.blit(current_villain_image, (villain_x, villain_y))
+
 
 
     # The door is the last item in the list
