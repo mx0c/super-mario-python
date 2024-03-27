@@ -5,6 +5,8 @@ import random
 
 
 pygame.init()
+pygame.mixer.init()
+
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -20,11 +22,19 @@ lives_folder = 'characters/player/lives/'
 prizes_folder = 'characters/player/prize/'
 doors_folder = 'characters/player/doors/'
 background_folder = 'characters/backgrounds/'
+music_folder = 'music/'
+
 
 background_images = {
     1: pygame.transform.scale(pygame.image.load(background_folder + 'b1.png'), (SCREEN_WIDTH, SCREEN_HEIGHT)),
     2: pygame.transform.scale(pygame.image.load(background_folder + 'b2.jpg'), (SCREEN_WIDTH, SCREEN_HEIGHT)),
     3: pygame.transform.scale(pygame.image.load(background_folder + 'b3.jpg'), (SCREEN_WIDTH, SCREEN_HEIGHT)),
+}
+
+music_files = {
+    1: music_folder + 'm1.mp3',
+    2: music_folder + 'm2.mp3',
+    3: music_folder + 'm3.mp3',
 }
 
 player_images = {
@@ -59,7 +69,7 @@ door_images = {
 
 # Colors
 RED = (255, 0, 0)
-GREEN = (0, 255, 0)
+GREEN = (165, 42, 42)
 DARK_RED = (139, 0, 0)  # Villain color
 BACKGROUND_COLOR = (135, 206, 250)  # Sky blue
 platform_color = GREEN  # Platform color
@@ -103,6 +113,11 @@ level_data = [
     ]
 ]
 
+def play_music_for_level(level_number):
+    pygame.mixer.music.stop()  # Stop any music that might be playing
+    pygame.mixer.music.load(music_files[level_number])  # Load the new song
+    pygame.mixer.music.play(-1)  # Play the music, -1 means loop indefinitely
+
 
 # Function to add a door to the level based on the tallest platform
 def add_door_to_level(level):
@@ -140,9 +155,10 @@ for level in level_data:
 for level in level_data:
     add_door_to_level(level)
     
-
-current_level = 0  # Start with the first level
-platforms = level_data[current_level]  # Load the platform data for the current level
+# Level 1 
+current_level = 0 
+play_music_for_level(current_level + 1) 
+platforms = level_data[current_level]  
 
 
 # FPS settings
@@ -248,6 +264,7 @@ while running:
             jumping = False  
 
     distance_to_circle = math.hypot(player_x - circle_x, player_y - circle_y)
+    
     if distance_to_circle < circle_radius + player_size // 2:
         print("Circle reached! Moving to the next level...")
         current_level += 1
@@ -262,6 +279,7 @@ while running:
             circle_y = tallest_platform[1] - circle_radius * 2
             player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150
             villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size
+            play_music_for_level(current_level + 1)
             
             # Add the following line to update the villain image for the new level
             current_player_image = player_images[current_level + 1]
