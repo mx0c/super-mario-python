@@ -11,18 +11,16 @@ CHARACTER_HEIGHT = 64
 VILLAIN_WIDTH = 64
 VILLAIN_HEIGHT = 64
 
-
 characters_folder = 'characters/player/'
 villains_folder = 'characters/player/villain/'
-
+lives_folder = 'characters/player/lives/'
 
 # Load and scale character images
 player_images = {
     1: pygame.transform.scale(pygame.image.load(characters_folder + 'K.png'), (30, 65)),
     2: pygame.transform.scale(pygame.image.load(characters_folder + 'Beau.gif'), (80, 80)),  
-    3: pygame.transform.scale(pygame.image.load(characters_folder + 'Gregor.png'), (55, CHARACTER_HEIGHT)),
+    3: pygame.transform.scale(pygame.image.load(characters_folder + 'Gregor.png'), (50, CHARACTER_HEIGHT)),
 }
-
 
 # Load and scale multiple villain images
 villain_images = {
@@ -30,6 +28,13 @@ villain_images = {
     2: pygame.transform.scale(pygame.image.load(villains_folder + 'v2.png'), (VILLAIN_WIDTH, VILLAIN_HEIGHT)),
     3: pygame.transform.scale(pygame.image.load(villains_folder + 'v3.png'), (110, 85)),
 }
+
+life_images = {
+    1: pygame.transform.scale(pygame.image.load(lives_folder+ 'l1.png'), (20, 20)),
+    2: pygame.transform.scale(pygame.image.load(lives_folder+ 'l2.webp'), (20, 20)),
+    3: pygame.transform.scale(pygame.image.load(lives_folder+ 'l3.png'), (20, 20)),
+}
+
 
 # Screen settings
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
@@ -167,6 +172,7 @@ life_spacing = 5  # Space between each heart
 
 current_player_image = player_images[current_level + 1] 
 current_villain_image = villain_images[current_level + 1]
+current_lives_image = life_images[current_level + 1]
 
 # Game loop
 # Game loop
@@ -234,7 +240,9 @@ while running:
             villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size
             
             # Add the following line to update the villain image for the new level
-            current_villain_image = villain_images.get(current_level + 1)
+            current_player_image = player_images[current_level + 1]
+            current_villain_image = villain_images[current_level + 1]
+            current_lives_image = life_images[current_level + 1]
 
 
     # Villain movement (chase player horizontally and vertically)
@@ -278,7 +286,8 @@ while running:
 
 
     for i in range(lives):
-        draw_heart(screen, 10 + i * (life_size + life_spacing), 10, life_size, RED)
+        screen.blit(current_lives_image, (10 + i * (20 + life_spacing), 10))
+
 
 
      # Collision detection with the villain
