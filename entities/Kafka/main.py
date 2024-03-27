@@ -43,7 +43,7 @@ prize_images = {
 
 door_images = {
     1: pygame.transform.scale(pygame.image.load(doors_folder + 'd1.png'), (150, 150)),
-    2: pygame.transform.scale(pygame.image.load(doors_folder + 'd2.png'), (80, 130)),
+    2: pygame.transform.scale(pygame.image.load(doors_folder + 'd2.png'), (80, 110)),
     3: pygame.transform.scale(pygame.image.load(doors_folder + 'd3.png'), (75, 75)),
 }
 
@@ -194,6 +194,9 @@ current_villain_image = villain_images[current_level + 1]
 current_lives_image = life_images[current_level + 1]
 current_prize_image = prize_images[current_level + 1]
 
+game_over = False
+game_over_message = ""
+
 # Game loop
 # Game loop
 running = True
@@ -304,6 +307,12 @@ while running:
     door_x -= move_left_amount  
     current_door_image = door_images[current_level + 1]  # Adjust if your indexing starts from 1
     # Now, door_x and door_y are defined and can be used to position the door image correctly
+    if current_level == 0:  # Remember, Python lists are 0-indexed, so level 2 is index 1
+        door_y -= 5 
+    if current_level == 1:  # Remember, Python lists are 0-indexed, so level 2 is index 1
+        door_y += 25 
+    if current_level == 2:  # Remember, Python lists are 0-indexed, so level 2 is index 1
+        door_y += 30 
     door_rect = current_door_image.get_rect(topleft=(door_x, door_y))
     screen.blit(current_door_image, door_rect)
 
@@ -349,6 +358,17 @@ while running:
         # You may want to reset the villain's position as well
         villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size
 
+    if lives <= 0:
+        game_over = True
+        running = False  # Stop the game loop
+        
+        # Set a different message based on the level
+        if current_level == 0:
+            game_over_message = "Guilty Until Proven Innocent"
+        elif current_level == 1:
+            game_over_message = "I Had Not Earned Her Love"
+        else:
+            game_over_message = "I Cannot Make Anyone Understand"
 
 
     # Update display
@@ -356,6 +376,33 @@ while running:
 
     # Cap the FPS
     clock.tick(FPS)
+
+if game_over:
+
+    RED = (255, 0, 0)
+
+    # Clear the screen
+    screen.fill(BACKGROUND_COLOR)
+
+    # Create a font object
+    game_over_font = pygame.font.SysFont('Arial', 48)  # You can adjust the size
+
+    # Render the game over message
+    game_over_surface = game_over_font.render(game_over_message, True, RED)
+
+    # Calculate the position for the text to be centered
+    game_over_x = (SCREEN_WIDTH - game_over_surface.get_width()) // 2
+    game_over_y = (SCREEN_HEIGHT - game_over_surface.get_height()) // 2
+
+    # Blit the text surface onto the screen at the calculated position
+    screen.blit(game_over_surface, (game_over_x, game_over_y))
+
+    # Update the display to show the message
+    pygame.display.update()
+
+    # Keep the message displayed for a few seconds
+    pygame.time.delay(3000) # 3000 milliseconds = 3 seconds
+
 
 pygame.quit()
 sys.exit()
