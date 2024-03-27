@@ -14,6 +14,7 @@ VILLAIN_HEIGHT = 64
 characters_folder = 'characters/player/'
 villains_folder = 'characters/player/villain/'
 lives_folder = 'characters/player/lives/'
+prizes_folder = 'characters/player/prize/'
 
 # Load and scale character images
 player_images = {
@@ -35,6 +36,11 @@ life_images = {
     3: pygame.transform.scale(pygame.image.load(lives_folder+ 'l3.png'), (25, 25)),
 }
 
+prize_images = {
+    1: pygame.transform.scale(pygame.image.load(prizes_folder + 'p1.png'), (50, 50)),
+    2: pygame.transform.scale(pygame.image.load(prizes_folder + 'p2.png'), (60, 60)),
+    3: pygame.transform.scale(pygame.image.load(prizes_folder + 'p3.png'), (50, 70)),
+}
 
 # Screen settings
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
@@ -173,6 +179,7 @@ life_spacing = 5  # Space between each heart
 current_player_image = player_images[current_level + 1] 
 current_villain_image = villain_images[current_level + 1]
 current_lives_image = life_images[current_level + 1]
+current_prize_image = prize_images[current_level + 1]
 
 # Game loop
 # Game loop
@@ -243,6 +250,7 @@ while running:
             current_player_image = player_images[current_level + 1]
             current_villain_image = villain_images[current_level + 1]
             current_lives_image = life_images[current_level + 1]
+            current_prize_image = prize_images[current_level + 1]
 
 
     # Villain movement (chase player horizontally and vertically)
@@ -272,8 +280,7 @@ while running:
         pygame.draw.rect(screen, platform_color, pygame.Rect(platform))
         
     # Draw the circle on top of the tallest platform
-    pygame.draw.circle(screen, RED, (circle_x, circle_y), circle_radius)
-
+    screen.blit(current_prize_image, (circle_x - current_prize_image.get_width() / 2, circle_y - current_prize_image.get_height() / 2))
         # Drawing the player with the current image
     screen.blit(current_player_image, (player_x, player_y))
     screen.blit(current_villain_image, (villain_x, villain_y))
