@@ -17,9 +17,9 @@ lives_folder = 'characters/player/lives/'
 
 # Load and scale character images
 player_images = {
-    1: pygame.transform.scale(pygame.image.load(characters_folder + 'K.png'), (30, 65)),
+    1: pygame.transform.scale(pygame.image.load(characters_folder + 'K.png'), (21, 70)),
     2: pygame.transform.scale(pygame.image.load(characters_folder + 'Beau.gif'), (80, 80)),  
-    3: pygame.transform.scale(pygame.image.load(characters_folder + 'Gregor.png'), (50, CHARACTER_HEIGHT)),
+    3: pygame.transform.scale(pygame.image.load(characters_folder + 'Gregor.png'), (45, 64)),
 }
 
 # Load and scale multiple villain images
@@ -30,9 +30,9 @@ villain_images = {
 }
 
 life_images = {
-    1: pygame.transform.scale(pygame.image.load(lives_folder+ 'l1.png'), (20, 20)),
-    2: pygame.transform.scale(pygame.image.load(lives_folder+ 'l2.webp'), (20, 20)),
-    3: pygame.transform.scale(pygame.image.load(lives_folder+ 'l3.png'), (20, 20)),
+    1: pygame.transform.scale(pygame.image.load(lives_folder+ 'l1.png'), (25, 25)),
+    2: pygame.transform.scale(pygame.image.load(lives_folder+ 'l2.webp'), (25, 25)),
+    3: pygame.transform.scale(pygame.image.load(lives_folder+ 'l3.png'), (25, 25)),
 }
 
 
