@@ -113,6 +113,29 @@ level_data = [
     ]
 ]
 
+import random
+
+def generate_platforms_for_level(number_of_platforms, level_index):
+    platforms = []
+    for _ in range(number_of_platforms):
+
+        platform_width = random.randint(100, 300)
+        platform_height = 50 
+
+  
+        x_position = random.randint(0, SCREEN_WIDTH - platform_width)
+        
+       
+        y_position = random.randint(SCREEN_HEIGHT // (level_index + 2), SCREEN_HEIGHT - platform_height * (level_index + 2))
+
+
+        platforms.append((x_position, y_position, platform_width, platform_height))
+
+
+    platforms.append((0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 100))
+    return platforms
+
+
 def show_start_screen():
     screen.fill(BACKGROUND_COLOR)  
     start_font = pygame.font.SysFont('Arial', 48)  
@@ -375,6 +398,9 @@ while running:
   # Detect collision with the door
     if player_rect.colliderect(door_rect):
         print("Door reached! Returning to the starting point...")
+        platforms = generate_platforms_for_level(5, current_level)  # Adjust the number of platforms as needed
+    # Here, consider adding the door to one of the platforms again
+        door_x, door_y = add_door_to_level(platforms) 
         player_x, player_y = SCREEN_WIDTH // 4, SCREEN_HEIGHT - 150
         villain_x, villain_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150 - villain_size
 
