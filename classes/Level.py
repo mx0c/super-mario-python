@@ -11,9 +11,14 @@ from entities.Koopa import Koopa
 from entities.CoinBox import CoinBox
 from entities.RandomBox import RandomBox
 
+#new classes needed for win condition implementation
+from classes.Observer import Subject
+from entities.EndGoal import Goal
 
-class Level:
+#level class is now a subject for the observer design pattern
+class Level(Subject):
     def __init__(self, screen, sound, dashboard):
+        Subject.__init__(self)
         self.sprites = Sprites()
         self.dashboard = dashboard
         self.sound = sound
@@ -22,13 +27,22 @@ class Level:
         self.levelLength = 0
         self.entityList = []
 
+        #added for the win condition implemetation
+        self.currentLevelName = ""
+        self.completed_levels = set() 
+
     def loadLevel(self, levelname):
+        
         with open("./levels/{}.json".format(levelname)) as jsonData:
             data = json.load(jsonData)
             self.loadLayers(data)
             self.loadObjects(data)
             self.loadEntities(data)
             self.levelLength = data["length"]
+
+            #added for win condition implementation
+            goal_x = self.levelLength - 2  
+            self.addGoal(goal_x, 8)
 
     def loadEntities(self, data):
         try:
@@ -203,3 +217,21 @@ class Level:
         self.entityList.append(
             RedMushroom(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
+
+    
+    
+    #added for win condition implementation
+    def addGoal(self, x, y):
+        #add flag to the level end point to show where the goal is
+        self.entityList.append(
+            Goal(self.screen, self.sprites.spriteCollection, x, y, self)
+        )
+        
+    def mark_level_complete(self):
+        #add the current level to completed levels
+        self.completed_levels.add(self.currentLevelName)
+        #need to notify observers about level completion
+        self.notify_observers("level_complete", level_name=self.currentLevelName)
+        
+    def is_level_completed(self, level_name):
+        return level_name in self.completed_levels

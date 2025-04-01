@@ -172,9 +172,16 @@ class Menu:
             if i < 3:
                 self.dashboard.drawText(levelName, 175*i+textOffset, 100, 12)
                 self.drawBorder(175*i+offset, 55, 125, 75, color, 5)
+            
+                #to show the level is completed
+                if self.level.is_level_completed(levelName):
+                    self.dashboard.drawText("★", 175*i+textOffset+45, 130, 18)
             else:
                 self.dashboard.drawText(levelName, 175*j+textOffset, 250, 12)
                 self.drawBorder(175*j+offset, 210, 125, 75, color, 5)
+                #to show level is completed
+                if self.level.is_level_completed(levelName):
+                    self.dashboard.drawText("★", 175*j+textOffset+45, 280, 18)
                 j += 1
 
     def loadLevelNames(self):
