@@ -7,7 +7,7 @@ from classes.Spritesheet import Spritesheet
 
 
 class Menu:
-    def __init__(self, screen, dashboard, level, sound):
+    def __init__(self, screen, dashboard, level, sound, progress_manager):
         self.screen = screen
         self.sound = sound
         self.start = False
@@ -15,6 +15,7 @@ class Menu:
         self.state = 0
         self.level = level
         self.music = True
+        self.progress_manager = progress_manager
         self.sfx = True
         self.currSelectedLevel = 1
         self.levelNames = []
@@ -38,6 +39,17 @@ class Menu:
             20, 150, 2, colorkey=[255, 0, 220], ignoreTileSize=True
         )
         self.loadSettings("./settings.json")
+
+    def drawLevelChooser(self):
+        # Modify level drawing logic
+        unlocked_levels = [f"1-{i}" for i in range(1,4)]  # Match your level names
+        current_progress = unlocked_levels.index(self.progress_manager.highest_level)
+        
+        for i, levelName in enumerate(self.loadLevelNames()):
+            if i > current_progress:
+                color = (100, 100, 100)
+            else:
+                color = (150, 150, 150) if self.currSelectedLevel != i+1 else (255,255,255)
 
     def update(self):
         self.checkInput()

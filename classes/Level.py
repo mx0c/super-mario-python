@@ -18,8 +18,8 @@ from entities.EndGoal import Goal
 
 #level class is now a subject for the observer design pattern
 class Level(Subject):
-    def __init__(self, screen, sound, dashboard):
-        Subject.__init__(self)
+    def _init_(self, screen, sound, dashboard):
+        Subject._init_(self)
         self.sprites = Sprites()
         self.dashboard = dashboard
         self.sound = sound
@@ -33,6 +33,7 @@ class Level(Subject):
         self.completed_levels = set() 
 
     def loadLevel(self, levelname):
+        self.currentLevelName = levelname
         
         with open("./levels/{}.json".format(levelname)) as jsonData:
             data = json.load(jsonData)
