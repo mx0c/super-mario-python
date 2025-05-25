@@ -8,6 +8,7 @@ from classes.Input import Input
 from classes.Sprites import Sprites
 from entities.EntityBase import EntityBase
 from entities.Mushroom import RedMushroom
+from entities.Koopa import Koopa
 from traits.bounce import bounceTrait
 from traits.go import GoTrait
 from traits.jump import JumpTrait
@@ -99,41 +100,68 @@ class Mario(EntityBase):
         block.triggered = True
 
     def _onCollisionWithMob(self, mob, collisionState):
+        is_koopa = isinstance(mob, Koopa)
+
+        # Handle item-like mobs first (e.g., Mushrooms)
         if isinstance(mob, RedMushroom) and mob.alive:
             self.powerup(1)
-            self.killEntity(mob)
+            self.killEntity(mob) # Removes mushroom
             self.sound.play_sfx(self.sound.powerup)
-        elif collisionState.isTop and (mob.alive or mob.bouncing):
-            self.sound.play_sfx(self.sound.stomp)
-            self.rect.bottom = mob.rect.top
-            self.bounce()
-            self.killEntity(mob)
-        elif collisionState.isTop and mob.alive and not mob.active:
-            self.sound.play_sfx(self.sound.stomp)
-            self.rect.bottom = mob.rect.top
-            mob.timer = 0
-            self.bounce()
-            mob.alive = False
-        elif collisionState.isColliding and mob.alive and not mob.active and not mob.bouncing:
-            mob.bouncing = True
-            if mob.rect.x < self.rect.x:
-                mob.leftrightTrait.direction = -1
-                mob.rect.x += -5
+            return # Collision handled
+
+        # Top collision (stomp)
+        if collisionState.isTop:
+            if mob.alive or mob.bouncing: # Stomping a live, moving mob or an already bouncing shell
+                self.sound.play_sfx(self.sound.stomp)
+                self.rect.bottom = mob.rect.top
+                self.bounce()
+                self.killEntity(mob) # For Koopa, makes it a still shell. For others, typically sets alive=False.
+            elif mob.alive and not mob.active: # Stomping a shell that is ALREADY still (e.g., koopa.active is false)
+                self.sound.play_sfx(self.sound.stomp)
+                self.rect.bottom = mob.rect.top
+                self.bounce()
+                if is_koopa:
+                    mob.bouncing = True # Make the still shell start bouncing
+                    # Determine kick direction based on Mario's center relative to shell's center
+                    if self.rect.centerx < mob.rect.centerx: # Mario is to the left of shell's center
+                        mob.leftrightTrait.direction = 1 # Shell moves right
+                    else: # Mario is to the right of shell's center (or exactly centered)
+                        mob.leftrightTrait.direction = -1 # Shell moves left
+                    mob.leftrightTrait.speed = 4 # Standard shell speed
+                else:
+                    mob.alive = False # For non-Koopa mobs that are stompable when still
+            return # Collision handled
+
+        # Side collision (isColliding is true, but isTop is false)
+        if collisionState.isColliding:
+            # Special handling for kicking a still Koopa shell
+            if is_koopa and mob.alive and not mob.active and not mob.bouncing:
                 self.sound.play_sfx(self.sound.kick)
-            else:
-                mob.rect.x += 5
-                mob.leftrightTrait.direction = 1
-                self.sound.play_sfx(self.sound.kick)
-        elif collisionState.isColliding and mob.alive and not self.invincibilityFrames:
-            if self.powerUpState == 0:
-                self.gameOver()
-            elif self.powerUpState == 1:
-                self.powerUpState = 0
-                self.traits['goTrait'].updateAnimation(smallAnimation)
-                x, y = self.rect.x, self.rect.y
-                self.rect = pygame.Rect(x, y + 32, 32, 32)
-                self.invincibilityFrames = 60
-                self.sound.play_sfx(self.sound.pipe)
+                mob.bouncing = True
+                mob.leftrightTrait.speed = 4 # Standard shell speed
+                # Determine kick direction based on Mario's center relative to shell's center
+                if self.rect.centerx < mob.rect.centerx: # Mario is to the left of shell's center
+                    mob.leftrightTrait.direction = 1 # Shell moves right
+                else: # Mario is to the right of shell's center (or exactly centered)
+                    mob.leftrightTrait.direction = -1 # Shell moves left
+                
+                # Nudge the shell slightly to prevent immediate re-collision due to Mario's momentum
+                mob.rect.x += mob.leftrightTrait.direction * 8 # Increased nudge distance
+
+            # Generic collision with a live, dangerous mob (includes active/bouncing shells or other mobs)
+            # This block is reached if it's not a kickable Koopa shell, or if it's another type of mob.
+            elif mob.alive and not self.invincibilityFrames:
+                if self.powerUpState == 0: # Small Mario
+                    self.gameOver()
+                else: # Big Mario
+                    self.powerUpState = 0
+                    # Assuming smallAnimation is defined globally or accessible (like smallAnimation from the top of Mario.py)
+                    self.traits['goTrait'].updateAnimation(smallAnimation) 
+                    self.rect.height = 32 # Adjust height
+                    self.rect.y += 32 # Adjust y-position due to height change from top
+                    self.invincibilityFrames = 60 # Brief invincibility after power down
+                    self.sound.play_sfx(self.sound.pipe) 
+            # Note: If invincibilityFrames > 0, Mario doesn't die or power down. Implicitly handled.
 
     def bounce(self):
         self.traits["bounceTrait"].jump = True
