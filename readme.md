@@ -1,0 +1,1 @@
+Projecte Git" > README.md
