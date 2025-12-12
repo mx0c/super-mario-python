@@ -119,7 +119,67 @@
             "collision":false,
             "xsize":16,
             "ysize":32
+        },
+        {
+            "name":"mario_putih_idle",
+            "x":259,
+            "y":122,
+            "scalefactor":2,
+            "colorKey":-1,
+            "collision":false,
+            "xsize":16,
+            "ysize":32
+        },
+        {
+            "name":"mario_putih_run1",
+            "x":296,
+            "y":122,
+            "scalefactor":2,
+            "colorKey":-1,
+            "collision":false,
+            "xsize":16,
+            "ysize":32
+        },
+        {
+            "name":"mario_putih_run2",
+            "x":315,
+            "y":122,
+            "scalefactor":2,
+            "colorKey":-1,
+            "collision":false,
+            "xsize":16,
+            "ysize":32
+        },
+        {
+            "name":"mario_putih_run3",
+            "x":332,
+            "y":122,
+            "scalefactor":2,
+            "colorKey":-1,
+            "collision":false,
+            "xsize":16,
+            "ysize":32
+        },
+        {
+            "name":"mario_putih_jump",
+            "x":369,
+            "y":122,
+            "scalefactor":2,
+            "colorKey":-1,
+            "collision":false,
+            "xsize":16,
+            "ysize":32
+        },
+        {
+            "name":"mario_putih_break",
+            "x":369,
+            "y":122,
+            "scalefactor":2,
+            "colorKey":-1,
+            "collision":false,
+            "xsize":16,
+            "ysize":32
         }
-    ]
+        ]
 }
 

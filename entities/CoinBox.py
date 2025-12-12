@@ -24,7 +24,14 @@ class CoinBox(EntityBase):
             self.animation.update()
         else:
             self.animation.image = self.spriteCollection.get("empty").image
-            self.item.spawnCoin(cam, self.sound, self.dashboard)
+            # Jika CoinBox mengandung FireFlower
+            if hasattr(self, "contains") and self.contains == "fireflower":
+                from entities.Item import Item
+                fireflower = Item("FireFlower", self.rect.x, self.rect.y - 32)
+                self.screen.game.addEntity(fireflower)
+            else:
+                self.item.spawnCoin(cam, self.sound, self.dashboard)
+
             if self.time < self.maxTime:
                 self.time += 1
                 self.rect.y -= self.vel

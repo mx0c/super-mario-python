@@ -13,8 +13,15 @@ class Dashboard(Font):
         self.coins = 0
         self.ticks = 0
         self.time = 0
+        self.font = pygame.font.Font(None, 32)
+        self.font = pygame.font.Font(None, 32)
+        self.mario = None
 
     def update(self):
+        if self.mario:
+            lives_text = self.font.render(f"LIVES {self.mario.lives}", True, (255, 255, 255))
+            self.screen.blit(lives_text, (0, 0))
+
         self.drawText("MARIO", 50, 20, 15)
         self.drawText(self.pointString(), 50, 37, 15)
 

@@ -1,0 +1,17 @@
+{
+    "spriteSheetURL": "./img/Items.png",
+    "type":"animation",
+    "sprites":[
+        {
+            "name": "FireFlower",
+            "images": [
+                { "x": 1, "y": 2, "scale": 2 },
+                { "x": 2, "y": 2, "scale": 2 },
+                { "x": 3, "y": 2, "scale": 2 }
+            ],
+            "deltaTime": 10,
+            "colorKey": -1
+        }
+    ]
+}
+

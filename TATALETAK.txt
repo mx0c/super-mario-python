@@ -1,0 +1,50 @@
+├──super-mario-python/             # root project
+│
+├── README.md                   # dokumentasi dasar: cara running, dependensi, struktur
+├── requirements.txt            # daftar dependensi (pygame, etc)
+├── .gitignore                  # file / folder yang di-ignore git (misalnya env, __pycache__, build, dsb)
+├── setup.py  (opsional)        # jika kamu ingin struktur paket / distribusi
+│
+├── src/                        # kode utama sebagai package
+│   ├── __main__.py             # entry-point ketika menjalankan `python -m src` atau `python src/`
+│   ├── game/                   # modul utama game
+│   │   ├── __init__.py
+│   │   ├── main.py             # game loop, init, state switching
+│   │   ├── config.py           # konfigurasi global (screen size, FPS, tile size, dsb)
+│   │   ├── state_manager.py    # jika kamu mengelola berbagai state: menu, playing, pause, game over
+│   │
+│   ├── entities/               # kelas / definisi objek (player, enemy, item, dsb)
+│   │   ├── __init__.py
+│   │   ├── player.py
+│   │   ├── enemy.py
+│   │   └── ... 
+│   │
+│   ├── levels/                 # definisi level / data level / loader level
+│   │   ├── level1.py  (atau level1.json / txt)
+│   │   └── ...
+│   │
+│   ├── rendering/              # kode berkaitan dengan gambar / drawing / camera / viewport
+│   │   ├── __init__.py
+│   │   ├── renderer.py
+│   │   └── camera.py
+│   │
+│   ├── utils/                  # utilitas umum: helper functions, collision, math, dsb
+│   │   ├── __init__.py
+│   │   └── helper.py
+│   │
+│   └── audio/                  # pengaturan musik / sound effects
+│       ├── __init__.py
+│       └── sound_manager.py
+│
+├── assets/                     # semua resource: sprites, images, sounds, levels data
+│   ├── sprites/                # sprite sheet, karakter, musuh, animasi
+│   ├── images/                 # background, tiles, UI, dsb
+│   ├── sounds/                 # efek suara, musik latar
+│   └── levels/                 # data level (tile map, layout, dsb) jika format external
+│
+├── tests/                      # (opsional tapi disarankan) unit / integration tests
+│   ├── __init__.py
+│   └── test_*.py
+│
+└── docs/                       # dokumentasi tambahan: design doc, panduan kontribusi, dsb
+    └── ...

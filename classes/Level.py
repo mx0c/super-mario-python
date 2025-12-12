@@ -10,7 +10,7 @@ from entities.Mushroom import RedMushroom
 from entities.Koopa import Koopa
 from entities.CoinBox import CoinBox
 from entities.RandomBox import RandomBox
-
+from entities.FireFlower import FireFlower
 
 class Level:
     def __init__(self, screen, sound, dashboard):
@@ -38,6 +38,7 @@ class Level:
             [self.addCoin(x, y) for x, y in data["level"]["entities"]["coin"]]
             [self.addCoinBrick(x, y) for x, y in data["level"]["entities"]["coinBrick"]]
             [self.addRandomBox(x, y, item) for x, y, item in data["level"]["entities"]["RandomBox"]]
+            [self.addFireFlower(x, y) for x, y in data["level"]["entities"].get("FireFlower", [])]
         except:
             # if no entities in Level
             pass
@@ -203,3 +204,11 @@ class Level:
         self.entityList.append(
             RedMushroom(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
         )
+    def addFireFlower(self, x, y):
+        from entities.FireFlower import FireFlower
+        flower = FireFlower(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
+        self.entityList.append(flower)  # wajib append ke entityList
+
+
+
+
