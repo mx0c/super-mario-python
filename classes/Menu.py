@@ -21,6 +21,7 @@ class Menu:
         self.inChoosingLevel = False
         self.dashboard = dashboard
         self.levelCount = 0
+        self.inEditor = False
         self.spritesheet = Spritesheet("./img/title_screen.png")
         self.menu_banner = self.spritesheet.image_at(
             0,
@@ -53,18 +54,15 @@ class Menu:
             self.drawSettings()
 
     def drawDot(self):
-        if self.state == 0:
-            self.screen.blit(self.menu_dot, (145, 273))
-            self.screen.blit(self.menu_dot2, (145, 313))
-            self.screen.blit(self.menu_dot2, (145, 353))
-        elif self.state == 1:
-            self.screen.blit(self.menu_dot, (145, 313))
-            self.screen.blit(self.menu_dot2, (145, 273))
-            self.screen.blit(self.menu_dot2, (145, 353))
-        elif self.state == 2:
-            self.screen.blit(self.menu_dot, (145, 353))
-            self.screen.blit(self.menu_dot2, (145, 273))
-            self.screen.blit(self.menu_dot2, (145, 313))
+        if self.inSettings:
+            ys = [273, 313, 353]
+        else:
+            ys = [273, 313, 353, 393]
+        for i, y in enumerate(ys):
+            if self.state == i:
+                self.screen.blit(self.menu_dot, (145, y))
+            else:
+                self.screen.blit(self.menu_dot2, (145, y))
 
     def loadSettings(self, url):
         try:
@@ -96,7 +94,8 @@ class Menu:
         self.drawDot()
         self.dashboard.drawText("CHOOSE LEVEL", 180, 280, 24)
         self.dashboard.drawText("SETTINGS", 180, 320, 24)
-        self.dashboard.drawText("EXIT", 180, 360, 24)
+        self.dashboard.drawText("LEVEL EDITOR", 180, 360, 24)
+        self.dashboard.drawText("EXIT", 180, 400, 24)
 
     def drawMenuBackground(self, withBanner=True):
         for y in range(0, 13):
@@ -215,8 +214,13 @@ class Menu:
                         if self.currSelectedLevel+3 <= self.levelCount:
                             self.currSelectedLevel += 3
                             self.drawLevelChooser()
-                    if self.state < 2:
-                        self.state += 1
+                    else:
+                        if self.inSettings:
+                            if self.state < 2:
+                                self.state += 1
+                        else:
+                            if self.state < 3:
+                                self.state += 1
                 elif event.key == pygame.K_LEFT or event.key == pygame.K_h:
                     if self.currSelectedLevel > 1:
                         self.currSelectedLevel -= 1
@@ -241,6 +245,8 @@ class Menu:
                             self.inSettings = True
                             self.state = 0
                         elif self.state == 2:
+                            self.inEditor = True
+                        elif self.state == 3:
                             pygame.quit()
                             sys.exit()
                     else:
