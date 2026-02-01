@@ -190,14 +190,23 @@ class Level:
         )
 
     def addGoomba(self, x, y):
-        self.entityList.append(
-            Goomba(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
-        )
+        # Create then snap rect to grid so load-time positions match editor placements
+        ent = Goomba(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
+        try:
+            ent.rect.x = x * 32
+            ent.rect.y = y * 32
+        except Exception:
+            pass
+        self.entityList.append(ent)
 
     def addKoopa(self, x, y):
-        self.entityList.append(
-            Koopa(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
-        )
+        ent = Koopa(self.screen, self.sprites.spriteCollection, x, y, self, self.sound)
+        try:
+            ent.rect.x = x * 32
+            ent.rect.y = y * 32
+        except Exception:
+            pass
+        self.entityList.append(ent)
 
     def addRedMushroom(self, x, y):
         self.entityList.append(

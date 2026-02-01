@@ -4,6 +4,7 @@ from classes.Level import Level
 from classes.Menu import Menu
 from classes.Sound import Sound
 from entities.Mario import Mario
+from classes.LevelEditor import LevelEditor
 
 
 windowSize = 640, 480
@@ -19,23 +20,30 @@ def main():
     level = Level(screen, sound, dashboard)
     menu = Menu(screen, dashboard, level, sound)
 
-    while not menu.start:
+    while not menu.start and not menu.inEditor:
         menu.update()
+    if menu.inEditor:
+        editor = LevelEditor(screen, dashboard,level,sound)
+        while True:
+            editor.update()
+            # If editor requested to go back to menu, restart main loop
+            if getattr(editor, 'exit_to_menu', False):
+                return 'restart'
+    elif menu.start:
+        mario = Mario(0, 0, level, screen, dashboard, sound)
+        clock = pygame.time.Clock()
 
-    mario = Mario(0, 0, level, screen, dashboard, sound)
-    clock = pygame.time.Clock()
-
-    while not mario.restart:
-        pygame.display.set_caption("Super Mario running with {:d} FPS".format(int(clock.get_fps())))
-        if mario.pause:
-            mario.pauseObj.update()
-        else:
-            level.drawLevel(mario.camera)
-            dashboard.update()
-            mario.update()
-        pygame.display.update()
-        clock.tick(max_frame_rate)
-    return 'restart'
+        while not mario.restart:
+            pygame.display.set_caption("Super Mario running with {:d} FPS".format(int(clock.get_fps())))
+            if mario.pause:
+                mario.pauseObj.update()
+            else:
+                level.drawLevel(mario.camera)
+                dashboard.update()
+                mario.update()
+            pygame.display.update()
+            clock.tick(max_frame_rate)
+        return 'restart'
 
 
 if __name__ == "__main__":
