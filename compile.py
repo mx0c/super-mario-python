@@ -1,5 +1,6 @@
 from distutils.core import setup
 
+# Hello
 import py2exe
 import glob
 
