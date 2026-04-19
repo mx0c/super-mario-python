@@ -9,7 +9,7 @@ from entities.Mario import Mario
 windowSize = 640, 480
 
 
-def main():
+def main(levelToLoad=None):
     pygame.mixer.pre_init(44100, -16, 2, 4096)
     pygame.init()
     screen = pygame.display.set_mode(windowSize)
@@ -19,8 +19,13 @@ def main():
     level = Level(screen, sound, dashboard)
     menu = Menu(screen, dashboard, level, sound)
 
-    while not menu.start:
-        menu.update()
+    if levelToLoad is None:
+        while not menu.start:
+            menu.update()
+        levelToLoad = menu.levelNames[menu.currSelectedLevel - 1]
+        level.loadLevel(levelToLoad)
+    else:
+        level.loadLevel(levelToLoad)
 
     mario = Mario(0, 0, level, screen, dashboard, sound)
     clock = pygame.time.Clock()
@@ -35,10 +40,26 @@ def main():
             mario.update()
         pygame.display.update()
         clock.tick(max_frame_rate)
+    
+    # Check if level was completed or if player died
+    if mario.levelComplete:
+        # Load next level
+        levelNames = menu.loadLevelNames()
+        currentLevelIndex = levelNames.index(levelToLoad)
+        if currentLevelIndex + 1 < len(levelNames):
+            nextLevel = levelNames[currentLevelIndex + 1]
+            return ('nextLevel', nextLevel)
+        else:
+            # All levels completed
+            return 'gameComplete'
+    
     return 'restart'
 
 
 if __name__ == "__main__":
-    exitmessage = 'restart'
-    while exitmessage == 'restart':
-        exitmessage = main()
+    result = ('nextLevel', None)
+    while result == 'restart' or (isinstance(result, tuple) and result[0] == 'nextLevel'):
+        if isinstance(result, tuple) and result[0] == 'nextLevel':
+            result = main(result[1])
+        else:
+            result = main()

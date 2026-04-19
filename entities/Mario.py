@@ -56,6 +56,7 @@ class Mario(EntityBase):
         self.EntityCollider = EntityCollider(self)
         self.dashboard = dashboard
         self.restart = False
+        self.levelComplete = False
         self.pause = False
         self.pauseObj = Pause(screen, self, dashboard)
 
@@ -68,6 +69,11 @@ class Mario(EntityBase):
         self.applyGravity()
         self.checkEntityCollision()
         self.input.checkForInput()
+        
+        # Check if player reached end of level
+        if self.getPosIndexAsFloat().x > self.levelObj.levelLength - 2:
+            self.levelComplete = True
+            self.restart = True
 
     def moveMario(self):
         self.rect.y += self.vel.y
