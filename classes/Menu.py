@@ -185,6 +185,16 @@ class Menu:
                 files.append(os.path.join(r, file))
         for f in files:
             res.append(os.path.split(f)[1].split(".")[0])
+        
+        # Sort levels by world and level number (e.g., Level1-1, Level1-2, Level2-1)
+        def extract_level_numbers(levelname):
+            try:
+                parts = levelname.split("Level")[1].split("-")
+                return (int(parts[0]), int(parts[1]))
+            except:
+                return (0, 0)
+        
+        res.sort(key=extract_level_numbers)
         self.levelCount = len(res)
         return res
 
